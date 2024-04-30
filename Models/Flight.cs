@@ -18,5 +18,7 @@ namespace Models
         public Gate To { get; set; } = null!;
 
         public virtual List<Seat> Seats { get; set; } = [];
+    
+        // dfgdggdgddg
     }
 }
