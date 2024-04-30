@@ -17,7 +17,7 @@ namespace DBLayer
         public DbSet<SeatType> SeatTypes { get; set; }
         public DbSet<Terminal> Terminals { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<Salt> Salts {  get; set; }  
+        public DbSet<Salt> Salts {  get; set; } 
         public FlyCompanyDBContext(DbContextOptions<FlyCompanyDBContext> options) :base (options)
         {
             //Database.EnsureDeleted();
