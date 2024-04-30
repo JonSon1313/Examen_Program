@@ -19,6 +19,5 @@ namespace Models
 
         public virtual List<Seat> Seats { get; set; } = [];
     
-        // dfgdggdgddg
-    }
+     }
 }
