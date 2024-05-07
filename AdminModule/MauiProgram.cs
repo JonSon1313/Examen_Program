@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AdminModule.Resources.Interfaces;
+using AdminModule.Resources.Views;
+using Microsoft.Extensions.Logging;
 
 namespace AdminModule
 {
@@ -14,6 +16,12 @@ namespace AdminModule
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
+            {
+                builder.Services.AddSingleton<ILoginPage, LoginPage>();
+                builder.Services.AddSingleton<ISignupPage, SignupPage>();
+            }
 
 #if DEBUG
     		builder.Logging.AddDebug();

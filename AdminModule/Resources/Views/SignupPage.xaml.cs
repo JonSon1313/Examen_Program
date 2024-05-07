@@ -2,9 +2,9 @@ using AdminModule.Resources.Interfaces;
 
 namespace AdminModule.Resources.Views;
 
-public partial class LoginPage : ContentPage, ILoginPage 
+public partial class SignupPage : ContentPage, ISignupPage
 {
-	public LoginPage()
+	public SignupPage()
 	{
 		InitializeComponent();
 	}

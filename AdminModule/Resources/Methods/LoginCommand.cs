@@ -3,56 +3,44 @@ using Models;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Admin.Methods
+namespace AdminModule.Resources.Methods
 {
     public class LoginCommand
     {
-        public static bool Login(Administrator _admin, TcpClient _client, IPEndPoint _ep)
+        public static bool Login(Administrator _admin, IPEndPoint _ep)
         {
             try
             {
-                Console.Write("Enter administrator login - ");
-                var login = Console.ReadLine();
-                Console.Write("Enter administrator password - ");
-                var password = Console.ReadLine();
-
                 Request request = new()
                 {
                     Message = "LOGINA",
-                    Administrator = new()
-                    {
-                        Id = -1,
-                        FirstName = "",
-                        MiddleName = "",
-                        LastName = "",
-                        Login = login ?? "",
-                        Password = password ?? "",
-                        PhoneNumber = "",
-                        Email = ""
-                    }
+                    Administrator = _admin
                 };
 
-                _client.Connect(_ep);
-
-                using (var ns  = _client.GetStream())
+                using (var client = new TcpClient())
                 {
-                    ByteTransporting.SendBinary(ns, request);
+                    client.Connect(_ep);
 
-                    Response response = (Response)ByteTransporting.GetBinary(ns);
-
-                    if (response.Message == "LOGGEDIN")
+                    using (var ns = client.GetStream())
                     {
-                        _admin = response.Administrator 
-                            ?? throw new Exception("Admin in response is missing");
-                        return true;
+                        ByteTransporting.SendBinary(ns, request);
+
+                        Response response = (Response)ByteTransporting.GetBinary(ns);
+
+                        if (response.Message == "LOGGEDIN")
+                        {
+                            _admin = response.Administrator
+                                ?? throw new Exception("Admin in response is missing");
+                            return true;
+                        }
+                        else
+                            return false;
                     }
-                    else 
-                        return false;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"----> ERROR! Exception : {ex.Message}.");
+                Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
             }
             return false;
         }
