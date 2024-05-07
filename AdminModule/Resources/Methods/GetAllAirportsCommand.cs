@@ -2,7 +2,8 @@
 using Models;
 using System.Net.Sockets;
 using System.Net;
-namespace Admin.Methods
+
+namespace AdminModule.Resources.Methods
 {
     public class GetAllAirportsCommand
     {

@@ -3,14 +3,20 @@
     x:Class="AdminModule.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:AdminModule.Resources.Views"
+    xmlns:interfaces="clr-namespace:AdminModule.Resources.Interfaces"
     xmlns:local="clr-namespace:AdminModule"
+    Shell.NavBarIsVisible="False"
     Title="AdminModule">
 
     <ShellContent
         Title="Login"
-        ContentTemplate="{DataTemplate views:LoginPage}"
+        ContentTemplate="{DataTemplate interfaces:ILoginPage}"
         Route="LoginPage"/>
+
+    <ShellContent
+        Title="Signup"
+        ContentTemplate="{DataTemplate interfaces:ISignupPage}"
+        Route="SignupPage"/>
 
     <FlyoutItem Route="AdminDashboard" FlyoutDisplayOptions="AsMultipleItems">
         
