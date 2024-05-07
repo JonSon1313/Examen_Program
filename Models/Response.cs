@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Models
 {
     public class Response
     {
         public string Message { get; set; } = null!;
 
+        public List<City>? Cities { get; set; }
+        public List<Country>? Countries { get; set; }
         public List<Airport>? Airports { get; set; }
-
-        public List<Flight>? Flight { get; set; }
+        public List<Aircraft>? Aircrafts { get; set; }
+        public List<Flight>? Flights { get; set; }
 
         public int? TicketId { get; set; }
         public int? TicketNumber { get; set; }

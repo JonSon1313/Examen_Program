@@ -17,5 +17,7 @@ namespace Models
         public string Model { get; set; } = null!;
         [MaxLength(10)]
         public string TailNumber { get; set; } = null!;
+
+        public virtual List<Flight> Flights { get; set;} = [];
     }
 }
