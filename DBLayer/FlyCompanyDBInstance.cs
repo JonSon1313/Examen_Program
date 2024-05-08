@@ -56,6 +56,7 @@ namespace DBLayer
                 Model = aircraft.Model,
                 TailNumber = aircraft.TailNumber,  
             });
+            dbContext.SaveChanges();
         }
 
         public List<Aircraft>? GetAircraft()
@@ -73,6 +74,7 @@ namespace DBLayer
                 CityId = airport.CityId,
                 CountryId = airport.CountryId,  
             });
+            dbContext.SaveChanges();
         }
 
         public List<Airport>? GetAirport()
@@ -87,6 +89,7 @@ namespace DBLayer
                 Name = city.Name,
                 CountryId = city.CountryId   
             });
+            dbContext.SaveChanges();
         }
 
         public List<City>? GetCity() 
@@ -106,6 +109,7 @@ namespace DBLayer
                 PhoneNumber = client.PhoneNumber,
                 Email = client.Email,   
             });
+            dbContext.SaveChanges();
         }
 
         public Client? GetClient(string login, string password)
@@ -120,6 +124,7 @@ namespace DBLayer
                 Name = country.Name
 
             });
+            dbContext.SaveChanges();
         }
 
         public List<Country>? GetCountry()
@@ -138,6 +143,7 @@ namespace DBLayer
                 ToId = fligt.ToId,
                 BasePrice = fligt.BasePrice,
             });
+            dbContext.SaveChanges();
         }
 
         public List<Flight>? GetFlights()
@@ -154,6 +160,7 @@ namespace DBLayer
                 TerminalId = gate.TerminalId,   
 
             });
+            dbContext.SaveChanges();
         }
 
         public void AddSeatType(SeatType seatType)
@@ -176,6 +183,7 @@ namespace DBLayer
                 Name = terminal.Name,
                 AirportId = terminal.AirportId
             });
+            dbContext.SaveChanges();
         }
 
         public List<Terminal>? GetTerminals()
