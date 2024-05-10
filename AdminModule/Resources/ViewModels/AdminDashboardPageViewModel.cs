@@ -1,5 +1,4 @@
-﻿using AdminModule.Resources.Methods;
-using AdminModule.Resources.Models;
+﻿using AdminModule.Resources.Models;
 using AdminModule.Resources.Repositories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;

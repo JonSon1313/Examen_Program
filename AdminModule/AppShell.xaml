@@ -42,10 +42,23 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>
 
-    <FlyoutItem Title="Dashboard" >
+    <FlyoutItem Title="Dashboard"
+                Icon="Dashboard.ico">
         <ShellContent
             ContentTemplate="{DataTemplate interfaces:IAdminDashboardPage}"
             Route="AdminDashboardPage"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Aircrafts"
+                Icon="Aircraft.ico">
+        <ShellContent
+            ContentTemplate="{DataTemplate interfaces:IAircraftPage}"
+            Route="AircraftPage"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Locations"
+                Icon="Location.ico">
+        <ShellContent
+            ContentTemplate="{DataTemplate interfaces:ILocationAndAirportPage}"
+            Route="LocationAndAirportPage"/>
     </FlyoutItem>
 
     <Shell.FlyoutFooter>

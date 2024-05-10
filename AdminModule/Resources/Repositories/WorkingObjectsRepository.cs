@@ -6,17 +6,30 @@ namespace AdminModule.Resources.Repositories
 {
     public static class WorkingObjectsRepository
     {
-        public static AdministratorNPC? Admin { get; set; }
+        public static object? WorkObject { get; set; }
 
+        public static string Action {  get; set; }
+
+        public static AdministratorNPC? Admin { get; set; }
+        
         public static ObservableCollection<CityNPC>? Cities { get; set; }
+        
         public static ObservableCollection<CountryNPC>? Countries { get; set; }
+        
         public static ObservableCollection<AircraftNPC>? Aircrafts { get; set; }
+        
         public static ObservableCollection<AirportNPC>? Airports { get; set; }
+        
         public static ObservableCollection<GateNPC>? Gates { get; set; }
+        
         public static ObservableCollection<TerminalNPC>? Terminals  { get; set; }
+        
         public static ObservableCollection<SeatTypeNPC>? SeatTypes { get; set; }
+        
         public static ObservableCollection<SeatNPC>? Seats { get; set; }
+        
         public static ObservableCollection<FlightNPC>? Flights { get; set; }
+        
         public static ObservableCollection<TicketNPC>? Tickets { get; set; }
 
 
