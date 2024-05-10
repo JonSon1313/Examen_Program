@@ -23,9 +23,12 @@ namespace AdminModule
             if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
             {
                 builder.Services.AddSingleton<ILoginPage, LoginPage>();
-                builder.Services.AddTransient<LoginPageViewModel>();
                 builder.Services.AddSingleton<ISignupPage, SignupPage>();
                 builder.Services.AddSingleton<IAdminDashboardPage, AdminDashboardPage>();
+                builder.Services.AddSingleton<IAircraftPage, AircraftPage>();
+                builder.Services.AddSingleton<ILocationAndAirportPage, LocationAndAirportPage>();
+
+                builder.Services.AddTransient<IAddOrEditAircraftPage, AddOrEditAircraftPage>();
             }
 
 #if DEBUG

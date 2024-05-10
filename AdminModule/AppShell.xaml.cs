@@ -1,4 +1,5 @@
-﻿using AdminModule.Resources.Views;
+﻿using AdminModule.Resources.Interfaces;
+using AdminModule.Resources.Views;
 
 namespace AdminModule
 {
@@ -7,6 +8,8 @@ namespace AdminModule
         public AppShell()
         {
             InitializeComponent();
+
+            Routing.RegisterRoute(nameof(AddOrEditAircraftPage), typeof(IAddOrEditAircraftPage));
         }
     }
 }

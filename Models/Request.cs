@@ -10,6 +10,8 @@ namespace Models
     {
         public string Message { get; set; } = null!;
 
+        public int IdToDelete {  get; set; }
+
         public Country? Country { get; set; }
         public City? City { get; set; }
         

@@ -44,7 +44,7 @@ namespace AdminModule.Resources.ViewModels
             }
             else
             {
-                WorkingObjectsRepository.Admin.Login = "Login";
+                WorkingObjectsRepository.Admin!.Login = "Login";
                 await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
                 Login = "";
                 Password = "";

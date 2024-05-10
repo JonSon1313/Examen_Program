@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:AdminModule.Resources.Models"
+             xmlns:vm="clr-namespace:AdminModule.Resources.ViewModels"
+             x:Class="AdminModule.Resources.Views.AircraftPage"
+             x:DataType="vm:AircraftPageViewModel"
+             x:Name="Main"
+             BindingContext="{vm:AircraftPageViewModel}">
+
+    <Grid ColumnDefinitions="9*, 1*">
+        <ListView Grid.Column="0"
+                  ItemsSource="{Binding Aircrafts}">
+            <ListView.Header>
+                <Grid ColumnDefinitions="0.2*, 1*, 2*, 1*, 0.5*, 0.5*">
+                    <Label Grid.Column="0" 
+                                Text="Id"/>
+                    <Label Grid.Column="1" 
+                                Text="Manufacturer"/>
+                    <Label Grid.Column="2" 
+                                Text="Model"/>
+                    <Label Grid.Column="3" 
+                                Text="Tail Number"/>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="m:AircraftNPC">
+                    <Grid ColumnDefinitions="0.2*, 1*, 2*, 1*, 0.5*, 0.5*">
+                        <Label Grid.Column="0"
+                               Text="{Binding Id}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding Manufacturer}"/>
+                        <Label Grid.Column="2"
+                               Text="{Binding Model}"/>
+                        <Label Grid.Column="3"
+                               Text="{Binding TailNumber}"/>
+                        <ImageButton Grid.Column="4"
+                                     Source="Edit.ico"
+                                     Command="{Binding Source={x:Reference Main},
+                                     Path=BindingContext.ModifyCommand}" CommandParameter="{Binding}"/>
+                        <ImageButton Grid.Column="5"
+                                     Source="Delete.ico"
+                                     Command="{Binding Source={x:Reference Main}, 
+                                     Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid Grid.Column="1"
+              RowDefinitions="2*, 1*">
+            <Button Grid.Row="1"
+                    Text="Add"
+                    Command="{Binding AddCommand}"/>
+        </Grid>
+    </Grid>
+</ContentPage>
