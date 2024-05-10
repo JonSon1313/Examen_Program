@@ -13,6 +13,7 @@ namespace Models
         [MaxLength(10)]
         public string Number { get; set; } = null!;
 
+        public int AircraftId {  get; set; }
         public Aircraft Aircraft { get; set; } = null!;
 
         public DateTime DepartureTime { get; set; }

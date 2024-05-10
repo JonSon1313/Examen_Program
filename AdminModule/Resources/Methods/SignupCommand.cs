@@ -2,6 +2,7 @@
 using Models;
 using System.Net.Sockets;
 using System.Net;
+using AdminModule.Resources.Repositories;
 
 namespace AdminModule.Resources.Methods
 {
@@ -29,8 +30,7 @@ namespace AdminModule.Resources.Methods
 
                         if (response.Message == "SIGNEDUP")
                         {
-                            _admin = response.Administrator
-                                ?? throw new Exception("Admin in response is missing");
+                            WorkingObjectsRepository.Admin?.ConvertFromAdministrator(response.Administrator ?? new());
                             return true;
                         }
                         else

@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using AdminModule.Resources.Methods;
 using AdminModule.Resources.Repositories;
-using System.Net.Sockets;
 using AdminModule.Resources.Views;
 
 namespace AdminModule.Resources.ViewModels
@@ -39,7 +38,16 @@ namespace AdminModule.Resources.ViewModels
             ConnectionCredentialsRepository.EP ??
             throw new Exception("EndPoint is Missing")))
             {
-
+                await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
+                Login = "";
+                Password = "";
+            }
+            else
+            {
+                WorkingObjectsRepository.Admin.Login = "Login";
+                await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
+                Login = "";
+                Password = "";
             }
         }
         private bool CanExecuteLogIn()

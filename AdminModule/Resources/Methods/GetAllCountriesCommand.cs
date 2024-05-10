@@ -2,12 +2,14 @@
 using Models;
 using System.Net.Sockets;
 using System.Net;
+using System.Collections.ObjectModel;
+using AdminModule.Resources.Models;
 
 namespace AdminModule.Resources.Methods
 {
     public class GetAllCountriesCommand
     {
-        public static bool Get(List<Country> _countries, TcpClient _client, IPEndPoint _ep)
+        public static bool Get(ObservableCollection<CountryNPC> _countries, IPEndPoint _ep)
         {
             try
             {
@@ -16,26 +18,32 @@ namespace AdminModule.Resources.Methods
                     Message = "GETCOUNTRIES"
                 };
 
-                _client.Connect(_ep);
-
-                using (var ns = _client.GetStream())
+                using (var client = new TcpClient())
                 {
-                    ByteTransporting.SendBinary(ns, request);
-
-                    Response response = (Response)ByteTransporting.GetBinary(ns);
-
-                    if (response.Message == "PRESENT")
+                    client.Connect(_ep);
+                    using (var ns = client.GetStream())
                     {
-                        _countries = response.Countries ?? [];
-                        return true;
+                        ByteTransporting.SendBinary(ns, request);
+
+                        Response response = (Response)ByteTransporting.GetBinary(ns);
+
+                        if (response.Message == "PRESENT")
+                        {
+                            _countries = [];
+                            for (int i = 0; i < response?.Countries?.Count; i++)
+                            {
+                                _countries.Add(CountryNPC.ConvertFromCountryToNew(response.Countries[i]));
+                            }
+                            return true;
+                        }
+                        else
+                            return false;
                     }
-                    else
-                        return false;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"----> ERROR! Exception : {ex.Message}.");
+                Shell.Current.DisplayAlert("Error", ex.Message, "Ok");
             }
             return false;
         }
