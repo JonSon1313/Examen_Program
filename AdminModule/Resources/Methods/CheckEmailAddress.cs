@@ -12,7 +12,7 @@ namespace AdminModule.Resources.Methods
         private static readonly Regex regex;
         static CheckEmailAddress()
         {
-            var pattern = @"^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:a-zA-Z0-9?\.)+a-zA-Z0-9?$";
+            var pattern = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
             regex = new(pattern);
         }
         public static bool Check(string number)

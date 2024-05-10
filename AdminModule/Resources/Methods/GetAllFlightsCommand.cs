@@ -2,12 +2,14 @@
 using Models;
 using System.Net.Sockets;
 using System.Net;
+using AdminModule.Resources.Models;
+using System.Collections.ObjectModel;
 
 namespace AdminModule.Resources.Methods
 {
     public class GetAllFlightsCommand
     {
-        public static bool Get(List<Flight> _flights, TcpClient _client, IPEndPoint _ep)
+        public static bool Get(ObservableCollection<FlightNPC> _flights, IPEndPoint _ep)
         {
             try
             {
@@ -16,21 +18,27 @@ namespace AdminModule.Resources.Methods
                     Message = "GETFLIGHTS"
                 };
 
-                _client.Connect(_ep);
-
-                using (var ns = _client.GetStream())
+                using (var client = new TcpClient())
                 {
-                    ByteTransporting.SendBinary(ns, request);
-
-                    Response response = (Response)ByteTransporting.GetBinary(ns);
-
-                    if (response.Message == "PRESENT")
+                    client.Connect(_ep);
+                    using (var ns = client.GetStream())
                     {
-                        _flights = response.Flights ?? [];
-                        return true;
+                        ByteTransporting.SendBinary(ns, request);
+
+                        Response response = (Response)ByteTransporting.GetBinary(ns);
+
+                        if (response.Message == "PRESENT")
+                        {
+                            _flights = [];
+                            for (int i = 0; i < response?.Flights?.Count; i++)
+                            {
+                                _flights.Add(FlightNPC.ConvertFromFlightToNew(response.Flights[i]));
+                            }
+                            return true;
+                        }
+                        else
+                            return false;
                     }
-                    else
-                        return false;
                 }
             }
             catch (Exception ex)

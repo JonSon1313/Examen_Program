@@ -4,7 +4,6 @@ using AdminModule.Resources.Repositories;
 using AdminModule.Resources.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Models;
 using System.ComponentModel;
 
 namespace AdminModule.Resources.ViewModels
@@ -14,12 +13,8 @@ namespace AdminModule.Resources.ViewModels
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
         private AdministratorNPC? admin;
-        private void Admin_PropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            SignUpCommand.NotifyCanExecuteChanged();
-        }
 
-        public SignupPageViewModel()
+        private void CreateNewUser()
         {
             Admin = new()
             {
@@ -32,7 +27,18 @@ namespace AdminModule.Resources.ViewModels
                 PhoneNumber = "",
                 Email = ""
             };
-            Admin.PropertyChanged += Admin_PropertyChanged;
+        }
+
+        public SignupPageViewModel()
+        {
+            CreateNewUser();
+            if (Admin != null)
+            {
+                Admin.PropertyChanged += (s, e) =>
+                {
+                    SignUpCommand.NotifyCanExecuteChanged();
+                };
+            }
         }
 
         [RelayCommand(CanExecute = nameof(CanExecuteSignup))]
@@ -42,20 +48,26 @@ namespace AdminModule.Resources.ViewModels
             ConnectionCredentialsRepository.EP ??
             throw new Exception("EndPoint is Missing")))
             {
-                await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
+                CreateNewUser();
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
+                CreateNewUser();
             }
         }
         public bool CanExecuteSignup()
         {
             return Admin?.FirstName != "" &&
                    Admin?.MiddleName != "" &&
-                Admin?.LastName != "" &&
-                Admin?.Login != "" &&
-                Admin?.Password != "" &&
-                Admin?.PhoneNumber != "" &&
-                CheckPhoneNumber.Check(Admin?.PhoneNumber ?? "") &&
-                Admin?.Email != "" &&
-                CheckEmailAddress.Check(Admin?.Email ?? "");
+                   Admin?.LastName != "" &&
+                   Admin?.Login != "" &&
+                   Admin?.Password != "" &&
+                   Admin?.PhoneNumber != "" &&
+                   CheckPhoneNumber.Check(Admin?.PhoneNumber ?? "") &&
+                   Admin?.Email != "" &&
+                   CheckEmailAddress.Check(Admin?.Email ?? "");
         }
 
         [RelayCommand]
