@@ -11,7 +11,8 @@
     x:DataType="vm:AppShellViewModel"
     Shell.NavBarIsVisible="False"
     Title="AdminModule">
-    
+
+
     <Shell.FlyoutHeader>
         <Grid RowDefinitions="1*, 1*"
               ColumnDefinitions="1*, 2*">
@@ -27,7 +28,7 @@
                    Text="{Binding Admin.Login}"/>
         </Grid>
     </Shell.FlyoutHeader>
-    
+
     <ShellContent
         Title="Login"
         ContentTemplate="{DataTemplate interfaces:ILoginPage}"
@@ -65,5 +66,5 @@
         <Button Text="Logout"
                 Command="{Binding LogoutCommand}"/>
     </Shell.FlyoutFooter>
-    
+
 </Shell>
