@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core.Pipeline;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Models;
 
@@ -48,7 +49,7 @@ namespace DBLayer
             return dbContext.Administrators.FirstOrDefault(a => a.Login == login && a.Password == password);
         }
 
-        public void AddAircraft(Aircraft aircraft)
+        public Aircraft AddAircraft(Aircraft aircraft)
         {
             dbContext.Aircrafts.Add(new Aircraft
             {
@@ -57,13 +58,31 @@ namespace DBLayer
                 TailNumber = aircraft.TailNumber,  
             });
             dbContext.SaveChanges();
+
+            return dbContext.Aircrafts.Where(i=>i.TailNumber==aircraft.TailNumber).FirstOrDefault()??new();   
         }
 
         public List<Aircraft>? GetAircraft()
         {
             return dbContext?.Aircrafts.ToList();
         }
+        public void EditAircraft(Aircraft aircraft)
+        {
+            Aircraft? temp = dbContext.Aircrafts.Where(i=>i.Id==aircraft.Id).FirstOrDefault();    
+            temp.Manufacturer = aircraft.Manufacturer;  
+            temp.Model = aircraft.Model;    
+            temp.TailNumber = aircraft.TailNumber;
 
+            dbContext.Aircrafts.Update(temp);
+            dbContext.SaveChanges();
+        }
+
+        public void DeleteAircraft(int Id)
+        {
+            dbContext.Aircrafts?.Remove(dbContext.Aircrafts.Where(i=>i.Id==Id).FirstOrDefault());
+            dbContext.SaveChanges();
+
+        }
         public void AddAirport(Airport airport)
         {
             dbContext.Airports.Add(new Airport
