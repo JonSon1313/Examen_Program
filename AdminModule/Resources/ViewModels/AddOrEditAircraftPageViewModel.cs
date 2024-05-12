@@ -33,7 +33,7 @@ namespace AdminModule.Resources.ViewModels
         {
             if (ActionKey == "Add")
             {
-                if (AddAircraftCommand.Add(Aircraft?.ConvertToAircraft() ?? new(),
+                if (AddCommand.Add(Aircraft?.ConvertToAircraft() ?? new(),
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("EndPoint is Missing")))
                 {
@@ -43,7 +43,7 @@ namespace AdminModule.Resources.ViewModels
             }
             else if (ActionKey == "Edit")
             {
-                if (EditAircraftCommand.Edit(Aircraft?.ConvertToAircraft() ?? new(),
+                if (EditCommand.Edit(Aircraft?.ConvertToAircraft() ?? new(),
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("EndPoint is Missing")))
                 {

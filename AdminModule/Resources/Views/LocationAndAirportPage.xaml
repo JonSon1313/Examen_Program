@@ -27,18 +27,19 @@
               ColumnDefinitions="1*, 1*"
               IsEnabled="{Binding IsLocation}"
               IsVisible="{Binding IsLocation}">
-            <ListView Grid.Column="0"
-                      ItemsSource="{Binding Countries}"
-                      SelectedItem="{Binding Country}">
-                <ListView.Header>
+            <CollectionView Grid.Column="0"
+                            ItemsSource="{Binding Countries}"
+                            SelectedItem="{Binding Country}"
+                            SelectionChangedCommand="{Binding SelectedCountryChangedCommand}">
+                <CollectionView.Header>
                     <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
                         <Label Grid.Column="0" 
                                 Text="Id"/>
                         <Label Grid.Column="1" 
                                 Text="Name"/>
                     </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:CountryNPC">
                         <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
                             <Label Grid.Column="0"
@@ -55,20 +56,21 @@
                                          Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"/>
                         </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView Grid.Column="1"
-                      ItemsSource="{Binding Cities}"
-                      SelectedItem="{Binding City}">
-                <ListView.Header>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <CollectionView Grid.Column="1"
+                            ItemsSource="{Binding Cities}"
+                            SelectedItem="{Binding City}"
+                            SelectionChangedCommand="{Binding SelectedCityChangedCommand}">
+                <CollectionView.Header>
                     <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
                         <Label Grid.Column="0" 
                                 Text="Id"/>
                         <Label Grid.Column="1" 
                                 Text="Name"/>
                     </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:CityNPC">
                         <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
                             <Label Grid.Column="0"
@@ -85,8 +87,8 @@
                                          Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"/>
                         </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
         <Grid Grid.Row="0"
               Grid.Column="1"
@@ -95,9 +97,11 @@
               IsEnabled="{Binding IsLocation}"
               IsVisible="{Binding IsLocation}">
             <Button Grid.Row="0"
-                    Text="Add City"/>
+                    Text="Add Country"
+                    Command="{Binding AddCountryCommand}"/>
             <Button Grid.Row="1"
-                    Text="Add Country"/>
+                    Text="Add City"
+                    Command="{Binding AddCityCommand}"/>
         </Grid>
         <Grid Grid.Row="1"
               Grid.Column="0"
@@ -105,12 +109,13 @@
               ColumnDefinitions="1*, 1*"
               IsEnabled="{Binding IsAirport}"
               IsVisible="{Binding IsAirport}">
-            <ListView Grid.Row="0"
-                      Grid.Column="0"
-                      Grid.ColumnSpan="2"
-                      ItemsSource="{Binding Airports}"
-                      SelectedItem="{Binding Airport}">
-                <ListView.Header>
+            <CollectionView Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            ItemsSource="{Binding Airports}"
+                            SelectedItem="{Binding Airport}"
+                            SelectionChangedCommand="{Binding SelectedAirportChangedCommand}">
+                <CollectionView.Header>
                     <Grid ColumnDefinitions="0.2*, 3*, 0.5*, 10.5*, 0.5*, 0.5*">
                         <Label Grid.Column="0" 
                                 Text="Id"/>
@@ -121,8 +126,8 @@
                         <Label Grid.Column="3" 
                                 Text="ICAO"/>
                     </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:AirportNPC">
                         <Grid ColumnDefinitions="0.2*, 3*, 0.5*, 0.5*, 0.5*, 0.5*">
                             <Label Grid.Column="0"
@@ -143,21 +148,22 @@
                                      Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"/>
                         </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView Grid.Row="1"
-                      Grid.Column="0"
-                      ItemsSource="{Binding Terminals}"
-                      SelectedItem="{Binding Terminal}">
-                <ListView.Header>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <CollectionView Grid.Row="1"
+                            Grid.Column="0"
+                            ItemsSource="{Binding Terminals}"
+                            SelectedItem="{Binding Terminal}"
+                            SelectionChangedCommand="{Binding SelectedTerminalChangedCommand}">
+                <CollectionView.Header>
                     <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
                         <Label Grid.Column="0" 
                                 Text="Id"/>
                         <Label Grid.Column="1" 
                                 Text="Name"/>
                     </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:TerminalNPC">
                         <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
                             <Label Grid.Column="0"
@@ -174,21 +180,22 @@
                                          Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"/>
                         </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView Grid.Row="1"
-                      Grid.Column="1"
-                      ItemsSource="{Binding Gates}"
-                      SelectedItem="{Binding Gate}">
-                <ListView.Header>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <CollectionView Grid.Row="1"
+                            Grid.Column="1"
+                            ItemsSource="{Binding Gates}"
+                            SelectedItem="{Binding Gate}"
+                            SelectionChangedCommand="{Binding SelectedGateChangedCommand}">
+                <CollectionView.Header>
                     <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
                         <Label Grid.Column="0" 
                                 Text="Id"/>
                         <Label Grid.Column="1" 
                                 Text="Name"/>
                     </Grid>
-                </ListView.Header>
-                <ListView.ItemTemplate>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:GateNPC">
                         <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
                             <Label Grid.Column="0"
@@ -205,8 +212,8 @@
                                          Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"/>
                         </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
         <Grid Grid.Row="0"
               Grid.Column="1"
@@ -216,11 +223,14 @@
               IsVisible="{Binding IsAirport}">
             <Button Grid.Row="0"
                     Text="Add Airport"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    Command="{Binding AddAirportCommand}"/>
             <Button Grid.Row="1"
-                    Text="Add Gate"/>
+                    Text="Add Terminal"
+                    Command="{Binding AddTerminalCommand}"/>
             <Button Grid.Row="2"
-                    Text="Add Terminal"/>
+                    Text="Add Gate"
+                    Command="{Binding AddGateCommand}"/>
         </Grid>
     </Grid>
     

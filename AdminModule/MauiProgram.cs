@@ -29,6 +29,9 @@ namespace AdminModule
                 builder.Services.AddSingleton<ILocationAndAirportPage, LocationAndAirportPage>();
 
                 builder.Services.AddTransient<IAddOrEditAircraftPage, AddOrEditAircraftPage>();
+                builder.Services.AddTransient<ISmallObjectAddOrEditLocationAndAirportPageViewModel,
+                    SmallObjectAddOrEditLocationAndAirportPage>();
+                builder.Services.AddTransient<IAddOrEditAirportPage, AddOrEditAirportPage>();
             }
 
 #if DEBUG

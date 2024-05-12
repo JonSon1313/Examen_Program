@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AdminModule.Resources.ViewModels"
+             x:Class="AdminModule.Resources.Views.SmallObjectAddOrEditLocationAndAirportPage"
+             x:DataType="vm:SmallObjectAddOrEditLocationAndAirportPageViewModel"
+             Title="SmallObjectAddOrEditLocationAndAirportPage"
+             BindingContext="{vm:SmallObjectAddOrEditLocationAndAirportPageViewModel}">
+
+    <Grid RowDefinitions="1*, 6*, 2*, 1*"
+          ColumnDefinitions="1*, 8*, 1*">
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              RowDefinitions="1*, 1*, 1*"
+              IsEnabled="{Binding IsCountry}"
+              IsVisible="{Binding IsCountry}">
+            <Entry Grid.Row="0"
+                   Placeholder="Name"
+                   Text="{Binding Country.Name}"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              RowDefinitions="1*, 1*, 1*"
+              IsEnabled="{Binding IsCity}"
+              IsVisible="{Binding IsCity}">
+            <Picker Title="Country"
+                    ItemsSource="{Binding Countries}"
+                    SelectedItem="{Binding Country}">
+            </Picker>
+            <Entry Grid.Row="1"
+                   Placeholder="Name"
+                   Text="{Binding City.Name}"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              RowDefinitions="1*, 1*, 1*"
+              IsEnabled="{Binding IsTerminal}"
+              IsVisible="{Binding IsTerminal}">
+            <Picker Title="Airport"
+                    ItemsSource="{Binding Airports}"
+                    SelectedItem="{Binding Airport}">
+            </Picker>
+            <Entry Grid.Row="1"
+                   Placeholder="Name"
+                   Text="{Binding Terminal.Name}"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              RowDefinitions="1*, 1*, 1*"
+              IsEnabled="{Binding IsGate}"
+              IsVisible="{Binding IsGate}">
+            <Picker Title="Terminal"
+                    ItemsSource="{Binding Terminals}"
+                    SelectedItem="{Binding Terminal}">
+            </Picker>
+            <Entry Grid.Row="1"
+                   Placeholder="Name"
+                   Text="{Binding Gate.Name}"/>
+        </Grid>
+        <Grid Grid.Row="2"
+              Grid.Column="1"
+                  ColumnDefinitions="1*, 1*">
+            <Button Grid.Column="0"
+                    Text="{Binding ActionKey}"
+                    Command="{Binding ActionCommand}"/>
+            <Button Grid.Column="1"
+                    Text="Back"
+                    Command="{Binding BackCommand}"/>
+        </Grid>
+    </Grid>
+    
+</ContentPage>
