@@ -36,8 +36,8 @@ namespace Server.Methods
                 Administrator? newUser = _db.GetAdministrator(login, saltAndPassword.Item1);
 
                 response.Message = "SIGNEDUP";
-                response.Administrator = newUser;
-                response.Administrator.Password = "111";
+                response.Administrators = newUser;
+                response.Administrators.Password = "111";
                 Console.WriteLine($"{DateTime.Now} --> User - {newUser?.Login}" +
                     $", {newUser?.Password} Successfully created.\r\n");
             }

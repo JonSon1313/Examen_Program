@@ -24,7 +24,7 @@ namespace Server.Methods
                 if (_admin != null)
                 {
                     response.Message = "LOGGEDIN";
-                    response.Administrator = _admin;
+                    response.Administrators = _admin;
                     Console.WriteLine($"{DateTime.Now} --> Admin - {_admin.Login}" +
                         $" Successfully logged in.\r\n");
                 }

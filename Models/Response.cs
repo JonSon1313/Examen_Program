@@ -22,7 +22,9 @@ namespace Models
         public int? TicketId { get; set; }
         public int? TicketNumber { get; set; }
 
-        public Administrator? Administrator { get; set; }
+        public Administrator? Administrators { get; set; }
         public Client? Client { get; set; }
+
+        
     }
 }
