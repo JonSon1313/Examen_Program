@@ -4,8 +4,35 @@
              xmlns:vm="clr-namespace:AdminModule.Resources.ViewModels"
              x:Class="AdminModule.Resources.Views.AddOrEditAirportPage"
              x:DataType="vm:AddOrEditAirportPageViewModel"
-             BindingContext="{vm:AddOrEditAirportPageViewModel}">
-    
-    
+             BindingContext="{vm:AddOrEditAirportPageViewModel}"
+             Shell.FlyoutBehavior="Disabled">
+
+    <Grid RowDefinitions="1*, 8*, 1*"
+        ColumnDefinitions="1*, 8*, 1*">
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              RowDefinitions=" 1*, 1*, 1*, 1*, 2*">
+            <Entry Grid.Row="0"
+                   Placeholder="Full name of Airport"
+                   Text="{Binding Airport.FullName}"/>
+            <Entry Grid.Row="1"
+                   Placeholder="IATA code"
+                   Text="{Binding Airport.IATACode}"/>
+            <Entry Grid.Row="2"
+                   Placeholder="ICAO code"
+                   Text="{Binding Airport.ICAOCode}"/>
+            <Picker Grid.Row="3"
+                    ItemsSource="{Binding Cities}"
+                    SelectedItem="{Binding City}"/>
+            <Grid Grid.Row="4"
+                  ColumnDefinitions="1*, 1*">
+                <Button Grid.Column="0"
+                        Text="{Binding ActionKey}"/>
+                <Button Grid.Column="1"
+                        Text="Back"
+                        Command="{Binding BackCommand}"/>
+            </Grid>
+        </Grid>
+    </Grid>
     
 </ContentPage>

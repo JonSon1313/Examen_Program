@@ -89,13 +89,32 @@ namespace AdminModule.Resources.ViewModels
             IsAirport = false;
 
             Countries = WorkingObjectsRepository.Countries;
+            Country.PropertyChanged += (s, e) =>
+            {
+                AddCityCommand.NotifyCanExecuteChanged();
+            };
+
             Airports = WorkingObjectsRepository.Airports;
+            Airport.PropertyChanged += (s, e) =>
+            {
+                AddTerminalCommand.NotifyCanExecuteChanged();
+            };
+
+            Terminal.PropertyChanging += (s, e) =>
+            {
+                AddGateCommand.NotifyCanExecuteChanged();
+            };
         }
 
         //Currently is nothing here
         [RelayCommand]
-        private void AddAirport()
-        { }
+        private async Task AddAirport()
+        {
+            WorkingObjectsRepository.Action = "ADD";
+            WorkingObjectsRepository.WorkObject = new AirportNPC();
+
+            await Shell.Current.GoToAsync(nameof(AddOrEditAirportPage));
+        }
         //
 
 
@@ -218,7 +237,7 @@ namespace AdminModule.Resources.ViewModels
                 await Shell.Current.GoToAsync(nameof(SmallObjectAddOrEditLocationAndAirportPage));
             else
             {
-                
+                await Shell.Current.GoToAsync(nameof(AddOrEditAirportPage));
             }
         }
     }

@@ -5,7 +5,8 @@
              x:Class="AdminModule.Resources.Views.SmallObjectAddOrEditLocationAndAirportPage"
              x:DataType="vm:SmallObjectAddOrEditLocationAndAirportPageViewModel"
              Title="SmallObjectAddOrEditLocationAndAirportPage"
-             BindingContext="{vm:SmallObjectAddOrEditLocationAndAirportPageViewModel}">
+             BindingContext="{vm:SmallObjectAddOrEditLocationAndAirportPageViewModel}"
+             Shell.FlyoutBehavior="Disabled">
 
     <Grid RowDefinitions="1*, 6*, 2*, 1*"
           ColumnDefinitions="1*, 8*, 1*">
