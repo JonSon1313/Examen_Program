@@ -33,6 +33,7 @@ namespace AdminModule
                 builder.Services.AddTransient<ISmallObjectAddOrEditLocationAndAirportPageViewModel,
                     SmallObjectAddOrEditLocationAndAirportPage>();
                 builder.Services.AddTransient<IAddOrEditAirportPage, AddOrEditAirportPage>();
+                builder.Services.AddTransient<IAddOrEditFlightPage, AddOrEditFlightPage>();
             }
 
 #if DEBUG

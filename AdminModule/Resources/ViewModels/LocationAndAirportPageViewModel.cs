@@ -25,7 +25,7 @@ namespace AdminModule.Resources.ViewModels
         private void SelectedCountryChanged()
         {
             Cities = [];
-            if (Country != null)
+              if (Country != null)
             {
                 var temp = WorkingObjectsRepository.Cities?.Where(c => c.CountryId == Country?.Id).ToList();
                 for (var i = 0; i < temp?.Count; i++)

@@ -53,6 +53,19 @@ namespace AdminModule.Resources.Repositories
             GetTickets();
         }
 
+        public static void AdminLogoff()
+        {
+            Aircrafts = null;
+            Airports = null;
+            Terminals = null;
+            Seats = null;
+            Tickets = null;
+            Gates = null;
+            Cities = null;
+            Countries = null;
+            Flights = null;
+        }
+
         private static void GetAirplanes()
         {
             if (!GetCommand.Get(new Aircraft() ,Aircrafts ?? [],

@@ -17,6 +17,8 @@ namespace AdminModule.Resources.ViewModels
         private bool isTerminal;
         [ObservableProperty]
         private bool isGate;
+        [ObservableProperty]
+        private bool isSeatType;
 
         [ObservableProperty]
         private ObservableCollection<CountryNPC>? countries;
@@ -40,6 +42,9 @@ namespace AdminModule.Resources.ViewModels
         private GateNPC? gate;
 
         [ObservableProperty]
+        private SeatTypeNPC? seatType;
+
+        [ObservableProperty]
         private string actionKey;
 
         public SmallObjectAddOrEditLocationAndAirportPageViewModel()
@@ -50,7 +55,7 @@ namespace AdminModule.Resources.ViewModels
             {
                 case "ADDCOUNTRY":
                 case "EDITCOUNTRY":
-                    isCountry = true;
+                    IsCountry = true;
                     Country = (WorkingObjectsRepository.WorkObject as CountryNPC) ?? new();
                     Country.PropertyChanged += (s, e) => ActionCommand.NotifyCanExecuteChanged();
                     break;
@@ -65,7 +70,7 @@ namespace AdminModule.Resources.ViewModels
                     break;
                 case "ADDTERMINAL":
                 case "EDITTERMINAL":
-                    isTerminal = true;
+                    IsTerminal = true;
                     Terminal = (WorkingObjectsRepository.WorkObject as TerminalNPC) ?? new();
                     Airports = WorkingObjectsRepository.Airports ?? [];
                     Airport = Airports.Where(e => e.Id == Terminal.AirportId)
@@ -74,13 +79,18 @@ namespace AdminModule.Resources.ViewModels
                     break;
                 case "ADDGATE":
                 case "EDITGATE":
-                    isGate = true;
+                    IsGate = true;
                     Gate = (WorkingObjectsRepository.WorkObject as GateNPC) ?? new();
                     Terminals = WorkingObjectsRepository.Terminals ?? [];
                     Terminal = Terminals.Where(e => e.Id == Gate.TerminalId)
                         .SingleOrDefault() ?? new();
                     Gate.AirportId = Terminal.AirportId;
                     Gate.PropertyChanged += (s, e) => ActionCommand.NotifyCanExecuteChanged();
+                    break;
+                case "ADDSEATTYPE":
+                case "EDITSEATTYPE":
+                    IsSeatType = true;
+                    SeatType = (WorkingObjectsRepository.WorkObject as SeatTypeNPC) ?? new();
                     break;
             }
         }
@@ -158,6 +168,21 @@ namespace AdminModule.Resources.ViewModels
                         throw new Exception("EndPoint is Missing")))
                             Shell.Current.DisplayAlert("Success", "Object successfully edited", "Ok");
                     break;
+                case "ADDSEATTYPE":
+                    if (AddCommand.Add(SeatType?.ConvertToSeatType() ?? new(),
+                        ConnectionCredentialsRepository.EP ??
+                        throw new Exception("EndPoint is Missing")))
+                    {
+                        Shell.Current.DisplayAlert("Success", "Object successfully added", "Ok");
+                        SeatType = new();
+                    }
+                    break;
+                case "EDITSEATTYPE":
+                    if (EditCommand.Edit(SeatType?.ConvertToSeatType() ?? new(),
+                        ConnectionCredentialsRepository.EP ??
+                        throw new Exception("EndPoint is Missing")))
+                            Shell.Current.DisplayAlert("Success", "Object successfully edited", "Ok");
+                    break;
             }
         }
         public bool CanExecuteAction()
@@ -179,6 +204,9 @@ namespace AdminModule.Resources.ViewModels
                 case "EDITGATE":
                     return Gate?.Name != "" &&
                         Terminal != null;
+                case "ADDSEATTYPE":
+                case "EDITSEATTYPE":
+                    return SeatType?.Name != "";
             }
             return false;
         }

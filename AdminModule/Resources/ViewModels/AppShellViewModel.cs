@@ -20,6 +20,7 @@ namespace AdminModule.Resources.ViewModels
         private async Task Logout()
         {
             Admin = null;
+            WorkingObjectsRepository.AdminLogoff();
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }

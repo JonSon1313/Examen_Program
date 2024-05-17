@@ -20,5 +20,8 @@ namespace Models
 
         public int AircraftId { get; set; }
         public virtual Aircraft Aircraft { get; set; } = null!;
+
+        public int FlightId { get; set; }
+        public virtual Flight Flight { get; set; } = null!;
     }
 }

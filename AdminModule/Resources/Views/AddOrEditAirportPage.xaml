@@ -27,7 +27,8 @@
             <Grid Grid.Row="4"
                   ColumnDefinitions="1*, 1*">
                 <Button Grid.Column="0"
-                        Text="{Binding ActionKey}"/>
+                        Text="{Binding ActionKey}"
+                        Command="{Binding ActionCommand}"/>
                 <Button Grid.Column="1"
                         Text="Back"
                         Command="{Binding BackCommand}"/>
