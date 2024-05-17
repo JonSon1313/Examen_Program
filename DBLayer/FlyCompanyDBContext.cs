@@ -37,6 +37,11 @@ namespace DBLayer
                 entity.HasOne(e => e.To).WithMany(e => e.In).OnDelete(DeleteBehavior.NoAction);
                 entity.HasOne(e => e.From).WithMany(e => e.Out).OnDelete(DeleteBehavior.NoAction);
             });
+            modelBuilder.Entity<Seat>(entity =>
+            {
+                entity.HasOne(e => e.Flight).WithMany(e => e.Seats).OnDelete(DeleteBehavior.NoAction);
+            });
+
         }
     }
 }

@@ -30,7 +30,7 @@ namespace AdminModule.Resources.Methods
 
                         if (response.Message == "LOGGEDIN")
                         {
-                            WorkingObjectsRepository.Admin?.ConvertFromAdministrator(response.Administrator ?? new());
+                            WorkingObjectsRepository.Admin?.ConvertFromAdministrator(response.Administrators ?? new());
                             return true;
                         }
                         else
