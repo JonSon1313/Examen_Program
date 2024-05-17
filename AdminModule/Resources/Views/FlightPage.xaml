@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:AdminModule.Resources.Models"
+             xmlns:vm="clr-namespace:AdminModule.Resources.ViewModels"
+             x:Class="AdminModule.Resources.Views.FlightPage"
+             x:DataType="vm:FlightPageViewModel"
+             BindingContext="{vm:FlightPageViewModel}">
+
+    <Grid RowDefinitions="1*,1*"
+          ColumnDefinitions="0.5*, 0.5*, 0.1*">
+        <CollectionView Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Flights}"
+                        SelectedItem="{Binding Flight}"
+                        SelectionChangedCommand="{Binding SelectedFlightChangedCommand}">
+
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="0.2*, 3*, 0.5*, 0.5*, 0.5*, 0.5*">
+                    <Label Grid.Column="0" 
+                                Text="Id"/>
+                    <Label Grid.Column="1" 
+                                Text="Full name"/>
+                    <Label Grid.Column="2" 
+                                Text="Departure airport Id"/>
+                    <Label Grid.Column="3" 
+                                Text="Arrival airport Id"/>
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:FlightNPC">
+                    <Grid ColumnDefinitions="0.2*, 3*, 0.5*, 0.5*, 0.5*, 0.5*">
+                        <Label Grid.Column="0"
+                               Text="{Binding Id}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding Number}"/>
+                        <Label Grid.Column="2"
+                               Text="{Binding FromId}"/>
+                        <Label Grid.Column="3"
+                               Text="{Binding ToId}"/>
+                        <ImageButton Grid.Column="4"
+                                     Source="Edit.ico"
+                                     Command="{Binding Source={x:Reference Main},
+                                     Path=BindingContext.ModifyCommand}" CommandParameter="{Binding}"/>
+                        <ImageButton Grid.Column="5"
+                                     Source="Delete.ico"
+                                     Command="{Binding Source={x:Reference Main}, 
+                                     Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Seats}"
+                        SelectedItem="{Binding Seat}"
+                        SelectionChangedCommand="{Binding SelectedSeatChangedCommand}">
+
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="0.2*, 3*">
+                    <Label Grid.Column="0" 
+                                Text="Id"/>
+                    <Label Grid.Column="1" 
+                                Text="Name"/>
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:SeatNPC">
+                    <Grid ColumnDefinitions="0.2*, 3*">
+                        <Label Grid.Column="0"
+                               Text="{Binding Id}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding Name}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView Grid.Row="0"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding SeatTypes}"
+                        SelectedItem="{Binding SeatType}"
+                        SelectionChangedCommand="{Binding SelectedSeatTypeChangedCommand}">
+
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="0.2*, 3*, 0.5*, 0.5*">
+                    <Label Grid.Column="0" 
+                                Text="Id"/>
+                    <Label Grid.Column="1" 
+                                Text="Name"/>
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:SeatTypeNPC">
+                    <Grid ColumnDefinitions="0.2*, 3*, 0.5*, 0.5*">
+                        <Label Grid.Column="0"
+                               Text="{Binding Id}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding Name}"/>
+                        <ImageButton Grid.Column="2"
+                                     Source="Edit.ico"
+                                     Command="{Binding Source={x:Reference Main},
+                                     Path=BindingContext.ModifyCommand}" CommandParameter="{Binding}"/>
+                        <ImageButton Grid.Column="3"
+                                     Source="Delete.ico"
+                                     Command="{Binding Source={x:Reference Main}, 
+                                     Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid Grid.Row="0"
+              Grid.Column="2"
+              Grid.RowSpan="2"
+              RowDefinitions="1*, 1*">
+            <Button Grid.Row="0"
+                    Text="Add flight"
+                    Command="{Binding AddFlightCommand}"/>
+            <Button Grid.Row="1"
+                    Text="Add seat type"
+                    Command="{Binding AddSeatTypeCommand}"/>
+        </Grid>
+    </Grid>
+ 
+</ContentPage>

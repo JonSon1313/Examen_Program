@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AdminModule.Resources.ViewModels"
+             x:Class="AdminModule.Resources.Views.AddOrEditFlightPage"
+             x:DataType="vm:AddOrEditFlightPageViewModel"
+             BindingContext="{vm:AddOrEditFlightPageViewModel}"
+             Shell.FlyoutBehavior="Disabled">
+
+    <Grid RowDefinitions="1*, 8*, 1*"
+          ColumnDefinitions="1*, 8*, 1*">
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+              RowDefinitions="1*,0.5* ,1*, 1*, 1*, 1*, 1*, 2*">
+            <Entry Grid.Row="0"
+                   Placeholder="Flight number"
+                   Text="{Binding Flight.Number}"/>
+            <Label Grid.Row="1"
+                   Text="Flight date"/>
+            <DatePicker Grid.Row="2"
+                        Date="{Binding Flight.DepartureTime}"/>
+            <Picker Grid.Row="3"
+                    ItemsSource="{Binding Aircrafts}"
+                    SelectedItem="{Binding Aircraft}"/>
+            <Picker Grid.Row="4"
+                    ItemsSource="{Binding Airports}"
+                    SelectedItem="{Binding Departure}"/>
+            <Picker Grid.Row="5"
+                    ItemsSource="{Binding Airports}"
+                    SelectedItem="{Binding Arrival}"/>
+            <Entry Grid.Row="6"
+                   Text="{Binding Flight.BasePrice}"/>
+            <Grid Grid.Row="7"
+                  ColumnDefinitions="1*, 1*">
+                <Button Grid.Column="0"
+                        Text="Add"
+                        Command="{Binding ActionCommand}"/>
+                <Button Grid.Column="1"
+                        Text="Back"
+                        Command="{Binding BackCommand}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</ContentPage>

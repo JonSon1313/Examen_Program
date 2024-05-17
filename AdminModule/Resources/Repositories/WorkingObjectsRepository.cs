@@ -1,6 +1,7 @@
 ﻿using AdminModule.Resources.Methods;
 using AdminModule.Resources.Models;
 using System.Collections.ObjectModel;
+using Models;
 
 namespace AdminModule.Resources.Repositories
 {
@@ -52,9 +53,22 @@ namespace AdminModule.Resources.Repositories
             GetTickets();
         }
 
+        public static void AdminLogoff()
+        {
+            Aircrafts = null;
+            Airports = null;
+            Terminals = null;
+            Seats = null;
+            Tickets = null;
+            Gates = null;
+            Cities = null;
+            Countries = null;
+            Flights = null;
+        }
+
         private static void GetAirplanes()
         {
-            if (!GetAllAircraftsCommand.Get(Aircrafts ?? [],
+            if (!GetCommand.Get(new Aircraft() ,Aircrafts ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {
@@ -63,7 +77,7 @@ namespace AdminModule.Resources.Repositories
         }
         private static void GetCities()
         {
-            if (!GetAllCitiesCommand.Get(Cities ?? [],
+            if (!GetCommand.Get(new City(),Cities ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {
@@ -72,7 +86,7 @@ namespace AdminModule.Resources.Repositories
         }
         private static void GetCountries()
         {
-            if (!GetAllCountriesCommand.Get(Countries ?? [],
+            if (!GetCommand.Get(new Country (),Countries ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {
@@ -81,7 +95,7 @@ namespace AdminModule.Resources.Repositories
         }
         private static void GetAirport()
         {
-            if (!GetAllAirportsCommand.Get(Airports ?? [],
+            if (!GetCommand.Get(new Airport(),Airports ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {
@@ -90,7 +104,7 @@ namespace AdminModule.Resources.Repositories
         }
         private static void GetGates()
         {
-            if (!GetAllGatesCommand.Get(Gates ?? [],
+            if (!GetCommand.Get(new Gate() ,Gates ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {
@@ -99,7 +113,7 @@ namespace AdminModule.Resources.Repositories
         }
         private static void GetTerminals()
         {
-            if (!GetAllTerminalsCommand.Get(Terminals ?? [],
+            if (!GetCommand.Get(new Terminal() ,Terminals ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {
@@ -108,7 +122,7 @@ namespace AdminModule.Resources.Repositories
         }
         private static void GetSeatTypes()
         {
-            if (!GetAllSeatTypesCommand.Get(SeatTypes ?? [],
+            if (!GetCommand.Get(new SeatType() ,SeatTypes ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {
@@ -117,7 +131,7 @@ namespace AdminModule.Resources.Repositories
         }
         private static void GetSeats()
         {
-            if(!GetAllSeatsCommand.Get(Seats ?? [],
+            if(!GetCommand.Get(new Seat() ,Seats ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {
@@ -126,7 +140,7 @@ namespace AdminModule.Resources.Repositories
         }
         private static void GetFlights()
         {
-            if (!GetAllFlightsCommand.Get(Flights ?? [],
+            if (!GetCommand.Get(new Flight(),Flights ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {
@@ -135,7 +149,7 @@ namespace AdminModule.Resources.Repositories
         }
         private static void GetTickets()
         {
-            if (!GetAllTicketsCommand.Get(Tickets ?? [],
+            if (!GetCommand.Get(new Ticket(),Tickets ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {

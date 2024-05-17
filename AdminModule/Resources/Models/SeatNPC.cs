@@ -20,6 +20,8 @@ namespace AdminModule.Resources.Models
         private int seatTypeId;
         [ObservableProperty]
         private int aircraftId;
+        [ObservableProperty]
+        private int flightId;
 
         public static SeatNPC ConvertFromSeatToNew(Seat seat)
         {
@@ -30,7 +32,8 @@ namespace AdminModule.Resources.Models
                 Name = seat.Name,
                 Reserved = seat.Reserved,
                 SeatTypeId = seat.SeatTypeId,
-                AircraftId = seat.AircraftId
+                AircraftId = seat.AircraftId,
+                FlightId = seat.FlightId,
             };
         }
 
@@ -42,7 +45,8 @@ namespace AdminModule.Resources.Models
                 Name = this.Name ?? "",
                 Reserved = this.Reserved,
                 SeatTypeId = this.SeatTypeId,
-                AircraftId = this.AircraftId
+                AircraftId = this.AircraftId,
+                FlightId = this.FlightId,
             };
         }
     }

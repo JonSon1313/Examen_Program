@@ -61,7 +61,13 @@
             ContentTemplate="{DataTemplate interfaces:ILocationAndAirportPage}"
             Route="LocationAndAirportPage"/>
     </FlyoutItem>
-
+    <FlyoutItem Title="Flights"
+                Icon="Flight.ico">
+        <ShellContent
+            ContentTemplate="{DataTemplate interfaces:IFlightPage}"
+            Route="FlightPage"/>
+    </FlyoutItem>
+    
     <Shell.FlyoutFooter>
         <Button Text="Logout"
                 Command="{Binding LogoutCommand}"/>
