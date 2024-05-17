@@ -27,8 +27,13 @@ namespace AdminModule
                 builder.Services.AddSingleton<IAdminDashboardPage, AdminDashboardPage>();
                 builder.Services.AddSingleton<IAircraftPage, AircraftPage>();
                 builder.Services.AddSingleton<ILocationAndAirportPage, LocationAndAirportPage>();
+                builder.Services.AddSingleton<IFlightPage, FlightPage>();
 
                 builder.Services.AddTransient<IAddOrEditAircraftPage, AddOrEditAircraftPage>();
+                builder.Services.AddTransient<ISmallObjectAddOrEditLocationAndAirportPageViewModel,
+                    SmallObjectAddOrEditLocationAndAirportPage>();
+                builder.Services.AddTransient<IAddOrEditAirportPage, AddOrEditAirportPage>();
+                builder.Services.AddTransient<IAddOrEditFlightPage, AddOrEditFlightPage>();
             }
 
 #if DEBUG

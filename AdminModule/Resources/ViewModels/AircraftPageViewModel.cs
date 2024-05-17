@@ -4,6 +4,7 @@ using AdminModule.Resources.Repositories;
 using AdminModule.Resources.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Models;
 using System.Collections.ObjectModel;
 
 namespace AdminModule.Resources.ViewModels
@@ -23,7 +24,7 @@ namespace AdminModule.Resources.ViewModels
         {
             if(obj is AircraftNPC)
             {
-                if(RemoveAircraftCommand.Remove((obj as AircraftNPC)!.Id,
+                if(RemoveCommand.Remove(new Aircraft(),(obj as AircraftNPC)!.Id,
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("EndPoint is Missing")))
                 {

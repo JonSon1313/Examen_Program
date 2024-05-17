@@ -10,6 +10,10 @@ namespace AdminModule
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(AddOrEditAircraftPage), typeof(IAddOrEditAircraftPage));
+            Routing.RegisterRoute(nameof(SmallObjectAddOrEditLocationAndAirportPage), 
+                typeof(ISmallObjectAddOrEditLocationAndAirportPageViewModel));
+            Routing.RegisterRoute(nameof(AddOrEditAirportPage), typeof(IAddOrEditAirportPage));
+            Routing.RegisterRoute(nameof(AddOrEditFlightPage), typeof(IAddOrEditFlightPage));
         }
     }
 }
