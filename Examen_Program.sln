@@ -16,7 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransporting", "DataTra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBLayer", "DBLayer\DBLayer.csproj", "{FCCB8B61-D792-4B76-B986-D2BBA45CDA24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{8AE65009-1246-4483-A468-2278E0786DA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{8AE65009-1246-4483-A468-2278E0786DA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminModule", "AdminModule\AdminModule.csproj", "{97A4EA8C-6D01-457E-86A0-9B541ECA7A8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,12 @@ Global
 		{8AE65009-1246-4483-A468-2278E0786DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AE65009-1246-4483-A468-2278E0786DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AE65009-1246-4483-A468-2278E0786DA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97A4EA8C-6D01-457E-86A0-9B541ECA7A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97A4EA8C-6D01-457E-86A0-9B541ECA7A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97A4EA8C-6D01-457E-86A0-9B541ECA7A8A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{97A4EA8C-6D01-457E-86A0-9B541ECA7A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97A4EA8C-6D01-457E-86A0-9B541ECA7A8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97A4EA8C-6D01-457E-86A0-9B541ECA7A8A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -323,7 +323,7 @@ namespace DBLayer.Migrations
                     b.Property<int>("AircraftId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FlightId")
+                    b.Property<int>("FlightId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -448,7 +448,7 @@ namespace DBLayer.Migrations
             modelBuilder.Entity("Models.City", b =>
                 {
                     b.HasOne("Models.Country", "Country")
-                        .WithMany()
+                        .WithMany("Cities")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -459,7 +459,7 @@ namespace DBLayer.Migrations
             modelBuilder.Entity("Models.Flight", b =>
                 {
                     b.HasOne("Models.Aircraft", "Aircraft")
-                        .WithMany()
+                        .WithMany("Flights")
                         .HasForeignKey("AircraftId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -492,7 +492,7 @@ namespace DBLayer.Migrations
                         .IsRequired();
 
                     b.HasOne("Models.Terminal", "Terminal")
-                        .WithMany()
+                        .WithMany("Gates")
                         .HasForeignKey("TerminalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -510,9 +510,11 @@ namespace DBLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.Flight", null)
+                    b.HasOne("Models.Flight", "Flight")
                         .WithMany("Seats")
-                        .HasForeignKey("FlightId");
+                        .HasForeignKey("FlightId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Models.SeatType", "SeatType")
                         .WithMany()
@@ -521,6 +523,8 @@ namespace DBLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Aircraft");
+
+                    b.Navigation("Flight");
 
                     b.Navigation("SeatType");
                 });
@@ -555,6 +559,11 @@ namespace DBLayer.Migrations
                     b.Navigation("Flight");
                 });
 
+            modelBuilder.Entity("Models.Aircraft", b =>
+                {
+                    b.Navigation("Flights");
+                });
+
             modelBuilder.Entity("Models.Airport", b =>
                 {
                     b.Navigation("Gates");
@@ -565,6 +574,8 @@ namespace DBLayer.Migrations
             modelBuilder.Entity("Models.Country", b =>
                 {
                     b.Navigation("Airports");
+
+                    b.Navigation("Cities");
                 });
 
             modelBuilder.Entity("Models.Flight", b =>
@@ -577,6 +588,11 @@ namespace DBLayer.Migrations
                     b.Navigation("In");
 
                     b.Navigation("Out");
+                });
+
+            modelBuilder.Entity("Models.Terminal", b =>
+                {
+                    b.Navigation("Gates");
                 });
 #pragma warning restore 612, 618
         }

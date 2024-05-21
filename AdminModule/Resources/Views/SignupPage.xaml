@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AdminModule.Resources.ViewModels"
+             x:Class="AdminModule.Resources.Views.SignupPage"
+             x:DataType="vm:SignupPageViewModel"
+             BindingContext="{vm:SignupPageViewModel}">
+
+    <Grid ColumnDefinitions="2*, 1*">
+        <Grid Grid.Column="0"
+              RowDefinitions="1*, 1*, 1*, 1*, 1*">
+            <Entry Placeholder="First Name"
+                   Grid.Row="0"
+                   Text="{Binding Admin.FirstName}"/>
+            <Entry Placeholder="Middle Name"
+                   Grid.Row="1"
+                   Text="{Binding Admin.MiddleName}"/>
+            <Entry Placeholder="Last Name"
+                   Grid.Row="2"
+                   Text="{Binding Admin.LastName}"/>
+            <Entry Placeholder="Phone number"
+                   Grid.Row="3"
+                   Text="{Binding Admin.PhoneNumber}"/>
+            <Entry Placeholder="Email address"
+                   Grid.Row="4"
+                   Text="{Binding Admin.Email}"/>
+        </Grid>
+        <Grid Grid.Column="1"
+              RowDefinitions="1*, 1*, 2*">
+            <Entry Placeholder="Login"
+                   Grid.Row="0"
+                   Text="{Binding Admin.Login}"/>
+            <Entry Placeholder="Password"
+                   IsPassword="True"
+                   Grid.Row="1"
+                   Text="{Binding Admin.Password}"/>
+            <Grid Grid.Row="2" 
+                  RowDefinitions="2*, 1*">
+                <Button Grid.Row="0"
+                        Text="Signup"
+                        Command="{Binding SignUpCommand}"/>
+                <Button Grid.Row="1"
+                        Text="Back"
+                        Command="{Binding BackCommand}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+    
+</ContentPage>
