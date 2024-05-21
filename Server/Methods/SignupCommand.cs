@@ -37,9 +37,7 @@ namespace Server.Methods
 
                 response.Message = "SIGNEDUP";
                 response.Administrators = newUser;
-                response.Administrators.Password = "111";
-                Console.WriteLine($"{DateTime.Now} --> User - {newUser?.Login}" +
-                    $", {newUser?.Password} Successfully created.\r\n");
+                Console.WriteLine($"{DateTime.Now} --> User - {newUser?.Login} has been Successfully created.\r\n");
             }
             else
             {

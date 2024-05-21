@@ -46,6 +46,8 @@ namespace AdminModule.Resources.Models
                 LastName = LastName,
                 Login = Login,
                 Password = Password,
+                PhoneNumber = PhoneNumber,
+                Email = Email
             };
         }
 

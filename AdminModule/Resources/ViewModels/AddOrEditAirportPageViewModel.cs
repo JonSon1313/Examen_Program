@@ -44,7 +44,7 @@ namespace AdminModule.Resources.ViewModels
             {
                 Airport.CityId = City.Id;
                 Airport.CountryId = City.CountryId;
-                if(AddCommand.Add(Airport ?? new(),
+                if(AddCommand.Add(Airport.ConvertToAirport() ?? new(),
                         ConnectionCredentialsRepository.EP ??
                         throw new Exception("EndPoint is Missing")))
                     Shell.Current.DisplayAlert("Success", "Object successfully added", "Ok");
@@ -53,7 +53,7 @@ namespace AdminModule.Resources.ViewModels
             {
                 Airport.CityId = City.Id;
                 Airport.CountryId = City.CountryId;
-                EditCommand.Edit(Airport ?? new(),
+                EditCommand.Edit(Airport.ConvertToAirport() ?? new(),
                         ConnectionCredentialsRepository.EP ??
                         throw new Exception("EndPoint is Missing"));
             }

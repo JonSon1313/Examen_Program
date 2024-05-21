@@ -396,3 +396,6 @@ Directory.Build.Override.props
 
 # Only the "snapshots" directory should be added to Git, not the "snapshots-diff" directory
 snapshots-diff/
+/DBLayer/Migrations/20240517175859_SecondMigration.cs
+/DBLayer/Migrations/20240517175859_SecondMigration.Designer.cs
+/AdminModule.zip

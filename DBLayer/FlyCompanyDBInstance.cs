@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Models;
 
@@ -231,20 +232,20 @@ namespace DBLayer
             dbContext.Countries?.Remove(dbContext.Countries.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
-        public Flight AddFligt(Flight fligt)
+        public Flight AddFligt(Flight flight)
         {
             dbContext.Flights.Add(new Flight
             {
-                Number = fligt.Number,
-                Aircraft = fligt.Aircraft,
-                DepartureTime = fligt.DepartureTime,
-                FromId = fligt.FromId,
-                ToId = fligt.ToId,
-                BasePrice = fligt.BasePrice,
+                Number = flight.Number,
+                Aircraft = flight.Aircraft,
+                DepartureTime = flight.DepartureTime,
+                FromId = flight.FromId,
+                ToId = flight.ToId,
+                BasePrice = flight.BasePrice,
             });
             dbContext.SaveChanges();
 
-            return dbContext?.Flights.Where(i => i.Number == i.Number).FirstOrDefault() ?? new();
+            return dbContext?.Flights.Where(i => i.Number == flight.Number).FirstOrDefault() ?? new();
         }
 
         public List<Flight>? GetFlight()
@@ -302,7 +303,6 @@ namespace DBLayer
         public void DeleteGate(int Id)
         {
             dbContext.Gates?.Remove(dbContext.Gates.Where(i => i.Id == Id).FirstOrDefault() ?? new());
-           
             dbContext.SaveChanges();
         }
         public Salt AddSalt(Salt _salt)
@@ -327,8 +327,9 @@ namespace DBLayer
             {
                 Name = seatType.Name
             });
+            dbContext.SaveChanges();
 
-            return dbContext?.SeatTypes.Where(i => i.Name == i.Name).FirstOrDefault() ?? new();
+            return dbContext?.SeatTypes.Where(i => i.Name == seatType.Name).FirstOrDefault() ?? new();
         }
 
         public List<SeatType>? GetSeatType()
@@ -358,7 +359,7 @@ namespace DBLayer
             });
             dbContext.SaveChanges();
 
-            return dbContext?.Terminals.Where(i => i.Name == i.Name).FirstOrDefault() ?? new();
+            return dbContext?.Terminals.Where(i => i.Name == terminal.Name).FirstOrDefault() ?? new();
         }
 
         public List<Terminal>? GetTerminal()
@@ -376,7 +377,7 @@ namespace DBLayer
 
         public void DeleteTerminal(int Id)
         {
-            dbContext.SeatTypes?.Remove(dbContext.SeatTypes.Where(i => i.Id == Id).FirstOrDefault() ?? new());
+            dbContext.Terminals?.Remove(dbContext.Terminals.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
     }

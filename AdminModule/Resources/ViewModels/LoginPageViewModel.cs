@@ -22,7 +22,7 @@ namespace AdminModule.Resources.ViewModels
         }
 
         [RelayCommand(CanExecute = nameof(CanExecuteLogIn))]
-        private async Task LogIn()
+        private void LogIn()
         {
             if (LoginCommand.Login(new()
             {
@@ -38,14 +38,12 @@ namespace AdminModule.Resources.ViewModels
             ConnectionCredentialsRepository.EP ??
             throw new Exception("EndPoint is Missing")))
             {
-                await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
+                Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
                 Login = "";
                 Password = "";
             }
             else
             {
-                WorkingObjectsRepository.Admin!.Login = "Login";
-                await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
                 Login = "";
                 Password = "";
             }

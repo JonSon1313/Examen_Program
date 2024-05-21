@@ -7,13 +7,14 @@
              x:DataType="vm:FlightPageViewModel"
              BindingContext="{vm:FlightPageViewModel}">
 
-    <Grid RowDefinitions="1*,1*"
+    <Grid RowDefinitions="1*, 1*"
           ColumnDefinitions="0.5*, 0.5*, 0.1*">
         <CollectionView Grid.Row="0"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         ItemsSource="{Binding Flights}"
                         SelectedItem="{Binding Flight}"
+                        SelectionMode="Single"
                         SelectionChangedCommand="{Binding SelectedFlightChangedCommand}">
 
             <CollectionView.Header>
@@ -54,9 +55,9 @@
 
         <CollectionView Grid.Row="1"
                         Grid.Column="0"
-                        Grid.ColumnSpan="2"
                         ItemsSource="{Binding Seats}"
                         SelectedItem="{Binding Seat}"
+                            SelectionMode="Single"
                         SelectionChangedCommand="{Binding SelectedSeatChangedCommand}">
 
             <CollectionView.Header>
@@ -79,11 +80,11 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <CollectionView Grid.Row="0"
+        <CollectionView Grid.Row="1"
                         Grid.Column="1"
-                        Grid.ColumnSpan="2"
                         ItemsSource="{Binding SeatTypes}"
                         SelectedItem="{Binding SeatType}"
+                        SelectionMode="Single"
                         SelectionChangedCommand="{Binding SelectedSeatTypeChangedCommand}">
 
             <CollectionView.Header>
@@ -99,7 +100,7 @@
                     <Grid ColumnDefinitions="0.2*, 3*, 0.5*, 0.5*">
                         <Label Grid.Column="0"
                                Text="{Binding Id}"/>
-                        <Label Grid.Column="1"
+                        <Label Grid.Column="1" 
                                Text="{Binding Name}"/>
                         <ImageButton Grid.Column="2"
                                      Source="Edit.ico"

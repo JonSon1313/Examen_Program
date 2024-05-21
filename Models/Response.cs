@@ -1,6 +1,7 @@
 ﻿
 namespace Models
 {
+    [Serializable]
     public class Response
     {
         public string Message { get; set; } = null!;

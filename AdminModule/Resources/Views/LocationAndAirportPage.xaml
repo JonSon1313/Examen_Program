@@ -30,6 +30,7 @@
             <CollectionView Grid.Column="0"
                             ItemsSource="{Binding Countries}"
                             SelectedItem="{Binding Country}"
+                            SelectionMode="Single"
                             SelectionChangedCommand="{Binding SelectedCountryChangedCommand}">
                 <CollectionView.Header>
                     <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
@@ -61,6 +62,7 @@
             <CollectionView Grid.Column="1"
                             ItemsSource="{Binding Cities}"
                             SelectedItem="{Binding City}"
+                            SelectionMode="Single"
                             SelectionChangedCommand="{Binding SelectedCityChangedCommand}">
                 <CollectionView.Header>
                     <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
@@ -114,9 +116,10 @@
                             Grid.ColumnSpan="2"
                             ItemsSource="{Binding Airports}"
                             SelectedItem="{Binding Airport}"
+                            SelectionMode="Single"
                             SelectionChangedCommand="{Binding SelectedAirportChangedCommand}">
                 <CollectionView.Header>
-                    <Grid ColumnDefinitions="0.2*, 3*, 0.5*, 10.5*, 0.5*, 0.5*">
+                    <Grid ColumnDefinitions="0.2*, 7*, 0.5*, 0.5*, 0.5*, 0.5*">
                         <Label Grid.Column="0" 
                                 Text="Id"/>
                         <Label Grid.Column="1" 
@@ -129,7 +132,7 @@
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="m:AirportNPC">
-                        <Grid ColumnDefinitions="0.2*, 3*, 0.5*, 0.5*, 0.5*, 0.5*">
+                        <Grid ColumnDefinitions="0.2*, 7*, 0.5*, 0.5*, 0.5*, 0.5*">
                             <Label Grid.Column="0"
                                Text="{Binding Id}"/>
                             <Label Grid.Column="1"
@@ -154,6 +157,7 @@
                             Grid.Column="0"
                             ItemsSource="{Binding Terminals}"
                             SelectedItem="{Binding Terminal}"
+                            SelectionMode="Single"
                             SelectionChangedCommand="{Binding SelectedTerminalChangedCommand}">
                 <CollectionView.Header>
                     <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
@@ -186,6 +190,7 @@
                             Grid.Column="1"
                             ItemsSource="{Binding Gates}"
                             SelectedItem="{Binding Gate}"
+                            SelectionMode="Single"
                             SelectionChangedCommand="{Binding SelectedGateChangedCommand}">
                 <CollectionView.Header>
                     <Grid ColumnDefinitions="1*, 1*, 1*, 1*">

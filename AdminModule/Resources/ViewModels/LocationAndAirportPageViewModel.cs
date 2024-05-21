@@ -89,24 +89,26 @@ namespace AdminModule.Resources.ViewModels
             IsAirport = false;
 
             Countries = WorkingObjectsRepository.Countries;
+            Country = new();
             Country.PropertyChanged += (s, e) =>
             {
                 AddCityCommand.NotifyCanExecuteChanged();
             };
 
+            Airport = new();
             Airports = WorkingObjectsRepository.Airports;
             Airport.PropertyChanged += (s, e) =>
             {
                 AddTerminalCommand.NotifyCanExecuteChanged();
             };
 
+            Terminal = new();
             Terminal.PropertyChanging += (s, e) =>
             {
                 AddGateCommand.NotifyCanExecuteChanged();
             };
         }
 
-        //Currently is nothing here
         [RelayCommand]
         private async Task AddAirport()
         {

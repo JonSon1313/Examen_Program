@@ -31,6 +31,7 @@ namespace AdminModule.Resources.Methods
                         if (response.Message == "LOGGEDIN")
                         {
                             WorkingObjectsRepository.Admin?.ConvertFromAdministrator(response.Administrators ?? new());
+                            WorkingObjectsRepository.Admin!.Password = "";
                             return true;
                         }
                         else

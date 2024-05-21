@@ -26,7 +26,7 @@
               IsVisible="{Binding IsSeatType}">
             <Entry Grid.Row="0"
                    Placeholder="Name"
-                   Text="{Binding Country.Name}"/>
+                   Text="{Binding SeatType.Name}"/>
         </Grid>
         <Grid Grid.Row="1"
               Grid.Column="1"
