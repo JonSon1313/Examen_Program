@@ -30,6 +30,7 @@ namespace AdminModule.Resources.Models
             {
                 Id = this.Id,
                 Name = this.Name ?? "",
+                AirportId = this.AirportId,
             };
         }
     }

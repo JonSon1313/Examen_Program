@@ -42,18 +42,17 @@ namespace AdminModule.Resources.ViewModels
         }
 
         [RelayCommand(CanExecute = nameof(CanExecuteSignup))]
-        private async Task SignUp()
+        private void SignUp()
         {
             if (SignupCommand.Signup(Admin?.ConvertToAdministrator() ?? new(),
             ConnectionCredentialsRepository.EP ??
             throw new Exception("EndPoint is Missing")))
             {
-                await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
+                Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
                 CreateNewUser();
             }
             else
             {
-                await Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
                 CreateNewUser();
             }
         }
