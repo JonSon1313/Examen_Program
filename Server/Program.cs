@@ -64,7 +64,7 @@ namespace Server
                                 case "DELETEAIRCRAFT":
                                     DeletedCommand.Deleted(_db ?? new(), ns, request);
                                     break;
-                                case "GETAIRCARFT":
+                                case "GETAIRCRAFT":
                                     GetCommand.Get(_db ?? new(), ns, request);
                                     break;
                                 case "ADDAIRPORT":

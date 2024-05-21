@@ -14,10 +14,13 @@
               Grid.Column="1"
               RowDefinitions="1*, 1*, 1*, 2*">
             <Entry Grid.Row="0"
+                   Placeholder="Manufacturer"
                    Text="{Binding Aircraft.Manufacturer}"/>
             <Entry Grid.Row="1"
+                   Placeholder="Model"
                    Text="{Binding Aircraft.Model}"/>
             <Entry Grid.Row="2"
+                   Placeholder="Tail Number"
                    Text="{Binding Aircraft.TailNumber}"/>
             <Grid Grid.Row="3"
                   ColumnDefinitions="1*, 1*">

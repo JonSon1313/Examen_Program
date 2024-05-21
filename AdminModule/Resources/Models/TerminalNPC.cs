@@ -33,5 +33,10 @@ namespace AdminModule.Resources.Models
                 AirportId = this.AirportId,
             };
         }
+
+        public override string ToString()
+        {
+            return Name ?? "";
+        }
     }
 }

@@ -37,5 +37,9 @@ namespace AdminModule.Resources.Models
             };
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

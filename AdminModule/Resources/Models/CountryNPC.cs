@@ -27,5 +27,10 @@ namespace AdminModule.Resources.Models
                 Name = this.Name ?? ""
             };
         }
+
+        public override string ToString()
+        {
+            return Name ?? "";
+        }
     }
 }

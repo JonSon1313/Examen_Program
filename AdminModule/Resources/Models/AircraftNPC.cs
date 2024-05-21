@@ -35,5 +35,9 @@ namespace AdminModule.Resources.Models
                 TailNumber = this.TailNumber
             };
         }
+        public override string ToString()
+        {
+            return $"{Manufacturer} {Model} : {TailNumber}";
+        }
     }
 }

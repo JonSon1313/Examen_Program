@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:AdminModule.Resources.ViewModels"
              x:Class="AdminModule.Resources.Views.FlightPage"
              x:DataType="vm:FlightPageViewModel"
+             x:Name="Main"
              BindingContext="{vm:FlightPageViewModel}">
 
     <Grid RowDefinitions="1*, 1*"

@@ -31,5 +31,10 @@ namespace AdminModule.Resources.Models
                 CountryId = this.CountryId,
             };
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

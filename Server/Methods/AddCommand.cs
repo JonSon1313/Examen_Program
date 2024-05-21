@@ -61,7 +61,7 @@ namespace Server.Methods
             else if(_obj is Flight) 
             {
                 response.Flights = [];
-                response.Flights?.Add(_db.AddFligt(_obj as Flight ?? new()));
+                response.Flights?.Add(_db.AddFlight(_obj as Flight ?? new()));
                 response.Message = "ADDED";
                 Console.WriteLine($"{(_obj as Flight).Number} Flight added ");
             }

@@ -47,9 +47,9 @@ namespace AdminModule.Resources.Repositories
             GetAirport();
             GetGates();
             GetTerminals();
-            GetSeats();
+            //GetSeats();
             GetSeatTypes();
-            GetTickets();
+            //GetTickets();
         }
 
         public static void AdminLogoff()

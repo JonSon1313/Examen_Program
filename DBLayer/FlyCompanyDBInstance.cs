@@ -232,16 +232,16 @@ namespace DBLayer
             dbContext.Countries?.Remove(dbContext.Countries.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
-        public Flight AddFligt(Flight flight)
+        public Flight AddFlight(Flight flight)
         {
             dbContext.Flights.Add(new Flight
             {
                 Number = flight.Number,
-                Aircraft = flight.Aircraft,
+                AircraftId = flight.AircraftId,
                 DepartureTime = flight.DepartureTime,
                 FromId = flight.FromId,
                 ToId = flight.ToId,
-                BasePrice = flight.BasePrice,
+                BasePrice = flight.BasePrice
             });
             dbContext.SaveChanges();
 

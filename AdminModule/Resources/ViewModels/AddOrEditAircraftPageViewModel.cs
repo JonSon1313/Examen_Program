@@ -38,7 +38,12 @@ namespace AdminModule.Resources.ViewModels
                     throw new Exception("EndPoint is Missing")))
                 {
                     Shell.Current.DisplayAlert("Success", "Object successfully added", "Ok");
-                    Aircraft = new();
+                    Aircraft = new()
+                    {
+                        Manufacturer = "",
+                        Model = "",
+                        TailNumber = ""
+                    };
                 }
             }
             else if (ActionKey == "Edit")

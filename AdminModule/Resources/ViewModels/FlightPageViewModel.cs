@@ -95,7 +95,7 @@ namespace AdminModule.Resources.ViewModels
 
             if (obj is FlightNPC)
             {
-                WorkingObjectsRepository.Action = "EDITFLIGHT";
+                WorkingObjectsRepository.Action = "EDIT";
                 await Shell.Current.GoToAsync(nameof(AddOrEditFlightPage));
             }
             else if (obj is SeatTypeNPC)
@@ -117,7 +117,7 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private async Task AddFlight()
         {
-            WorkingObjectsRepository.Action = "ADDFLIGHT";
+            WorkingObjectsRepository.Action = "ADD";
             WorkingObjectsRepository.WorkObject = new FlightNPC();
 
             await Shell.Current.GoToAsync(nameof(AddOrEditFlightPage));

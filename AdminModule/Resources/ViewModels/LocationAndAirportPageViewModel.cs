@@ -130,7 +130,7 @@ namespace AdminModule.Resources.ViewModels
         }
         public bool CanExecuteAddTerminal()
         {
-            return Airport != null; 
+            return Airport?.FullName != ""; 
         }
 
         [RelayCommand(CanExecute = nameof(CanExecuteAddGate))]
@@ -147,8 +147,8 @@ namespace AdminModule.Resources.ViewModels
         }
         public bool CanExecuteAddGate()
         {
-            return Airport != null &&
-                Terminal != null; 
+            return Airport?.FullName != "" &&
+                Terminal?.Name != ""; 
         }
 
         [RelayCommand]
@@ -170,7 +170,7 @@ namespace AdminModule.Resources.ViewModels
         }
         public bool CanExecuteAddCity()
         {
-            return Country != null;
+            return Country?.Name != "";
         }
 
         [RelayCommand]
@@ -215,9 +215,7 @@ namespace AdminModule.Resources.ViewModels
                     throw new Exception("Error"));
 
             if(success)
-            {
                 Shell.Current.DisplayAlert("Success", "Object has been successfully deleted", "Ok");
-            }
         }
         [RelayCommand]
         private async Task Modify(object obj)
@@ -238,9 +236,7 @@ namespace AdminModule.Resources.ViewModels
             if (!(obj is AirportNPC))
                 await Shell.Current.GoToAsync(nameof(SmallObjectAddOrEditLocationAndAirportPage));
             else
-            {
                 await Shell.Current.GoToAsync(nameof(AddOrEditAirportPage));
-            }
         }
     }
 }

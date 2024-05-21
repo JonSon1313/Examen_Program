@@ -63,7 +63,7 @@ namespace AdminModule.Resources.ViewModels
             return Airport?.FullName != "" &&
                 Airport?.ICAOCode != "" &&
                 Airport?.IATACode != "" &&
-                City != null;
+                City?.Name != "";
         }
 
         [RelayCommand]

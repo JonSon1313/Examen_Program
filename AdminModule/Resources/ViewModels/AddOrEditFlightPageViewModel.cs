@@ -12,13 +12,89 @@ namespace AdminModule.Resources.ViewModels
     {
         [ObservableProperty]
         private FlightNPC? flight;
+
+
         [ObservableProperty]
-        private ObservableCollection<AirportNPC>? airports;
+        private DateTime date;
+        [ObservableProperty]
+        private TimeSpan time;
+
+        [ObservableProperty]
+        private ObservableCollection<AirportNPC>? airportsIn;
+        [ObservableProperty]
+        private ObservableCollection<TerminalNPC>? terminalsIn;
+        [ObservableProperty]
+        private ObservableCollection<GateNPC>? gatesIn;
+        [ObservableProperty]
+        private ObservableCollection<AirportNPC>? airportsOut;
+        [ObservableProperty]
+        private ObservableCollection<TerminalNPC>? terminalsOut;
+        [ObservableProperty]
+        private ObservableCollection<GateNPC>? gatesOut;
 
         [ObservableProperty]
         private AirportNPC? departure;
         [ObservableProperty]
         private AirportNPC? arrival;
+        [ObservableProperty]
+        private TerminalNPC? departureTerminal;
+        [ObservableProperty]
+        private TerminalNPC? arrivalTerminal;
+        [ObservableProperty]
+        private GateNPC? departureGate;
+        [ObservableProperty]
+        private GateNPC? arrivalGate;
+
+        [ObservableProperty]
+        private int departureId;
+        [RelayCommand]
+        private void SelectedDepartureIdChanged()
+        {
+            TerminalsOut = [];
+            var temp = WorkingObjectsRepository.Terminals?
+                .Where(e => e.AirportId == AirportsOut?[DepartureId].Id).ToList();
+            for (int i = 0; i < temp?.Count; i++)
+                TerminalsOut?.Add(temp[i]);
+        }
+
+        [ObservableProperty]
+        private int arrivalId;
+        [RelayCommand]
+        private void SelectedArrivalIdChanged()
+        {
+            TerminalsIn = [];
+            var temp = WorkingObjectsRepository.Terminals?
+                .Where(e => e.AirportId == AirportsIn?[ArrivalId].Id).ToList();
+            for (int i = 0; i < temp?.Count; i++)
+                TerminalsIn?.Add(temp[i]);
+        }
+
+        [ObservableProperty]
+        private int departureTerminalId;
+        [RelayCommand]
+        private void SelectedDepartureTerminalIdChanged()
+        {
+            if (DepartureTerminalId >= 0)
+            {
+            GatesOut = [];
+            var temp = WorkingObjectsRepository.Gates?
+                .Where(e => e.TerminalId == TerminalsOut?[DepartureTerminalId].Id).ToList();
+            for (int i = 0; i < temp?.Count; i++)
+                GatesOut?.Add(temp[i]);
+            }
+        }
+
+        [ObservableProperty]
+        private int arrivalTerminalId;
+        [RelayCommand]
+        private void SelectedArrivalTerminalIdChanged()
+        {
+            GatesIn = [];
+            var temp = WorkingObjectsRepository.Gates?
+                .Where(e => e.TerminalId == TerminalsIn?[ArrivalTerminalId].Id).ToList();
+            for (int i = 0; i < temp?.Count; i++)
+                GatesIn?.Add(temp[i]);
+        }
         
         [ObservableProperty]
         private ObservableCollection<AircraftNPC>? aircrafts;
@@ -33,27 +109,40 @@ namespace AdminModule.Resources.ViewModels
             ActionKey = WorkingObjectsRepository.Action;
 
             Flight = WorkingObjectsRepository.WorkObject as FlightNPC;
-            Airports = WorkingObjectsRepository.Airports;
+            AirportsIn = WorkingObjectsRepository.Airports;
+            AirportsOut = WorkingObjectsRepository.Airports;
             Aircrafts = WorkingObjectsRepository.Aircrafts;
 
             Flight!.PropertyChanged += (s, e) => ActionCommand.NotifyCanExecuteChanged();
 
-            if (ActionKey == "EDITFLIGHT")
+            if (ActionKey == "EDIT")
             {
-                Departure = Airports?.Where(e => e.Id == Flight.FromId).SingleOrDefault();
-                Arrival = Airports?.Where(e => e.Id == Flight.ToId).SingleOrDefault();
+                Date = Flight.DepartureTime;
+                Time = Flight.DepartureTime.TimeOfDay;
+
                 Aircraft = Aircrafts?.Where(e => e.Id == Flight.AircraftId).SingleOrDefault();
+
+                DepartureGate = WorkingObjectsRepository.Gates?.Where(e => e.Id == Flight.FromId).FirstOrDefault();
+                ArrivalGate = WorkingObjectsRepository.Gates?.Where(e => e.Id == Flight.ToId).FirstOrDefault();
+
+                DepartureTerminal = WorkingObjectsRepository.Terminals?.Where(e=>e.Id == DepartureGate?.TerminalId).FirstOrDefault();
+                ArrivalTerminal = WorkingObjectsRepository.Terminals?.Where(e=>e.Id == ArrivalGate?.TerminalId).FirstOrDefault();
+                
+                Departure = AirportsOut?.Where(e => e.Id == DepartureGate?.AirportId).FirstOrDefault();
+                Arrival = AirportsOut?.Where(e => e.Id == ArrivalGate?.AirportId).FirstOrDefault();
             }
         }
 
         [RelayCommand(CanExecute = nameof(CanExecuteAction))]
         private void Action()
         {
-            if (ActionKey == "ADDFLIGHT")
+            if (ActionKey == "ADD")
             {
                 Flight.AircraftId = Aircraft.Id;
                 Flight.ToId = Arrival.Id;
                 Flight.FromId = Departure.Id;
+                Flight.DepartureTime = DateTime.Parse($"{Date.ToShortDateString()} {Time}");
+                Console.WriteLine($"{Time}");
                 if (AddCommand.Add(Flight?.ConvertToFlight() ?? new(),
                         ConnectionCredentialsRepository.EP ??
                         throw new Exception("EndPoint is Missing")))
@@ -75,9 +164,8 @@ namespace AdminModule.Resources.ViewModels
             return Flight?.Number != null &&
                    Flight?.BasePrice != 0 &&
                    Flight?.DepartureTime != null &&
-                   Departure != null &&
-                   Arrival != null &&
-                   Airports != null;
+                   DepartureGate?.Name != "" &&
+                   ArrivalGate?.Name != "";
         }
 
         [RelayCommand]
