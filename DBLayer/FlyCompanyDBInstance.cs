@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Models;
 
@@ -50,7 +49,7 @@ namespace DBLayer
 
         public void DeleteAdministration(int Id)
         {
-            dbContext.Administrators?.Remove(dbContext.Administrators.Where(i => i.Id == Id).FirstOrDefault());
+            dbContext.Administrators?.Remove(dbContext.Administrators.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
         public Aircraft AddAircraft(Aircraft aircraft)
@@ -83,7 +82,7 @@ namespace DBLayer
 
         public void DeleteAircraft(int Id)
         {
-            dbContext.Aircrafts?.Remove(dbContext.Aircrafts.Where(i => i.Id == Id).FirstOrDefault());
+            dbContext.Aircrafts?.Remove(dbContext.Aircrafts.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
 
         }
@@ -121,7 +120,7 @@ namespace DBLayer
 
         public void DeleteAirport(int Id)
         {
-            dbContext.Airports?.Remove(dbContext.Airports.Where(i => i.Id == Id).FirstOrDefault());
+            dbContext.Airports?.Remove(dbContext.Airports.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
 
         }
@@ -153,7 +152,7 @@ namespace DBLayer
 
         public void DeleteCity(int Id)
         {
-            dbContext.Cities?.Remove(dbContext.Cities.Where(i => i.Id == Id).FirstOrDefault());
+            dbContext.Cities?.Remove(dbContext.Cities.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
         public Client AddClient(Client client)
@@ -197,7 +196,7 @@ namespace DBLayer
 
         public void DeleteClient(int Id)
         {
-            dbContext.Clients?.Remove(dbContext.Clients.Where(i => i.Id == Id).FirstOrDefault());
+            dbContext.Clients?.Remove(dbContext.Clients.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
         public Country AddCountry(Country country)
@@ -229,7 +228,7 @@ namespace DBLayer
 
         public void DeleteCountry(int Id)
         {
-            dbContext.Countries?.Remove(dbContext.Countries.Where(i => i.Id == Id).FirstOrDefault());
+            dbContext.Countries?.Remove(dbContext.Countries.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
         public Flight AddFligt(Flight fligt)
@@ -268,7 +267,7 @@ namespace DBLayer
 
         public void DeleteFlight(int Id)
         {
-            dbContext.Flights?.Remove(dbContext.Flights.Where(i => i.Id == Id).FirstOrDefault());
+            dbContext.Flights?.Remove(dbContext.Flights.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
         public Gate AddGate(Gate gate)
@@ -302,7 +301,8 @@ namespace DBLayer
 
         public void DeleteGate(int Id)
         {
-            dbContext.Gates?.Remove(dbContext.Gates.Where(i => i.Id == Id).FirstOrDefault());
+            dbContext.Gates?.Remove(dbContext.Gates.Where(i => i.Id == Id).FirstOrDefault() ?? new());
+           
             dbContext.SaveChanges();
         }
         public Salt AddSalt(Salt _salt)
@@ -346,7 +346,7 @@ namespace DBLayer
 
         public void DeleteSeatType(int Id)
         {
-            dbContext.SeatTypes?.Remove(dbContext.SeatTypes.Where(i => i.Id == Id).FirstOrDefault());
+            dbContext.SeatTypes?.Remove(dbContext.SeatTypes.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
         public Terminal AddTerminal(Terminal terminal)
@@ -376,7 +376,7 @@ namespace DBLayer
 
         public void DeleteTerminal(int Id)
         {
-            dbContext.SeatTypes?.Remove(dbContext.SeatTypes.Where(i => i.Id == Id).FirstOrDefault());
+            dbContext.SeatTypes?.Remove(dbContext.SeatTypes.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
     }
