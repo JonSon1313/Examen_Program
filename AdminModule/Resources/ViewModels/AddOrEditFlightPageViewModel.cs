@@ -3,7 +3,6 @@ using AdminModule.Resources.Models;
 using AdminModule.Resources.Repositories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Models;
 using System.Collections.ObjectModel;
 
 namespace AdminModule.Resources.ViewModels
@@ -12,7 +11,6 @@ namespace AdminModule.Resources.ViewModels
     {
         [ObservableProperty]
         private FlightNPC? flight;
-
 
         [ObservableProperty]
         private DateTime date;
@@ -50,11 +48,8 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedDepartureIdChanged()
         {
-            TerminalsOut = [];
-            var temp = WorkingObjectsRepository.Terminals?
-                .Where(e => e.AirportId == AirportsOut?[DepartureId].Id).ToList();
-            for (int i = 0; i < temp?.Count; i++)
-                TerminalsOut?.Add(temp[i]);
+            TerminalsOut = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?
+                .Where(e => e.AirportId == AirportsOut?[DepartureId].Id).ToList() ?? []);
         }
 
         [ObservableProperty]
@@ -62,11 +57,8 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedArrivalIdChanged()
         {
-            TerminalsIn = [];
-            var temp = WorkingObjectsRepository.Terminals?
-                .Where(e => e.AirportId == AirportsIn?[ArrivalId].Id).ToList();
-            for (int i = 0; i < temp?.Count; i++)
-                TerminalsIn?.Add(temp[i]);
+            TerminalsIn = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?
+                .Where(e => e.AirportId == AirportsIn?[ArrivalId].Id).ToList() ?? []);
         }
 
         [ObservableProperty]
@@ -76,11 +68,8 @@ namespace AdminModule.Resources.ViewModels
         {
             if (DepartureTerminalId >= 0)
             {
-            GatesOut = [];
-            var temp = WorkingObjectsRepository.Gates?
-                .Where(e => e.TerminalId == TerminalsOut?[DepartureTerminalId].Id).ToList();
-            for (int i = 0; i < temp?.Count; i++)
-                GatesOut?.Add(temp[i]);
+                GatesOut = new ObservableCollection<GateNPC>(WorkingObjectsRepository.Gates?
+                    .Where(e => e.TerminalId == TerminalsOut?[DepartureTerminalId].Id).ToList() ?? []);
             }
         }
 
@@ -89,11 +78,11 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedArrivalTerminalIdChanged()
         {
-            GatesIn = [];
-            var temp = WorkingObjectsRepository.Gates?
-                .Where(e => e.TerminalId == TerminalsIn?[ArrivalTerminalId].Id).ToList();
-            for (int i = 0; i < temp?.Count; i++)
-                GatesIn?.Add(temp[i]);
+            if (ArrivalTerminalId >= 0)
+            {
+                GatesIn = new ObservableCollection<GateNPC>(WorkingObjectsRepository.Gates?
+                    .Where(e => e.TerminalId == TerminalsIn?[ArrivalTerminalId].Id).ToList() ?? []);
+            }
         }
         
         [ObservableProperty]

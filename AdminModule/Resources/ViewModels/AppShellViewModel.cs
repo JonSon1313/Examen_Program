@@ -19,7 +19,7 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private async Task Logout()
         {
-            Admin = null;
+            Admin = new();
             WorkingObjectsRepository.AdminLogoff();
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }

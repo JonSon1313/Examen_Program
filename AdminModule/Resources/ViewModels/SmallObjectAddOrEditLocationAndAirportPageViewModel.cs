@@ -24,7 +24,6 @@ namespace AdminModule.Resources.ViewModels
         private ObservableCollection<CountryNPC>? countries;
         [ObservableProperty]
         private CountryNPC? country;
-
         [ObservableProperty]
         private CityNPC? city;
 
@@ -60,7 +59,7 @@ namespace AdminModule.Resources.ViewModels
                     Country.PropertyChanged += (s, e) => ActionCommand.NotifyCanExecuteChanged();
                     break;
                 case "ADDCITY":
-                case"EDITCITY":
+                case "EDITCITY":
                     IsCity = true;
                     City = (WorkingObjectsRepository.WorkObject as CityNPC) ?? new();
                     Countries = WorkingObjectsRepository.Countries ?? [];
@@ -185,6 +184,7 @@ namespace AdminModule.Resources.ViewModels
                     break;
             }
         }
+
         public bool CanExecuteAction()
         {
             switch (ActionKey)

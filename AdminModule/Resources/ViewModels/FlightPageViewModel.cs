@@ -18,14 +18,14 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedFlightChanged()
         {
-            Seats = [];
             if(Flight != null)
             {
-                var temp = WorkingObjectsRepository.Seats?
-                    .Where(e => e.FlightId == Flight.Id).ToList();
-                for (var i = 0; i < temp?.Count; i++)
-                    Seats.Add(temp[i]);
+                Seats = new ObservableCollection<SeatNPC>(WorkingObjectsRepository.Seats?
+                    .Where(e => e.FlightId == Flight.Id).ToList() ?? []);
             }
+            else if (SeatType != null && Flight != null)
+                Seats = new ObservableCollection<SeatNPC>(WorkingObjectsRepository.Seats?
+                    .Where(e => e.SeatTypeId == SeatType.Id && e.FlightId == Flight.Id).ToList() ?? []);
             else
                 Seats = WorkingObjectsRepository.Seats;
         }
@@ -39,14 +39,14 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedSeatTypeChanged()
         {
-            Seats = [];
             if (SeatType != null)
             {
-                var temp = WorkingObjectsRepository.Seats?
-                    .Where(e => e.SeatTypeId == SeatType.Id).ToList();
-                for (var i = 0; i < temp?.Count; i++)
-                    Seats.Add(temp[i]);
+                Seats = new ObservableCollection<SeatNPC>(WorkingObjectsRepository.Seats?
+                    .Where(e => e.SeatTypeId == SeatType.Id).ToList() ?? []);
             }
+            else if (SeatType != null && Flight != null)
+                Seats = new ObservableCollection<SeatNPC>(WorkingObjectsRepository.Seats?
+                    .Where(e => e.SeatTypeId == SeatType.Id && e.FlightId == Flight.Id).ToList() ?? []);
             else
                 Seats = WorkingObjectsRepository.Seats;
         }
@@ -75,11 +75,11 @@ namespace AdminModule.Resources.ViewModels
         {
             var success = false;
             if (obj is FlightNPC)
-                success = RemoveCommand.Remove(new Flight(), (obj as FlightNPC).Id,
+                success = RemoveCommand.Remove(new Flight(), ((FlightNPC)obj).Id,
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("Error"));
             else if (obj is SeatTypeNPC)
-                success = RemoveCommand.Remove(new SeatType(), (obj as SeatTypeNPC).Id,
+                success = RemoveCommand.Remove(new SeatType(), ((SeatTypeNPC)obj).Id,
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("Error"));
             if (success)
