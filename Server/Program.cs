@@ -46,15 +46,15 @@ namespace Server
                                 case "SIGNUPA":
                                     SignupCommand.SignUpAdmin(_db ?? new(), ns, request);
                                     break;
-                                //case "SIGNUPU":
-                                //    SignupCommand.SignUpUser(_db ?? new(), ns, request);
-                                //break;
+                                case "SIGNUPU":
+                                    SignupCommand.SignUpClient(_db ?? new(), ns, request);
+                                break;
                                 case "LOGINA":
                                     LoginCommand.LoginAdmin(_db ?? new(), ns, request);
                                     break;
-                                //case "LOGINU":
-                                //    LoginCommand.LoginUser(_db ?? new(), ns, request);
-                                //break;
+                                case "LOGINU":
+                                    LoginCommand.LoginClient(_db ?? new(), ns, request);
+                                break;
                                 case "ADDAIRCRAFT":
                                     AddCommand.Add(_db ?? new(), ns, request.Aircraft);
                                     break;

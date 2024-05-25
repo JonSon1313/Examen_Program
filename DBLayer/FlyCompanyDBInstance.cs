@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Models;
 
@@ -170,7 +169,7 @@ namespace DBLayer
             });
             dbContext.SaveChanges();
 
-            return dbContext?.Clients.Where(i => i.FirstName == client.FirstName).FirstOrDefault() ?? new();
+            return dbContext?.Clients.Where(i => i.Email == client.Email).FirstOrDefault() ?? new();
 
         }
 
