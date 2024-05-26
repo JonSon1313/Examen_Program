@@ -43,7 +43,14 @@ namespace ClientModule.Resources.ViewModels
         {
             Countries = WorkingObjectsRepository.Countries;
             Departure_country = Countries[0];
+            Departure_countryId = 0;
             Arrival_country = Countries[0];
+            Arrival_countryId = 0;
+            Departure_cities = new ObservableCollection<CityNPC>(WorkingObjectsRepository.Cities.Where(c => c.CountryId == departure_country.Id).ToList());
+            Arrival_cities = new ObservableCollection<CityNPC>(WorkingObjectsRepository.Cities.Where(c => c.CountryId == arrival_country.Id).ToList());
+            Departure_city = WorkingObjectsRepository.Cities.Where(c => c.CountryId == departure_country.Id).SingleOrDefault();
+            Arrival_city = WorkingObjectsRepository.Cities.Where(c => c.CountryId == arrival_country.Id).SingleOrDefault();
+            Flights = new ObservableCollection<FlightNPC> (WorkingObjectsRepository.Flights.Where(c => c.ArrivaleCity == arrival_city.Name && c.DepartureCity == departure_city.Name).ToList());
         }
         [RelayCommand]
         private void DepartureCountryChanged()

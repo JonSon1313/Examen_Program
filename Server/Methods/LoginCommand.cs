@@ -60,7 +60,7 @@ namespace Server.Methods
                 {
                     response.Message = "LOGGEDIN";
                     response.Client = _client;
-                    Console.WriteLine($"{DateTime.Now} --> Admin - {_client.Login}" +
+                    Console.WriteLine($"{DateTime.Now} --> Client - {_client.Login}" +
                         $" Successfully logged in.\r\n");
                 }
                 else

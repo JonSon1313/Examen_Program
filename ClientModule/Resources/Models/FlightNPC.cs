@@ -38,9 +38,9 @@ namespace ClientModule.Resources.Models
             .Where(c => c.Id == flight.ToId).Select(c => c.AirportId).SingleOrDefault()).SingleOrDefault();
 
             var depCity = WorkingObjectsRepository.Cities?.Where(c => c.Id == depAirport?.CityId).Select(c => c.Name).SingleOrDefault();
-            var depCountry = WorkingObjectsRepository.Countries.Where(c => c.Id == depAirport.CountryId).Select(c => c.Name).SingleOrDefault();
+            var depCountry = WorkingObjectsRepository.Countries?.Where(c => c.Id == depAirport.CountryId).Select(c => c.Name).SingleOrDefault();
             var arrCity = WorkingObjectsRepository.Cities?.Where(c => c.Id == arrAirport?.CityId).Select(c => c.Name).SingleOrDefault();
-            var arrCountry = WorkingObjectsRepository.Countries.Where(c => c.Id == arrAirport.CountryId).Select(c => c.Name).SingleOrDefault();
+            var arrCountry = WorkingObjectsRepository.Countries?.Where(c => c.Id == arrAirport.CountryId).Select(c => c.Name).SingleOrDefault();
 
             return new()
             {

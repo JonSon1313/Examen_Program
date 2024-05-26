@@ -37,12 +37,12 @@ namespace Server.Methods
 
                 response.Message = "SIGNEDUP";
                 response.Administrators = newUser;
-                Console.WriteLine($"{DateTime.Now} --> User - {newUser?.Login} has been Successfully created.\r\n");
+                Console.WriteLine($"{DateTime.Now} --> Administrator - {newUser?.Login} has been Successfully created.\r\n");
             }
             else
             {
                 response.Message = "NOTSIGNEDUP";
-                Console.WriteLine($"{DateTime.Now} --> User was not created!\r\n");
+                Console.WriteLine($"{DateTime.Now} --> Administrator was not created!\r\n");
             }
             
             ByteTransporting.SendBinary(_ns, response);
@@ -78,7 +78,7 @@ namespace Server.Methods
                          isNotCreated?.Email == _request?.Client?.Email)
                     response.Message = "BOTHE";
 
-                Console.WriteLine($"{DateTime.Now} --> User was not created!\r\n");
+                Console.WriteLine($"{DateTime.Now} --> Client was not created!\r\n");
             }
 
             ByteTransporting.SendBinary(_ns, response);

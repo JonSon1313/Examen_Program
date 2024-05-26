@@ -40,13 +40,13 @@ namespace ClientModule.Resources.Repositories
             GetAirplanes();
             GetCities();
             GetCountries();
-            GetFlights();
             GetAirport();
             GetGates();
             GetTerminals();
             //GetSeats();
             GetSeatTypes();
             //GetTickets();
+            GetFlights();
         }
 
         public static void ClientLogoff()
