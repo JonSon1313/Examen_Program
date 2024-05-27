@@ -62,7 +62,11 @@ namespace Server.Methods
             {
                 response.Flights = [];
                 response.Flights?.Add(_db.AddFlight(_obj as Flight ?? new()));
-                response.Message = "ADDED";
+                if(response.Flights.Count == 1)
+                {
+                    response.Message = "ADDED";
+                    //var AircraftModel = 
+                }
                 Console.WriteLine($"{(_obj as Flight).Number} Flight added ");
             }
             else if(_obj is Gate)

@@ -10,7 +10,7 @@ namespace DBLayer
 
         public FlyCompanyDBInstance()
         {
-            FlyCompanyDBContextBuilder builder = new ();
+            FlyCompanyDBContextBuilder builder = new();
             dbContext = builder.CreateDbContext([]);
         }
         public Administrator AddAdministration(Administrator admin)
@@ -243,9 +243,40 @@ namespace DBLayer
                 BasePrice = flight.BasePrice
             });
             dbContext.SaveChanges();
+            var temp = dbContext?.Flights.Where(i => i.Number == flight.Number).FirstOrDefault() ?? new();
+            var AircraftModel = dbContext.Aircrafts.Where(c => c.Id == flight.AircraftId).Select(c => c.Model).FirstOrDefault();
+            if (AircraftModel == "A320NEO")
+            {
+                var EconomId = dbContext.SeatTypes.Where(c => c.Name == "Econom").Select(c => c.Id).FirstOrDefault();
+                for (int i = 0; i < 180; i++)
+                {
 
-            return dbContext?.Flights.Where(i => i.Number == flight.Number).FirstOrDefault() ?? new();
+                    dbContext.Seats.Add(new Seat { Name = $"{i}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = EconomId, Reserved = false });
+                }
+            }
+            if (AircraftModel == "777-200ER")
+            {
+                var BusinessId = dbContext.SeatTypes.Where(c => c.Name == "Business").Select(c => c.Id).FirstOrDefault();
+                var FirstClassId = dbContext.SeatTypes.Where(c => c.Name == "FirstClass").Select(c => c.Id).FirstOrDefault();
+                var EconomId = dbContext.SeatTypes.Where(c => c.Name == "Econom").Select(c => c.Id).FirstOrDefault();
+                for (int i = 0; i < 16; i++)
+                {
+                    dbContext.Seats.Add(new Seat { Name = $"{i}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = FirstClassId, Reserved = false });
+                }
+                for (int i = 0; i < 324; i++)
+                {
+                    dbContext.Seats.Add(new Seat { Name = $"{i}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = EconomId, Reserved = false });
+                }
+                for (int i = 0; i < 21; i++)
+                {
+                    dbContext.Seats.Add(new Seat { Name = $"{i}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = BusinessId, Reserved = false });
+                }
+            }
+            dbContext.SaveChanges();
+            return temp;
         }
+
+
 
         public List<Flight>? GetFlight()
         {
@@ -267,6 +298,7 @@ namespace DBLayer
 
         public void DeleteFlight(int Id)
         {
+            //dbContext.Seats.Remove()
             dbContext.Flights?.Remove(dbContext.Flights.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
@@ -318,6 +350,24 @@ namespace DBLayer
         public Salt? GetSalt(string _login)
         {
             return dbContext.Salts.Where(s => s.Login == _login).FirstOrDefault();
+        }
+
+        public void AddSeat(Seat seat)
+        {
+            dbContext.Seats.Add(new()
+            {
+                Name = seat.Name,
+                SeatTypeId = seat.SeatTypeId,
+                Reserved = seat.Reserved,
+                AircraftId = seat.AircraftId,
+                FlightId = seat.FlightId,
+            });
+            dbContext.SaveChanges();
+        }
+
+        public List<Seat>? GetSeat()
+        {
+            return dbContext?.Seats.ToList();
         }
         // new code here
         public SeatType AddSeatType(SeatType seatType)
@@ -377,6 +427,22 @@ namespace DBLayer
         public void DeleteTerminal(int Id)
         {
             dbContext.Terminals?.Remove(dbContext.Terminals.Where(i => i.Id == Id).FirstOrDefault() ?? new());
+            dbContext.SaveChanges();
+        }
+
+        public void OrderSeat(int Id)
+        {
+            var temp = dbContext.Seats.Where(c=> c.Id == Id).FirstOrDefault();
+            temp.Reserved = true;
+            dbContext.Seats.Update(temp);
+            dbContext.SaveChanges();
+        }
+
+        public void UnOrderSeat(int Id)
+        {
+            var temp = dbContext.Seats.Where(c => c.Id == Id).FirstOrDefault();
+            temp.Reserved = false;
+            dbContext.Seats.Update(temp);
             dbContext.SaveChanges();
         }
     }

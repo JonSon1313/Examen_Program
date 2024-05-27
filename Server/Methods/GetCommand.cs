@@ -58,6 +58,12 @@ namespace Server.Methods
                 response.Message = "PRESENT";
                 Console.WriteLine($" Gate has been sended ");
             }
+            else if(_r.Message == "GETSEAT")
+            {
+                response.Seats = _db.GetSeat();
+                response.Message = "PRESENT";
+                Console.WriteLine($" Seat has been sended ");
+            }
             else if (_r.Message == "GETSEATTYPE")
             {
                 response.SeatTypes = _db.GetSeatType();

@@ -127,6 +127,9 @@ namespace Server
                                 case "GETGATE":
                                     GetCommand.Get(_db ?? new(), ns, request);
                                     break;
+                                case "GETSEAT":
+                                    GetCommand.Get(_db ?? new(), ns, request);
+                                    break;
                                 case "ADDSEATTYPE":
                                     AddCommand.Add(_db ?? new(), ns, request.SeatType);
                                     break;
@@ -151,6 +154,7 @@ namespace Server
                                 case "GETTERMINAL":
                                     GetCommand.Get(_db ?? new(), ns, request);
                                     break;
+
 
 
 

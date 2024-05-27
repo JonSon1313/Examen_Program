@@ -15,5 +15,6 @@ namespace ClientModule.Resources.ViewModels
         ObservableCollection<SeatNPC>? seats;
         [ObservableProperty]
         ObservableCollection<TicketNPC>? tickets;
+
     }
 }
