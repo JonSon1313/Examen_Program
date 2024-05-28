@@ -1,4 +1,4 @@
-using ClientModule.Resources.Interface;
+using ClientModule.Resources.Interfaces;
 
 namespace ClientModule.Resources.Views;
 

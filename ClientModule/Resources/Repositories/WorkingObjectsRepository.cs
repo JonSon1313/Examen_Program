@@ -7,6 +7,8 @@ namespace ClientModule.Resources.Repositories
 {
     public static class WorkingObjectsRepository
     {
+        public static FlightNPC? TargetFlight { get; set; }
+
         public static ClientNPC? Client {  get; set; }
         public static ObservableCollection<CityNPC>? Cities { get; set; }
         public static ObservableCollection<CountryNPC>? Countries { get; set; }
@@ -43,7 +45,6 @@ namespace ClientModule.Resources.Repositories
             GetAirport();
             GetGates();
             GetTerminals();
-            //GetSeats();
             GetSeatTypes();
             //GetTickets();
             GetFlights();

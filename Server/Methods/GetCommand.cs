@@ -64,6 +64,12 @@ namespace Server.Methods
                 response.Message = "PRESENT";
                 Console.WriteLine($" Seat has been sended ");
             }
+            else if(_r.Message == "GETSEATBYID")
+            {
+                response.Seats = _db.GetSeatById(_r.IdToDelete);
+                response.Message = "PRESENT";
+                Console.WriteLine($" Seat has been sended ");
+            }
             else if (_r.Message == "GETSEATTYPE")
             {
                 response.SeatTypes = _db.GetSeatType();

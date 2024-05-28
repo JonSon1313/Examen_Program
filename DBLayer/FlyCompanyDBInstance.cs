@@ -369,6 +369,10 @@ namespace DBLayer
         {
             return dbContext?.Seats.ToList();
         }
+        public List<Seat>? GetSeatById(int Id)
+        {
+            return dbContext?.Seats.Where(e=>e.FlightId == Id).ToList();
+        }
         // new code here
         public SeatType AddSeatType(SeatType seatType)
         {

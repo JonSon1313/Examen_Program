@@ -28,5 +28,7 @@ namespace Models
 
         public Administrator? Administrator { get; set; }
         public Client? Client { get; set; }
+
+        public List<Ticket>? Ticket { get; set; }
     }
 }

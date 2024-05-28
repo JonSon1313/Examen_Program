@@ -65,6 +65,15 @@ namespace Server
                                     DeletedCommand.Deleted(_db ?? new(), ns, request);
                                     break;
                                 case "GETAIRCRAFT":
+                                case "GETAIRPORT":
+                                case "GETCITY":
+                                case "GETCOUNTRY":
+                                case "GETFLIGHT":
+                                case "GETGATE":
+                                case "GETSEAT":
+                                case "GETSEATBYID":
+                                case "GETSEATTYPE":
+                                case "GETTERMINAL":
                                     GetCommand.Get(_db ?? new(), ns, request);
                                     break;
                                 case "ADDAIRPORT":
@@ -76,9 +85,6 @@ namespace Server
                                 case "DELETEAIRPORT":
                                     DeletedCommand.Deleted(_db ?? new(), ns, request);
                                     break;
-                                case "GETAIRPORT":
-                                    GetCommand.Get(_db ?? new(), ns, request);
-                                    break;
                                 case "ADDCITY":
                                     AddCommand.Add(_db ?? new(), ns, request.City);
                                     break;
@@ -87,9 +93,6 @@ namespace Server
                                     break;
                                 case "DELETECITY":
                                     DeletedCommand.Deleted(_db ?? new(), ns, request);
-                                    break;
-                                case "GETCITY":
-                                    GetCommand.Get(_db ?? new(), ns, request);
                                     break;
                                 case "ADDCOUNTRY":
                                     AddCommand.Add(_db ?? new(), ns, request.Country);
@@ -100,9 +103,6 @@ namespace Server
                                 case "DELETECOUNTRY":
                                     DeletedCommand.Deleted(_db ?? new(), ns, request);
                                     break;
-                                case "GETCOUNTRY":
-                                    GetCommand.Get(_db ?? new(), ns, request);
-                                    break;
                                 case "ADDFLIGHT":
                                     AddCommand.Add(_db ?? new(), ns, request.Flight);
                                     break;
@@ -111,9 +111,6 @@ namespace Server
                                     break;
                                 case "DELETEFLIGHT":
                                     DeletedCommand.Deleted(_db ?? new(), ns, request);
-                                    break;
-                                case "GETFLIGHT":
-                                    GetCommand.Get(_db ?? new(), ns, request);
                                     break;
                                 case "ADDGATE":
                                     AddCommand.Add(_db ?? new(), ns, request.Gate);
@@ -124,12 +121,6 @@ namespace Server
                                 case "DELETEGATE":
                                     DeletedCommand.Deleted(_db ?? new(), ns, request);
                                     break;
-                                case "GETGATE":
-                                    GetCommand.Get(_db ?? new(), ns, request);
-                                    break;
-                                case "GETSEAT":
-                                    GetCommand.Get(_db ?? new(), ns, request);
-                                    break;
                                 case "ADDSEATTYPE":
                                     AddCommand.Add(_db ?? new(), ns, request.SeatType);
                                     break;
@@ -138,9 +129,6 @@ namespace Server
                                     break;
                                 case "DELETESEATTYPE":
                                     DeletedCommand.Deleted(_db ?? new(), ns, request);
-                                    break;
-                                case "GETSEATTYPE":
-                                    GetCommand.Get(_db ?? new(), ns, request);
                                     break;
                                 case "ADDTERMINAL":
                                     AddCommand.Add(_db ?? new(), ns, request.Terminal);
@@ -151,18 +139,6 @@ namespace Server
                                 case "DELETETERMINAL":
                                     DeletedCommand.Deleted(_db ?? new(), ns, request);
                                     break;
-                                case "GETTERMINAL":
-                                    GetCommand.Get(_db ?? new(), ns, request);
-                                    break;
-
-
-
-
-
-
-
-
-
 
                             }
                         }

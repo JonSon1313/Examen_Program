@@ -1,5 +1,4 @@
 ﻿using ClientModule.Resources.Interfaces;
-using ClientModule.Resources.ViewModels;
 using ClientModule.Resources.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
@@ -27,6 +26,7 @@ namespace ClientModule
                 builder.Services.AddSingleton<IClientDashboardPage, ClientDashboardPage>();
                 builder.Services.AddSingleton<IShopingPage, ShopingPage>();
 
+                builder.Services.AddTransient<IOrderPage, OrderPage>();
             }
 
 #if DEBUG

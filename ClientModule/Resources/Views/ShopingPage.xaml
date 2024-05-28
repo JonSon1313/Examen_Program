@@ -97,33 +97,24 @@
                     <Grid ColumnDefinitions="1*, 1*, 1*, 1*,1*,1*,1*,1*">
                         <Label Grid.Column="0"
                     Text="{Binding Number}"/>
-                        
                         <Label Grid.Column="1" 
                     Text="{Binding DepartureCountry}"/>
-
-                        <Label Grid.Column="2" 
+                            <Label Grid.Column="2" 
                     Text="{Binding DepartureCity}"/>
-
-                        <Label Grid.Column="3" 
+                            <Label Grid.Column="3" 
                     Text="{Binding ArrivaleCountry}"/>
-
-                        <Label Grid.Column="4" 
+                            <Label Grid.Column="4" 
                     Text="{Binding ArrivaleCity}"/>
-
-                        <Label Grid.Column="5" 
+                            <Label Grid.Column="5" 
                     Text="{Binding DepartureTime}"/>
-                        
-                        <Label Grid.Column="6" 
+                            <Label Grid.Column="6"
                     Text="{Binding BasePrice}"/>
-                        <Button
-                            Grid.Column="7"
+                        <Button Grid.Column="7"
                             Text="Order"/>
 
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-
         </CollectionView>
-
     </Grid>
 </ContentPage>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientModule.Resources.Interface
+namespace ClientModule.Resources.Interfaces
 {
     internal interface IOrderPage {}
     

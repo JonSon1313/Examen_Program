@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using Models;
 using CommunityToolkit.Mvvm.Input;
 using ClientModule.Resources.Repositories;
+using ClientModule.Resources.Views;
 
 namespace ClientModule.Resources.ViewModels
 {
@@ -210,6 +211,13 @@ namespace ClientModule.Resources.ViewModels
                     Flights.Add(WorkingObjectsRepository.Flights[i]);
                 }
             }
+        }
+
+        [RelayCommand]
+        private async void OpenOrderPage(object obj)
+        {
+            WorkingObjectsRepository.TargetFlight = obj;
+            Shell.Current.GoToAsync($"//{nameof(OrderPage)}");
         }
     }
 }
