@@ -17,6 +17,8 @@ namespace ClientModule.Resources.Models
         [ObservableProperty]
         private int flightId;
         [ObservableProperty]
+        private int seatId;
+        [ObservableProperty]
         public double discount;
         [ObservableProperty]
         public decimal finalPrice;
@@ -32,6 +34,7 @@ namespace ClientModule.Resources.Models
                 FlightId = ticket.FlightId,
                 Discount = ticket.Discount,
                 FinalPrice = ticket.FinalPrice,
+                SeatId = ticket.AtSeat
             };
         }
         public Ticket ConvertToTicket()
@@ -45,6 +48,7 @@ namespace ClientModule.Resources.Models
                 FlightId = this.FlightId,
                 Discount = this.Discount,
                 FinalPrice = this.FinalPrice,
+                AtSeat = this.SeatId
             };
         }
     }

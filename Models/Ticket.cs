@@ -20,5 +20,8 @@ namespace Models
 
         public double Discount { get; set; }
         public decimal FinalPrice { get; set; }
+
+
+        public int AtSeat { get; set; }
     }
 }

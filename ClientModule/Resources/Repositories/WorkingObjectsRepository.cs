@@ -46,7 +46,7 @@ namespace ClientModule.Resources.Repositories
             GetGates();
             GetTerminals();
             GetSeatTypes();
-            //GetTickets();
+            GetTickets();
             GetFlights();
         }
 

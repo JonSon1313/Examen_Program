@@ -52,8 +52,13 @@
     </FlyoutItem>
     
     <Shell.FlyoutFooter>
-        <Button Text="Logout"
+        <Grid ColumnDefinitions="1*, 0.4*">
+            <Button Text="Logout"
                 Command="{Binding LogoutCommand}"/>
+            <Button Grid.Column="1"
+                    Text="Our site"
+                Command="{Binding RedirectToSiteCommand}"/>
+        </Grid>
     </Shell.FlyoutFooter>
     
     

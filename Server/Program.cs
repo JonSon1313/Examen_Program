@@ -40,6 +40,15 @@ namespace Server
 
                             switch (request.Message)
                             {
+                                case "GETDISCOUNT":
+                                    var response = new Response();
+                                    response.Discount = _db?.GetDiscountForTicket(request.ObjectId, request.Date);
+                                    response.Message = "PRESENT";
+                                    ByteTransporting.SendBinary(ns, response);
+                                    break;
+                                case "ORDERTICKET":
+                                    OrderTickets.Order(_db ?? new(), ns, request);
+                                    break;
                                 case "STOPSERVER":
                                     stop = true;
                                     break;
@@ -55,13 +64,14 @@ namespace Server
                                 case "LOGINU":
                                     LoginCommand.LoginClient(_db ?? new(), ns, request);
                                 break;
-                                case "ADDAIRCRAFT":
-                                    AddCommand.Add(_db ?? new(), ns, request.Aircraft);
-                                    break;
-                                case "EDITAIRCRAFT":
-                                    EditCommand.Edit(_db ?? new(), ns, request.Aircraft);
-                                    break;
                                 case "DELETEAIRCRAFT":
+                                case "DELETEAIRPORT":
+                                case "DELETECITY":
+                                case "DELETECOUNTRY":
+                                case "DELETEFLIGHT":
+                                case "DELETEGATE":
+                                case "DELETESEATTYPE":
+                                case "DELETETERMINAL":
                                     DeletedCommand.Deleted(_db ?? new(), ns, request);
                                     break;
                                 case "GETAIRCRAFT":
@@ -73,8 +83,15 @@ namespace Server
                                 case "GETSEAT":
                                 case "GETSEATBYID":
                                 case "GETSEATTYPE":
+                                case "GETTICKET":
                                 case "GETTERMINAL":
                                     GetCommand.Get(_db ?? new(), ns, request);
+                                    break;
+                                case "ADDAIRCRAFT":
+                                    AddCommand.Add(_db ?? new(), ns, request.Aircraft);
+                                    break;
+                                case "EDITAIRCRAFT":
+                                    EditCommand.Edit(_db ?? new(), ns, request.Aircraft);
                                     break;
                                 case "ADDAIRPORT":
                                     AddCommand.Add(_db ?? new(), ns, request.Airport);
@@ -82,17 +99,11 @@ namespace Server
                                 case "EDITAIRPORT":
                                     EditCommand.Edit(_db ?? new(), ns, request.Airport);
                                     break;
-                                case "DELETEAIRPORT":
-                                    DeletedCommand.Deleted(_db ?? new(), ns, request);
-                                    break;
                                 case "ADDCITY":
                                     AddCommand.Add(_db ?? new(), ns, request.City);
                                     break;
                                 case "EDITCITY":
                                     EditCommand.Edit(_db ?? new(), ns, request.City);
-                                    break;
-                                case "DELETECITY":
-                                    DeletedCommand.Deleted(_db ?? new(), ns, request);
                                     break;
                                 case "ADDCOUNTRY":
                                     AddCommand.Add(_db ?? new(), ns, request.Country);
@@ -100,17 +111,11 @@ namespace Server
                                 case "EDITCOUNTRY":
                                     EditCommand.Edit(_db ?? new(), ns, request.Country);
                                     break;
-                                case "DELETECOUNTRY":
-                                    DeletedCommand.Deleted(_db ?? new(), ns, request);
-                                    break;
                                 case "ADDFLIGHT":
                                     AddCommand.Add(_db ?? new(), ns, request.Flight);
                                     break;
                                 case "EDITFLIGHT":
                                     EditCommand.Edit(_db ?? new(), ns, request.Flight);
-                                    break;
-                                case "DELETEFLIGHT":
-                                    DeletedCommand.Deleted(_db ?? new(), ns, request);
                                     break;
                                 case "ADDGATE":
                                     AddCommand.Add(_db ?? new(), ns, request.Gate);
@@ -118,17 +123,11 @@ namespace Server
                                 case "EDITGATE":
                                     EditCommand.Edit(_db ?? new(), ns, request.Gate);
                                     break;
-                                case "DELETEGATE":
-                                    DeletedCommand.Deleted(_db ?? new(), ns, request);
-                                    break;
                                 case "ADDSEATTYPE":
                                     AddCommand.Add(_db ?? new(), ns, request.SeatType);
                                     break;
                                 case "EDITSEATTYPE":
                                     EditCommand.Edit(_db ?? new(), ns, request.SeatType);
-                                    break;
-                                case "DELETESEATTYPE":
-                                    DeletedCommand.Deleted(_db ?? new(), ns, request);
                                     break;
                                 case "ADDTERMINAL":
                                     AddCommand.Add(_db ?? new(), ns, request.Terminal);
@@ -136,10 +135,6 @@ namespace Server
                                 case "EDITTERMINAL":
                                     EditCommand.Edit(_db ?? new(), ns, request.Terminal);
                                     break;
-                                case "DELETETERMINAL":
-                                    DeletedCommand.Deleted(_db ?? new(), ns, request);
-                                    break;
-
                             }
                         }
                     }
@@ -152,4 +147,3 @@ namespace Server
         }
     }
 }
-

@@ -41,7 +41,6 @@ namespace DBLayer
             {
                 entity.HasOne(e => e.Flight).WithMany(e => e.Seats).OnDelete(DeleteBehavior.NoAction);
             });
-
         }
     }
 }

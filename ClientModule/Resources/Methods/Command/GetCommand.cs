@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Collections.ObjectModel;
 using ClientModule.Resources.Models;
+using ClientModule.Resources.Repositories;
 
 namespace ClientModule.Resources.Methods
 {
@@ -17,6 +18,8 @@ namespace ClientModule.Resources.Methods
                 {
                     Message = $"GET{_type?.GetType().Name.ToUpper()}"
                 };
+                if (_type is Ticket)
+                    request.ObjectId = WorkingObjectsRepository.Client.Id;
 
                 using (var client = new TcpClient())
                 {
@@ -66,6 +69,10 @@ namespace ClientModule.Resources.Methods
                             for (int i = 0; i < response?.SeatTypes?.Count; i++)
                                 (_object as ObservableCollection<SeatTypeNPC>)?
                                     .Add(SeatTypeNPC.ConvertFromSeatTypeToNew(response.SeatTypes[i]));
+                        else if (_type is Ticket)
+                            for (int i = 0; i < response?.Tickets?.Count; i++)
+                                (_object as ObservableCollection<TicketNPC>)?
+                                    .Add(TicketNPC.ConvertFromTicketToNew(response.Tickets[i]));
 
                         return true;
                     }

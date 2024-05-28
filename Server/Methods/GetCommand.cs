@@ -82,9 +82,11 @@ namespace Server.Methods
                 response.Message = "PRESENT";
                 Console.WriteLine($" Terminal has been sended ");
             }
+            else if (_r.Message == "GETTICKET")
+            {
+                response.Tickets = _db.GetTicketsById(_r.ObjectId);
+            }
 
-
-            //окрім Seat
             ByteTransporting.SendBinary(_ns, response);
         }
     }

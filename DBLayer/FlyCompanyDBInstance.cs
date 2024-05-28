@@ -118,6 +118,11 @@ namespace DBLayer
             dbContext.SaveChanges();
         }
 
+        public List<Ticket> GetTicketsById(int clientId) 
+        {
+            return dbContext.Tickets.Where(e=>e.ClientId == clientId).ToList();
+        }
+
         public void DeleteAirport(int Id)
         {
             dbContext.Airports?.Remove(dbContext.Airports.Where(i => i.Id == Id).FirstOrDefault() ?? new());
@@ -244,14 +249,14 @@ namespace DBLayer
             });
             dbContext.SaveChanges();
             var temp = dbContext?.Flights.Where(i => i.Number == flight.Number).FirstOrDefault() ?? new();
-            var AircraftModel = dbContext.Aircrafts.Where(c => c.Id == flight.AircraftId).Select(c => c.Model).FirstOrDefault();
+            var AircraftModel = dbContext?.Aircrafts.Where(c => c.Id == flight.AircraftId).Select(c => c.Model).FirstOrDefault();
             if (AircraftModel == "A320NEO")
             {
                 var EconomId = dbContext.SeatTypes.Where(c => c.Name == "Econom").Select(c => c.Id).FirstOrDefault();
                 for (int i = 0; i < 180; i++)
                 {
 
-                    dbContext.Seats.Add(new Seat { Name = $"{i}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = EconomId, Reserved = false });
+                    dbContext?.Seats.Add(new Seat { Name = $"{i+1}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = EconomId, Reserved = false });
                 }
             }
             if (AircraftModel == "777-200ER")
@@ -261,27 +266,26 @@ namespace DBLayer
                 var EconomId = dbContext.SeatTypes.Where(c => c.Name == "Econom").Select(c => c.Id).FirstOrDefault();
                 for (int i = 0; i < 16; i++)
                 {
-                    dbContext.Seats.Add(new Seat { Name = $"{i}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = FirstClassId, Reserved = false });
+                    dbContext?.Seats.Add(new Seat { Name = $"{i+1}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = FirstClassId, Reserved = false });
                 }
                 for (int i = 0; i < 324; i++)
                 {
-                    dbContext.Seats.Add(new Seat { Name = $"{i}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = EconomId, Reserved = false });
+                    dbContext?.Seats.Add(new Seat { Name = $"{i+1}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = EconomId, Reserved = false });
                 }
                 for (int i = 0; i < 21; i++)
                 {
-                    dbContext.Seats.Add(new Seat { Name = $"{i}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = BusinessId, Reserved = false });
+                    dbContext?.Seats.Add(new Seat { Name = $"{i+1}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = BusinessId, Reserved = false });
                 }
             }
-            dbContext.SaveChanges();
+            dbContext?.SaveChanges();
             return temp;
         }
-
-
 
         public List<Flight>? GetFlight()
         {
             return dbContext?.Flights.Include(a => a.Seats).ToList();
         }
+
         public void EditFlight(Flight flight)
         {
             Flight? temp = dbContext.Flights.Where(i => i.Id == flight.Id).FirstOrDefault();
@@ -294,6 +298,46 @@ namespace DBLayer
 
             dbContext.Flights.Update(temp);
             dbContext.SaveChanges();
+        }
+
+        public Ticket? AddTicket(Ticket ticket)
+        {
+            if(dbContext.Seats.Where(e=>e.Id == ticket.AtSeat && e.Reserved == true).Any()) 
+            {
+                return null;
+            }
+
+            dbContext.Tickets.Add(new()
+            {
+                Number = ticket.Number,
+                SaleTime = ticket.SaleTime,
+                FlightId = ticket.FlightId,
+                ClientId = ticket.ClientId,
+                Discount = ticket.Discount,
+                FinalPrice = ticket.FinalPrice,
+                AtSeat = ticket.AtSeat,
+            });
+            dbContext.SaveChanges();
+
+            var user = dbContext.Tickets.Where(i => i.Number == ticket.Number).SingleOrDefault() ?? new();
+            if (user != null)
+            {
+                OrderSeat(user.AtSeat);
+                return user;
+            }
+            return null;
+        }
+
+        public double GetDiscountForTicket(int Id, DateTime? Date)
+        {
+            var temp = dbContext.Flights.Where(i => i.Id == Id).Select(i => i.DepartureTime).SingleOrDefault();
+
+            if ((Date - temp)?.TotalDays >= 30 && (Date - temp)?.TotalDays <= 90)
+                return 10;
+            else if ((Date - temp)?.TotalDays > 90)
+                return 20;
+            else
+                return 0;
         }
 
         public void DeleteFlight(int Id)
