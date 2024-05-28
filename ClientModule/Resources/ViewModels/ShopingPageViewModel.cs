@@ -216,8 +216,8 @@ namespace ClientModule.Resources.ViewModels
         [RelayCommand]
         private async void OpenOrderPage(object obj)
         {
-            WorkingObjectsRepository.TargetFlight = obj;
-            Shell.Current.GoToAsync($"//{nameof(OrderPage)}");
+            WorkingObjectsRepository.TargetFlight = obj as FlightNPC;
+            await Shell.Current.GoToAsync($"{nameof(OrderPage)}");
         }
     }
 }
