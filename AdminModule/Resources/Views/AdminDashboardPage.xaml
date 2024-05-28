@@ -5,7 +5,6 @@
              x:Class="AdminModule.Resources.Views.AdminDashboardPage"
              x:DataType="vm:AdminDashboardPageViewModel"
              BindingContext="{vm:AdminDashboardPageViewModel}">
-    
-    
+
     
 </ContentPage>

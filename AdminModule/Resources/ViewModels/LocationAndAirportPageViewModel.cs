@@ -24,7 +24,7 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedCountryChanged()
         {
-              if (Country != null)
+            if (Country != null)
             {
                 Cities = new ObservableCollection<CityNPC>(WorkingObjectsRepository.Cities?
                     .Where(c => c.CountryId == Country?.Id).ToList() ?? []);
@@ -142,7 +142,7 @@ namespace AdminModule.Resources.ViewModels
         public bool CanExecuteAddGate()
         {
             return Airport?.FullName != "" &&
-                Terminal?.Name != ""; 
+                Terminal?.Name != "";
         }
 
         [RelayCommand]

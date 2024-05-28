@@ -62,6 +62,7 @@ namespace AdminModule.Resources.Repositories
             Gates = null;
             Cities = null;
             Countries = null;
+            SeatTypes = null;
             Flights = null;
         }
 

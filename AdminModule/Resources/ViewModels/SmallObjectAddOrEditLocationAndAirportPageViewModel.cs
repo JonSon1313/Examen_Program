@@ -23,24 +23,30 @@ namespace AdminModule.Resources.ViewModels
         [ObservableProperty]
         private ObservableCollection<CountryNPC>? countries;
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private CountryNPC? country;
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private CityNPC? city;
 
         [ObservableProperty]
         private ObservableCollection<AirportNPC>? airports;
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private AirportNPC? airport;
 
         [ObservableProperty]
         private ObservableCollection<TerminalNPC>? terminals;
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private TerminalNPC? terminal;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private GateNPC? gate;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private SeatTypeNPC? seatType;
 
         [ObservableProperty]
@@ -195,15 +201,15 @@ namespace AdminModule.Resources.ViewModels
                 case "ADDCITY":
                 case "EDITCITY":
                     return City?.Name != "" &&
-                        Country != null;
+                        Country?.Name != "";
                 case "ADDTERMINAL": 
                 case "EDIRCOMMAND":
                     return Terminal?.Name != "" &&
-                        Airport != null;
+                        Airport?.FullName != "";
                 case "ADDGATE":
                 case "EDITGATE":
                     return Gate?.Name != "" &&
-                        Terminal != null;
+                        Terminal?.Name != "";
                 case "ADDSEATTYPE":
                 case "EDITSEATTYPE":
                     return SeatType?.Name != "";

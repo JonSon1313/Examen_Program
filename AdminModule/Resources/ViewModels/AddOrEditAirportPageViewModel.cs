@@ -12,9 +12,11 @@ namespace AdminModule.Resources.ViewModels
         [ObservableProperty]
         private ObservableCollection<CityNPC>? cities;
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private CityNPC? city;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private AirportNPC? airport;
 
         [ObservableProperty]
@@ -26,18 +28,22 @@ namespace AdminModule.Resources.ViewModels
             Cities = WorkingObjectsRepository.Cities;
             Airport = WorkingObjectsRepository.WorkObject as AirportNPC;
 
+            if (ActionKey == "ADD")
+                City = new();
+            else if (ActionKey == "EDIT")
+                City = Cities?.Where(e=>e.Id == Airport?.CityId).FirstOrDefault();
+
             Airport!.PropertyChanged += (s, e) =>
             {
                 ActionCommand.NotifyCanExecuteChanged();
             };
-
-            if (ActionKey == "ADD")
-                City = null!;
-            else if (ActionKey == "EDIT")
-                City = Cities?.Where(e=>e.Id == Airport?.CityId).FirstOrDefault();
+            City!.PropertyChanged += (s, e) =>
+            {
+                ActionCommand.NotifyCanExecuteChanged();
+            };
         }
 
-        [RelayCommand]
+        [RelayCommand (CanExecute = nameof(CanExecuteAction))]
         private void Action()
         {
             if(ActionKey == "ADD")
@@ -61,9 +67,9 @@ namespace AdminModule.Resources.ViewModels
         private bool CanExecuteAction()
         {
             return Airport?.FullName != "" &&
-                Airport?.ICAOCode != "" &&
-                Airport?.IATACode != "" &&
-                City?.Name != "";
+                   Airport?.ICAOCode != "" &&
+                   Airport?.IATACode != "" &&
+                   City?.Name != "";
         }
 
         [RelayCommand]

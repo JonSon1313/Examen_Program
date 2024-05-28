@@ -38,6 +38,7 @@ namespace AdminModule.Resources.ViewModels
             ConnectionCredentialsRepository.EP ??
             throw new Exception("EndPoint is Missing")))
             {
+                WorkingObjectsRepository.AdminLoggedIn();
                 Shell.Current.GoToAsync($"//{nameof(AdminDashboardPage)}");
                 Login = "";
                 Password = "";
