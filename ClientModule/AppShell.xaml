@@ -50,7 +50,13 @@
         ContentTemplate="{DataTemplate interfaces:IShopingPage}"
         Route="ShopingPage"/>
     </FlyoutItem>
-    
+
+    <FlyoutItem Title="Tickets">
+        <ShellContent
+        ContentTemplate="{DataTemplate interfaces:ITicketManagementPage}"
+        Route="TicketManagmentPage"/>
+    </FlyoutItem>
+
     <Shell.FlyoutFooter>
         <Grid ColumnDefinitions="1*, 0.4*">
             <Button Text="Logout"
@@ -60,6 +66,8 @@
                 Command="{Binding RedirectToSiteCommand}"/>
         </Grid>
     </Shell.FlyoutFooter>
+    
+    
     
     
 </Shell>  

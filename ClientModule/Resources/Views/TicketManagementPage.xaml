@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:ClientModule.Resources.Models"
+             xmlns:vm="clr-namespace:ClientModule.Resources.ViewModels"
+             x:Class="ClientModule.Resources.Views.TicketManagementPage"
+             x:DataType="vm:TicketManagementPageViewModel"
+             BindingContext="{vm:TicketManagementPageViewModel}">
+    
+    
+    
+    <Grid ColumnDefinitions="1*,1*"
+            RowDefinitions="1*,0.2*">
+
+        <CollectionView Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" 
+                 ItemsSource="{Binding Tickets}"
+                 SelectedItem="{Binding Ticket}"
+                 SelectionChangedCommand="{Binding SelectedTicketChangedCommand}">
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="0.4*, 0.8*, 0.3*, 1*, 1*,0.6*">
+                    <Label Grid.Column="0" 
+              Text="Number"/>
+                    <Label Grid.Column="1" 
+              Text="Sale time"/>
+                    <Label Grid.Column="2" 
+              Text="Discount"/>
+                    <Label Grid.Column="3" 
+              Text="Destination"/>
+                    <Label Grid.Column="4" 
+              Text="Start"/>
+                    <Label Grid.Column="5" 
+              Text="Total price"/>
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:TicketNPC">
+                    <Grid ColumnDefinitions="0.4*, 0.8*, 0.3*, 1*, 1*,0.6*">
+                        <Label Grid.Column="0"
+                        Text="{Binding Number}"/>
+                        <Label Grid.Column="1"
+                        Text="{Binding SaleTime}"/>
+                        <Label Grid.Column="2"
+                        Text="{Binding Discount}"/>
+                        <Label Grid.Column="3"
+                        Text="{Binding Destination}"/>
+                        <Label Grid.Column="4"
+                        Text="{Binding Starting_place}"/>
+                        <Label Grid.Column="5"
+                        Text="{Binding FinalPrice}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid RowDefinitions="0.5*,1*,0.5*,1*,0.5*,1*" Grid.Column="1" Grid.Row="0">
+            <Label Grid.Row="0" 
+            Text="Number"/>
+            <Label Grid.Row="1" 
+              Text="{Binding Ticket.Number}"/>
+            <Label Grid.Row="2" 
+            Text="Destination"/>
+            <Label Grid.Row="3" 
+            Text="{Binding Ticket.Destination}"/>
+            <Label Grid.Row="4" 
+            Text="Sale Time"/>
+            <Label Grid.Row="5" 
+            Text="{Binding Ticket.SaleTime}"/>
+        </Grid>
+        <Button Text="Return Ticket" Grid.Column="1" Grid.Row="1" Command="{Binding ReturnTicketsCommand}"/>
+
+
+    </Grid>
+</ContentPage>

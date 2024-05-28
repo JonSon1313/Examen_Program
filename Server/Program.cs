@@ -49,6 +49,9 @@ namespace Server
                                 case "ORDERTICKET":
                                     OrderTickets.Order(_db ?? new(), ns, request);
                                     break;
+                                case "RETURNTICKET":
+                                    RemoveTickets.Remove(_db ?? new(), ns, request);
+                                    break;
                                 case "STOPSERVER":
                                     stop = true;
                                     break;

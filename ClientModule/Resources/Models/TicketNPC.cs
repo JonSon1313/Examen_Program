@@ -1,4 +1,5 @@
 ﻿
+using ClientModule.Resources.Repositories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Models;
 
@@ -22,9 +23,14 @@ namespace ClientModule.Resources.Models
         public double discount;
         [ObservableProperty]
         public decimal finalPrice;
+        [ObservableProperty]
+        public string? destination;
+        [ObservableProperty]
+        public string? starting_place;
 
         public static TicketNPC ConvertFromTicketToNew(Ticket ticket)
         {
+            var Flight = WorkingObjectsRepository.Flights.Where(i => i.Id == ticket.FlightId).SingleOrDefault() ?? new ();
             return new()
             {
                 Id = ticket.Id,
@@ -34,7 +40,9 @@ namespace ClientModule.Resources.Models
                 FlightId = ticket.FlightId,
                 Discount = ticket.Discount,
                 FinalPrice = ticket.FinalPrice,
-                SeatId = ticket.AtSeat
+                SeatId = ticket.AtSeat,
+                Destination = $"{Flight.ArrivaleCity}. {Flight.ArrivaleCountry}",
+                Starting_place = $"{Flight.DepartureCity}. {Flight.DepartureCountry}" 
             };
         }
         public Ticket ConvertToTicket()

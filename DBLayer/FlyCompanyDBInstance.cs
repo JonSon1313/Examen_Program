@@ -328,6 +328,12 @@ namespace DBLayer
             return null;
         }
 
+        public void DeleteTicket(Ticket ticket)
+        {
+            UnOrderSeat(ticket.AtSeat);
+            dbContext.Tickets?.Remove(dbContext.Tickets.Where(i => i.Id == ticket.Id).FirstOrDefault() ?? new());
+            dbContext.SaveChanges();
+        }
         public double GetDiscountForTicket(int Id, DateTime? Date)
         {
             var temp = dbContext.Flights.Where(i => i.Id == Id).Select(i => i.DepartureTime).SingleOrDefault();
@@ -342,7 +348,7 @@ namespace DBLayer
 
         public void DeleteFlight(int Id)
         {
-            //dbContext.Seats.Remove()
+          
             dbContext.Flights?.Remove(dbContext.Flights.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }

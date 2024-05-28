@@ -85,6 +85,8 @@ namespace Server.Methods
             else if (_r.Message == "GETTICKET")
             {
                 response.Tickets = _db.GetTicketsById(_r.ObjectId);
+                response.Message = "PRESENT";
+                Console.WriteLine($" Ticket has been sended ");
             }
 
             ByteTransporting.SendBinary(_ns, response);

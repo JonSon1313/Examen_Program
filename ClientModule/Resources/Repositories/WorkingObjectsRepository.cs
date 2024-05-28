@@ -46,8 +46,8 @@ namespace ClientModule.Resources.Repositories
             GetGates();
             GetTerminals();
             GetSeatTypes();
-            GetTickets();
             GetFlights();
+            GetTickets();
         }
 
         public static void ClientLogoff()

@@ -25,6 +25,8 @@ namespace ClientModule
                 builder.Services.AddSingleton<ISignupPage, SignupPage>();
                 builder.Services.AddSingleton<IClientDashboardPage, ClientDashboardPage>();
                 builder.Services.AddSingleton<IShopingPage, ShopingPage>();
+                builder.Services.AddSingleton<ITicketManagementPage, TicketManagementPage>();
+
 
                 builder.Services.AddTransient<IOrderPage, OrderPage>();
             }

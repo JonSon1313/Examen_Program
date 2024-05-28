@@ -15,6 +15,7 @@ namespace Server.Methods
             for(int i =0; i < _r?.Ticket?.Count; i++)
             {
                 response.Tickets?.Add(_db.AddTicket(_r.Ticket[i]));
+                Console.WriteLine($"{DateTime.Now} --> Ticket - {_r.Ticket[i].Number} has been Successfully added.\r\n");
             }
 
             if(response.Tickets?.Count == _r?.Ticket?.Count) 
@@ -29,7 +30,7 @@ namespace Server.Methods
             {
                 response.Message = "PARTIAL";
             }
-
+     
             ByteTransporting.SendBinary(_ns, response);
         }
     }
