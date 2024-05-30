@@ -14,7 +14,7 @@ namespace Server.Methods
             response.Tickets = [];
             for(int i =0; i < _r?.Ticket?.Count; i++)
             {
-                response.Tickets?.Add(_db.AddTicket(_r.Ticket[i]));
+                response.Tickets?.Add(_db.AddTicket(_r.Ticket[i]) ?? new());
                 Console.WriteLine($"{DateTime.Now} --> Ticket - {_r.Ticket[i].Number} has been Successfully added.\r\n");
             }
 
@@ -22,7 +22,7 @@ namespace Server.Methods
             {
                 response.Message = $"SUCCESS";
             }
-            else if (response.Tickets.Count == 0) 
+            else if (response.Tickets!.Count == 0) 
             {
                 response.Message = "FAILED";
             }

@@ -43,22 +43,22 @@ namespace ClientModule.Resources.ViewModels
         {
             Countries = WorkingObjectsRepository.Countries;
             
-            Departure_country = Countries[0] ?? new();
+            Departure_country = Countries?[0] ?? new();
             Departure_countryId = 0;
 
-            Arrival_country = Countries[0] ?? new();
+            Arrival_country = Countries?[0] ?? new();
             Arrival_countryId = 0;
 
             Departure_cities = new ObservableCollection<CityNPC>(WorkingObjectsRepository.Cities!
-                .Where(c => c.CountryId == departure_country.Id).ToList());
+                .Where(c => c.CountryId == departure_country?.Id).ToList());
             Arrival_cities = new ObservableCollection<CityNPC>(WorkingObjectsRepository.Cities!
-                .Where(c => c.CountryId == arrival_country.Id).ToList());
+                .Where(c => c.CountryId == arrival_country?.Id).ToList());
             Departure_city = WorkingObjectsRepository.Cities!
-                .Where(c => c.CountryId == departure_country.Id).SingleOrDefault();
+                .Where(c => c.CountryId == departure_country?.Id).SingleOrDefault();
             Arrival_city = WorkingObjectsRepository.Cities!
-                .Where(c => c.CountryId == arrival_country.Id).SingleOrDefault();
+                .Where(c => c.CountryId == arrival_country?.Id).SingleOrDefault();
             Flights = new ObservableCollection<FlightNPC> (WorkingObjectsRepository.Flights!
-                .Where(c => c.ArrivaleCity == arrival_city.Name && c.DepartureCity == departure_city.Name).ToList());
+                .Where(c => c.ArrivaleCity == arrival_city?.Name && c.DepartureCity == departure_city?.Name).ToList());
         }
         [RelayCommand]
         private void DepartureCountryChanged()
@@ -71,7 +71,7 @@ namespace ClientModule.Resources.ViewModels
             {
                 for (int i = 0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if (departure_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
+                    if (departure_airports_tempId!.Contains(WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
@@ -84,15 +84,15 @@ namespace ClientModule.Resources.ViewModels
                     .Where(c => c.CountryId == arrival_country.Id).Select(c => c.Id).ToList();
                 for (int i = 0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if (departure_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId)
-                        && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
+                    if (departure_airports_tempId!.Contains(WorkingObjectsRepository.Gates[i].AirportId)
+                        && arrival_airports_tempId!.Contains(WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
-
                 }
             }
-            Flights = new ObservableCollection<FlightNPC>();
+
+            Flights = [];
 
             for (int i = 0; i < WorkingObjectsRepository.Flights?.Count; i++)
             {
@@ -101,7 +101,6 @@ namespace ClientModule.Resources.ViewModels
                     Flights.Add(WorkingObjectsRepository.Flights[i]);
                 }
             }
-
         }
 
         [RelayCommand]
@@ -114,12 +113,11 @@ namespace ClientModule.Resources.ViewModels
             {
                 for(int i =0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if ( departure_airports_tempId.Contains (WorkingObjectsRepository.Gates[i].AirportId))
+                    if ( departure_airports_tempId!.Contains (WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
                 }
-                
             }
             else if(Departure_city != null && Arrival_city != null)
             {
@@ -127,12 +125,11 @@ namespace ClientModule.Resources.ViewModels
                     .Where(c => c.CityId == arrival_city.Id).Select(c=>c.Id).ToList();
                 for (int i = 0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if (departure_airports_tempId.Contains (WorkingObjectsRepository.Gates[i].AirportId) 
-                        && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
+                    if (departure_airports_tempId!.Contains (WorkingObjectsRepository.Gates[i].AirportId) 
+                        && arrival_airports_tempId!.Contains(WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
-
                 }
             }
             Flights = new ObservableCollection<FlightNPC>();
@@ -147,7 +144,6 @@ namespace ClientModule.Resources.ViewModels
 
         }
 
-
         [RelayCommand]
         private void ArrivalCountryChanged()
         {
@@ -158,12 +154,11 @@ namespace ClientModule.Resources.ViewModels
             {
                 for (int i = 0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if (arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
+                    if (arrival_airports_tempId!.Contains(WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
                 }
-
             }
             else if (Departure_country != null && Arrival_country != null)
             {
@@ -171,8 +166,8 @@ namespace ClientModule.Resources.ViewModels
                     .Where(c => c.CountryId == departure_country.Id).Select(c => c.Id).ToList();
                 for (int i = 0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if (departure_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId) 
-                        && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
+                    if (departure_airports_tempId!.Contains(WorkingObjectsRepository.Gates[i].AirportId) 
+                        && arrival_airports_tempId!.Contains(WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
@@ -200,7 +195,7 @@ namespace ClientModule.Resources.ViewModels
             {
                 for(int i =0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if ( arrival_airports_tempId.Contains (WorkingObjectsRepository.Gates[i].AirportId))
+                    if ( arrival_airports_tempId!.Contains (WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
@@ -213,8 +208,8 @@ namespace ClientModule.Resources.ViewModels
                     .Where(c => c.CityId == departure_city.Id).Select(c=>c.Id).ToList();
                 for (int i = 0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if (departure_airports_tempId.Contains (WorkingObjectsRepository.Gates[i].AirportId) 
-                        && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
+                    if (departure_airports_tempId!.Contains (WorkingObjectsRepository.Gates[i].AirportId) 
+                        && arrival_airports_tempId!.Contains(WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
@@ -240,4 +235,3 @@ namespace ClientModule.Resources.ViewModels
         }
     }
 }
-

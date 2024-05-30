@@ -43,21 +43,7 @@ namespace DataHashing
 
             return saltedData;
         }
-
-        //Currently unused
-        /*
-        private static byte[] CombineSaltWithData(byte[] salt, byte[] data)
-        {
-            byte[] saltedData = new byte[salt.Length + data.Length];
-
-            Buffer.BlockCopy(salt, 0, saltedData, 0, salt.Length);
-            Buffer.BlockCopy(data, 0, saltedData, 0, data.Length);
-
-            return saltedData;
-        }
-        */
-        //
-
+       
         private static byte[] ComputeHash(byte[] data)
         {
             return SHA256.HashData(data);

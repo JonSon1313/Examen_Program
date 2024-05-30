@@ -1,13 +1,12 @@
 ﻿using System.Net.Sockets;
 using System.Net;
 using static System.Console;
-using System.Data;
 using DataTransporting;
-using DataHashing;
 using DBLayer;
 using Server.Credentials;
 using Models;
 using Server.Methods;
+
 namespace Server
 {
     internal class Program

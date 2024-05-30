@@ -7,8 +7,7 @@ namespace Server.Methods
 {
     public class LoginCommand
     {
-        public static void LoginAdmin(FlyCompanyDBInstance _db,
-            NetworkStream _ns, Request _request)
+        public static void LoginAdmin(FlyCompanyDBInstance _db, NetworkStream _ns, Request _request)
         {
             string login = _request?.Administrator?.Login ?? "";
             string password = _request?.Administrator?.Password ?? "";

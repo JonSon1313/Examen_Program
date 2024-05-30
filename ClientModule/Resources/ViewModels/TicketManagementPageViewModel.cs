@@ -1,12 +1,9 @@
-﻿using ClientModule.Resources.Methods;
-using ClientModule.Resources.Methods.Command;
+﻿using ClientModule.Resources.Methods.Command;
 using ClientModule.Resources.Models;
 using ClientModule.Resources.Repositories;
-using ClientModule.Resources.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace ClientModule.Resources.ViewModels
 {
