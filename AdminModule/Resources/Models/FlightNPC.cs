@@ -21,6 +21,14 @@ namespace AdminModule.Resources.Models
         [ObservableProperty]
         private int fromId;
         [ObservableProperty]
+        private string departureCity;
+        [ObservableProperty]
+        private string departureCountry;
+        [ObservableProperty]
+        private string arrivaleCity;
+        [ObservableProperty]
+        private string arrivaleCountry;
+        [ObservableProperty]
         private int toId;
         [ObservableProperty]
         private decimal basePrice;

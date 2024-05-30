@@ -247,6 +247,7 @@ namespace DBLayer
                 ToId = flight.ToId,
                 BasePrice = flight.BasePrice
             });
+
             dbContext.SaveChanges();
             var temp = dbContext?.Flights.Where(i => i.Number == flight.Number).FirstOrDefault() ?? new();
             var AircraftModel = dbContext?.Aircrafts.Where(c => c.Id == flight.AircraftId).Select(c => c.Model).FirstOrDefault();

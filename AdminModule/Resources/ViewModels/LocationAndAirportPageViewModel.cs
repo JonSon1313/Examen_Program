@@ -24,12 +24,10 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedCountryChanged()
         {
-            Cities = [];
-              if (Country != null)
+            if (Country != null)
             {
-                var temp = WorkingObjectsRepository.Cities?.Where(c => c.CountryId == Country?.Id).ToList();
-                for (var i = 0; i < temp?.Count; i++)
-                    Cities.Add(temp[i]);
+                Cities = new ObservableCollection<CityNPC>(WorkingObjectsRepository.Cities?
+                    .Where(c => c.CountryId == Country?.Id).ToList() ?? []);
             }
         }
 
@@ -49,12 +47,10 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedAirportChanged()
         {
-            Terminals = [];
             if (Airport != null)
             {
-                var temp = WorkingObjectsRepository.Terminals?.Where(c => c.AirportId == Airport?.Id).ToList();
-                for (var i = 0; i < temp?.Count; i++)
-                    Terminals.Add(temp[i]);
+                Terminals = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?
+                    .Where(c => c.AirportId == Airport?.Id).ToList() ?? []);
             }
         }
 
@@ -66,12 +62,10 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedTerminalChanged()
         {
-            Gates = [];
             if (Terminal != null)
             {
-                var temp = WorkingObjectsRepository.Gates?.Where(c => c.TerminalId == Terminal?.Id).ToList();
-                for (var i = 0; i < temp?.Count; i++)
-                    Gates.Add(temp[i]);
+                Gates = new ObservableCollection<GateNPC>(WorkingObjectsRepository.Gates?
+                    .Where(c => c.TerminalId == Terminal?.Id).ToList() ?? []);
             }
         }
 
@@ -148,7 +142,7 @@ namespace AdminModule.Resources.ViewModels
         public bool CanExecuteAddGate()
         {
             return Airport?.FullName != "" &&
-                Terminal?.Name != ""; 
+                Terminal?.Name != "";
         }
 
         [RelayCommand]
@@ -194,23 +188,23 @@ namespace AdminModule.Resources.ViewModels
             var success = false;
 
             if (obj is CountryNPC)
-                success = RemoveCommand.Remove(new Country(), (obj as CountryNPC).Id,
+                success = RemoveCommand.Remove(new Country(), ((CountryNPC)obj).Id,
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("Error"));
             else if (obj is CityNPC)
-                success = RemoveCommand.Remove(new City(), (obj as CityNPC).Id,
+                success = RemoveCommand.Remove(new City(), ((CityNPC)obj).Id,
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("Error"));
             else if (obj is AirportNPC)
-                success = RemoveCommand.Remove(new Airport(), (obj as AirportNPC).Id,
+                success = RemoveCommand.Remove(new Airport(), ((AirportNPC)obj).Id,
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("Error"));
             else if (obj is TerminalNPC)
-                success = RemoveCommand.Remove(new Terminal(), (obj as TerminalNPC).Id,
+                success = RemoveCommand.Remove(new Terminal(), ((TerminalNPC)obj).Id,
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("Error"));
             else if (obj is GateNPC)
-                success = RemoveCommand.Remove(new Gate(), (obj as GateNPC).Id,
+                success = RemoveCommand.Remove(new Gate(), ((GateNPC)obj).Id,
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("Error"));
 
@@ -233,7 +227,7 @@ namespace AdminModule.Resources.ViewModels
 
             WorkingObjectsRepository.WorkObject = obj;
 
-            if (!(obj is AirportNPC))
+            if (obj is not AirportNPC)
                 await Shell.Current.GoToAsync(nameof(SmallObjectAddOrEditLocationAndAirportPage));
             else
                 await Shell.Current.GoToAsync(nameof(AddOrEditAirportPage));

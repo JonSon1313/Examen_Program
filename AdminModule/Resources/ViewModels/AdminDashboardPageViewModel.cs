@@ -15,7 +15,6 @@ namespace AdminModule.Resources.ViewModels
         public ObservableCollection<FlightNPC> flights;
         public AdminDashboardPageViewModel()
         {
-            WorkingObjectsRepository.AdminLoggedIn();
             Aircrafts = WorkingObjectsRepository.Aircrafts ?? [];
             Airports = WorkingObjectsRepository.Airports ?? [];
             Flights = WorkingObjectsRepository.Flights ?? [];

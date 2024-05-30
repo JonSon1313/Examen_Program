@@ -3,7 +3,6 @@ using AdminModule.Resources.Models;
 using AdminModule.Resources.Repositories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Models;
 using System.Collections.ObjectModel;
 
 namespace AdminModule.Resources.ViewModels
@@ -11,8 +10,8 @@ namespace AdminModule.Resources.ViewModels
     public partial class AddOrEditFlightPageViewModel : ObservableObject
     {
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private FlightNPC? flight;
-
 
         [ObservableProperty]
         private DateTime date;
@@ -41,8 +40,10 @@ namespace AdminModule.Resources.ViewModels
         [ObservableProperty]
         private TerminalNPC? arrivalTerminal;
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private GateNPC? departureGate;
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private GateNPC? arrivalGate;
 
         [ObservableProperty]
@@ -50,11 +51,8 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedDepartureIdChanged()
         {
-            TerminalsOut = [];
-            var temp = WorkingObjectsRepository.Terminals?
-                .Where(e => e.AirportId == AirportsOut?[DepartureId].Id).ToList();
-            for (int i = 0; i < temp?.Count; i++)
-                TerminalsOut?.Add(temp[i]);
+            TerminalsOut = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?
+                .Where(e => e.AirportId == AirportsOut?[DepartureId].Id).ToList() ?? []);
         }
 
         [ObservableProperty]
@@ -62,11 +60,8 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedArrivalIdChanged()
         {
-            TerminalsIn = [];
-            var temp = WorkingObjectsRepository.Terminals?
-                .Where(e => e.AirportId == AirportsIn?[ArrivalId].Id).ToList();
-            for (int i = 0; i < temp?.Count; i++)
-                TerminalsIn?.Add(temp[i]);
+            TerminalsIn = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?
+                .Where(e => e.AirportId == AirportsIn?[ArrivalId].Id).ToList() ?? []);
         }
 
         [ObservableProperty]
@@ -74,14 +69,8 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedDepartureTerminalIdChanged()
         {
-            if (DepartureTerminalId >= 0)
-            {
-            GatesOut = [];
-            var temp = WorkingObjectsRepository.Gates?
-                .Where(e => e.TerminalId == TerminalsOut?[DepartureTerminalId].Id).ToList();
-            for (int i = 0; i < temp?.Count; i++)
-                GatesOut?.Add(temp[i]);
-            }
+            GatesOut = new ObservableCollection<GateNPC>(WorkingObjectsRepository.Gates?
+                .Where(e => e.TerminalId == TerminalsOut?[DepartureTerminalId].Id).ToList() ?? []);
         }
 
         [ObservableProperty]
@@ -89,11 +78,8 @@ namespace AdminModule.Resources.ViewModels
         [RelayCommand]
         private void SelectedArrivalTerminalIdChanged()
         {
-            GatesIn = [];
-            var temp = WorkingObjectsRepository.Gates?
-                .Where(e => e.TerminalId == TerminalsIn?[ArrivalTerminalId].Id).ToList();
-            for (int i = 0; i < temp?.Count; i++)
-                GatesIn?.Add(temp[i]);
+            GatesIn = new ObservableCollection<GateNPC>(WorkingObjectsRepository.Gates?
+                .Where(e => e.TerminalId == TerminalsIn?[ArrivalTerminalId].Id).ToList() ?? []);
         }
         
         [ObservableProperty]
@@ -109,6 +95,9 @@ namespace AdminModule.Resources.ViewModels
             ActionKey = WorkingObjectsRepository.Action;
 
             Flight = WorkingObjectsRepository.WorkObject as FlightNPC;
+
+            Date= DateTime.Now;
+
             AirportsIn = WorkingObjectsRepository.Airports;
             AirportsOut = WorkingObjectsRepository.Airports;
             Aircrafts = WorkingObjectsRepository.Aircrafts;
@@ -120,16 +109,22 @@ namespace AdminModule.Resources.ViewModels
                 Date = Flight.DepartureTime;
                 Time = Flight.DepartureTime.TimeOfDay;
 
-                Aircraft = Aircrafts?.Where(e => e.Id == Flight.AircraftId).SingleOrDefault();
-
-                DepartureGate = WorkingObjectsRepository.Gates?.Where(e => e.Id == Flight.FromId).FirstOrDefault();
-                ArrivalGate = WorkingObjectsRepository.Gates?.Where(e => e.Id == Flight.ToId).FirstOrDefault();
-
-                DepartureTerminal = WorkingObjectsRepository.Terminals?.Where(e=>e.Id == DepartureGate?.TerminalId).FirstOrDefault();
-                ArrivalTerminal = WorkingObjectsRepository.Terminals?.Where(e=>e.Id == ArrivalGate?.TerminalId).FirstOrDefault();
-                
                 Departure = AirportsOut?.Where(e => e.Id == DepartureGate?.AirportId).FirstOrDefault();
                 Arrival = AirportsOut?.Where(e => e.Id == ArrivalGate?.AirportId).FirstOrDefault();
+
+                Aircraft = Aircrafts?.Where(e => e.Id == Flight.AircraftId).SingleOrDefault();
+
+                DepartureTerminal = WorkingObjectsRepository.Terminals?.Where(e=>e.Id == DepartureGate?.TerminalId).FirstOrDefault();
+                TerminalsOut = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?.Where(e => e.AirportId == Departure?.Id).ToList() ?? []);
+
+                ArrivalTerminal = WorkingObjectsRepository.Terminals?.Where(e=>e.Id == ArrivalGate?.TerminalId).FirstOrDefault();
+                TerminalsIn = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?.Where(e => e.AirportId == Arrival?.Id).ToList() ?? []);
+
+                DepartureGate = WorkingObjectsRepository.Gates?.Where(e => e.Id == Flight.FromId).FirstOrDefault();
+                GatesOut = new ObservableCollection<GateNPC> (WorkingObjectsRepository.Gates?.Where(e => e.AirportId == Departure?.Id).ToList() ?? []);
+
+                ArrivalGate = WorkingObjectsRepository.Gates?.Where(e => e.Id == Flight.ToId).FirstOrDefault();
+                GatesIn = new ObservableCollection<GateNPC> (WorkingObjectsRepository.Gates?.Where(e => e.AirportId == Arrival?.Id).ToList() ?? []);
             }
         }
 
@@ -138,9 +133,9 @@ namespace AdminModule.Resources.ViewModels
         {
             if (ActionKey == "ADD")
             {
-                Flight.AircraftId = Aircraft.Id;
-                Flight.ToId = Arrival.Id;
-                Flight.FromId = Departure.Id;
+                Flight!.AircraftId = Aircraft!.Id;
+                Flight.ToId = Arrival!.Id;
+                Flight.FromId = Departure!.Id;
                 Flight.DepartureTime = DateTime.Parse($"{Date.ToShortDateString()} {Time}");
                 Console.WriteLine($"{Time}");
                 if (AddCommand.Add(Flight?.ConvertToFlight() ?? new(),
@@ -161,7 +156,7 @@ namespace AdminModule.Resources.ViewModels
         }
         private bool CanExecuteAction()
         {
-            return Flight?.Number != null &&
+            return Flight?.Number != "" &&
                    Flight?.BasePrice != 0 &&
                    Flight?.DepartureTime != null &&
                    DepartureGate?.Name != "" &&
