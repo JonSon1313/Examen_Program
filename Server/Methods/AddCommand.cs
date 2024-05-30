@@ -44,11 +44,11 @@ namespace Server.Methods
                 response.Message = "ADDED";
                 Console.WriteLine($"{(_obj as City).Name} City added ");
             }
-            else if (_obj is Client)
+            else if(_obj is Client)
             {
                 response.Client = _db.AddClient(_obj as Client ?? new());
                 response.Message = "ADDED";
-                Console.WriteLine($"{(_obj as Client).FirstName} Client added ");
+                Console.WriteLine($"{(_obj as Client).FirstName} {(_obj as Client).MiddleName} Client added ");
             }
             else if(_obj is Country)
             {
@@ -62,7 +62,11 @@ namespace Server.Methods
             {
                 response.Flights = [];
                 response.Flights?.Add(_db.AddFlight(_obj as Flight ?? new()));
-                response.Message = "ADDED";
+                if(response.Flights.Count == 1)
+                {
+                    response.Message = "ADDED";
+                    //var AircraftModel = 
+                }
                 Console.WriteLine($"{(_obj as Flight).Number} Flight added ");
             }
             else if(_obj is Gate)

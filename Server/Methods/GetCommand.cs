@@ -58,6 +58,18 @@ namespace Server.Methods
                 response.Message = "PRESENT";
                 Console.WriteLine($" Gate has been sended ");
             }
+            else if(_r.Message == "GETSEAT")
+            {
+                response.Seats = _db.GetSeat();
+                response.Message = "PRESENT";
+                Console.WriteLine($" Seat has been sended ");
+            }
+            else if(_r.Message == "GETSEATBYID")
+            {
+                response.Seats = _db.GetSeatById(_r.IdToDelete);
+                response.Message = "PRESENT";
+                Console.WriteLine($" Seat has been sended ");
+            }
             else if (_r.Message == "GETSEATTYPE")
             {
                 response.SeatTypes = _db.GetSeatType();
@@ -70,9 +82,13 @@ namespace Server.Methods
                 response.Message = "PRESENT";
                 Console.WriteLine($" Terminal has been sended ");
             }
+            else if (_r.Message == "GETTICKET")
+            {
+                response.Tickets = _db.GetTicketsById(_r.ObjectId);
+                response.Message = "PRESENT";
+                Console.WriteLine($" Ticket has been sended ");
+            }
 
-
-            //окрім Seat
             ByteTransporting.SendBinary(_ns, response);
         }
     }

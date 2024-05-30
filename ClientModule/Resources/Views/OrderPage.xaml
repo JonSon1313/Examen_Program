@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:ClientModule.Resources.Models"
+             xmlns:vm="clr-namespace:ClientModule.Resources.ViewModels"
+             x:Class="ClientModule.Resources.Views.OrderPage"
+             x:DataType="vm:OrderPageViewModel"
+             BindingContext="{vm:OrderPageViewModel}"
+             Shell.FlyoutBehavior="Disabled">
+    <Grid ColumnDefinitions="1*,1*"
+          RowDefinitions="1*, 1*, 0.2*">
+
+        <CollectionView Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                        ItemsSource="{Binding Seats}"
+                        SelectedItems="{Binding SelectedSeats}"
+                        SelectionChangedCommand="{Binding SelectedSeatsChangedCommand}"
+                        SelectionMode="Multiple">
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="1*, 1*, 1*">
+                    <Label Grid.Column="0" 
+                     Text="SeatNumber"/>
+                    <Label Grid.Column="1" 
+                     Text="Availability"/>
+                    <Label Grid.Column="2" 
+                     Text="Type"/>
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:SeatNPC">
+                    <Grid ColumnDefinitions="1*, 1*, 1*">
+                        <Label Grid.Column="0"
+                               Text="{Binding Name}"/>
+                        <CheckBox Grid.Column="1"
+                               IsChecked="{Binding Reserved}"
+                                  IsEnabled="false"/>
+                        <Label Grid.Column="2"
+                               Text="{Binding SeatType}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+        <CollectionView Grid.Column="1" Grid.Row="0" 
+                        ItemsSource="{Binding Tickets}"
+                        SelectedItem="{Binding SelectedSeats}"
+                        SelectionChangedCommand="{Binding SelectedTicketChangedCommand}"
+                        SelectionMode="Single">
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
+                    <Label Grid.Column="0" 
+                     Text="Number"/>
+                    <Label Grid.Column="1" 
+                     Text="Sale time"/>
+                    <Label Grid.Column="2" 
+                     Text="Discount"/>
+                    <Label Grid.Column="3" 
+                     Text="Total rice"/>
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:TicketNPC">
+                    <Grid ColumnDefinitions="1*, 1*, 1*, 1*">
+                        <Label Grid.Column="0"
+                               Text="{Binding Number}"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding SaleTime}"/>
+                        <Label Grid.Column="2"
+                               Text="{Binding Discount}"/>
+                        <Label Grid.Column="3"
+                               Text="{Binding FinalPrice}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Grid Grid.Column="1"
+              Grid.Row="1"
+              RowDefinitions="1*, 0.4*">
+            <Label Grid.Row="1"
+                   Text="{Binding Message}"/>
+            <Grid Grid.Row="1"
+                  ColumnDefinitions="1*, 1*">
+                <Button Text="Back"
+                        Command="{Binding BackCommand}"/>
+                <Button Grid.Column="1"
+                        Text="Order"
+                        Command="{Binding OrderCommand}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

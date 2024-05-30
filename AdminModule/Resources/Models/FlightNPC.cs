@@ -36,6 +36,7 @@ namespace AdminModule.Resources.Models
                 DepartureTime = flight.DepartureTime,
                 FromId = flight.FromId,
                 ToId = flight.ToId,
+
                 BasePrice = flight.BasePrice
             };
         }
