@@ -64,6 +64,7 @@ namespace AdminModule.Resources.ViewModels
                         throw new Exception("EndPoint is Missing"));
             }
         }
+
         private bool CanExecuteAction()
         {
             return Airport?.FullName != "" &&

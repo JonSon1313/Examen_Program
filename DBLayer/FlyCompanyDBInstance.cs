@@ -364,7 +364,7 @@ namespace DBLayer
             });
             dbContext.SaveChanges();
 
-            return dbContext?.Gates.Where(i => i.Name == i.Name).FirstOrDefault() ?? new();
+            return dbContext?.Gates.Where(i => i.Name == gate.Name && i.AirportId == gate.AirportId).FirstOrDefault() ?? new();
         }
 
         public List<Gate>? GetGate()

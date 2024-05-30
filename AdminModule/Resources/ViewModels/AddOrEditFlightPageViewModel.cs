@@ -48,6 +48,7 @@ namespace AdminModule.Resources.ViewModels
 
         [ObservableProperty]
         private int departureId;
+
         [RelayCommand]
         private void SelectedDepartureIdChanged()
         {
@@ -57,6 +58,7 @@ namespace AdminModule.Resources.ViewModels
 
         [ObservableProperty]
         private int arrivalId;
+
         [RelayCommand]
         private void SelectedArrivalIdChanged()
         {
@@ -66,6 +68,7 @@ namespace AdminModule.Resources.ViewModels
 
         [ObservableProperty]
         private int departureTerminalId;
+
         [RelayCommand]
         private void SelectedDepartureTerminalIdChanged()
         {
@@ -75,6 +78,7 @@ namespace AdminModule.Resources.ViewModels
 
         [ObservableProperty]
         private int arrivalTerminalId;
+
         [RelayCommand]
         private void SelectedArrivalTerminalIdChanged()
         {
@@ -114,17 +118,25 @@ namespace AdminModule.Resources.ViewModels
 
                 Aircraft = Aircrafts?.Where(e => e.Id == Flight.AircraftId).SingleOrDefault();
 
-                DepartureTerminal = WorkingObjectsRepository.Terminals?.Where(e=>e.Id == DepartureGate?.TerminalId).FirstOrDefault();
-                TerminalsOut = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?.Where(e => e.AirportId == Departure?.Id).ToList() ?? []);
+                DepartureTerminal = WorkingObjectsRepository.Terminals?
+                    .Where(e=>e.Id == DepartureGate?.TerminalId).FirstOrDefault();
+                TerminalsOut = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?
+                    .Where(e => e.AirportId == Departure?.Id).ToList() ?? []);
 
-                ArrivalTerminal = WorkingObjectsRepository.Terminals?.Where(e=>e.Id == ArrivalGate?.TerminalId).FirstOrDefault();
-                TerminalsIn = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?.Where(e => e.AirportId == Arrival?.Id).ToList() ?? []);
+                ArrivalTerminal = WorkingObjectsRepository.Terminals?
+                    .Where(e=>e.Id == ArrivalGate?.TerminalId).FirstOrDefault();
+                TerminalsIn = new ObservableCollection<TerminalNPC>(WorkingObjectsRepository.Terminals?
+                    .Where(e => e.AirportId == Arrival?.Id).ToList() ?? []);
 
-                DepartureGate = WorkingObjectsRepository.Gates?.Where(e => e.Id == Flight.FromId).FirstOrDefault();
-                GatesOut = new ObservableCollection<GateNPC> (WorkingObjectsRepository.Gates?.Where(e => e.AirportId == Departure?.Id).ToList() ?? []);
+                DepartureGate = WorkingObjectsRepository.Gates?
+                    .Where(e => e.Id == Flight.FromId).FirstOrDefault();
+                GatesOut = new ObservableCollection<GateNPC> (WorkingObjectsRepository.Gates?
+                    .Where(e => e.AirportId == Departure?.Id).ToList() ?? []);
 
-                ArrivalGate = WorkingObjectsRepository.Gates?.Where(e => e.Id == Flight.ToId).FirstOrDefault();
-                GatesIn = new ObservableCollection<GateNPC> (WorkingObjectsRepository.Gates?.Where(e => e.AirportId == Arrival?.Id).ToList() ?? []);
+                ArrivalGate = WorkingObjectsRepository.Gates?
+                    .Where(e => e.Id == Flight.ToId).FirstOrDefault();
+                GatesIn = new ObservableCollection<GateNPC> (WorkingObjectsRepository.Gates?
+                    .Where(e => e.AirportId == Arrival?.Id).ToList() ?? []);
             }
         }
 
@@ -134,10 +146,11 @@ namespace AdminModule.Resources.ViewModels
             if (ActionKey == "ADD")
             {
                 Flight!.AircraftId = Aircraft!.Id;
-                Flight.ToId = Arrival!.Id;
-                Flight.FromId = Departure!.Id;
+                Flight.ToId = ArrivalGate!.Id;
+                Flight.FromId = DepartureGate!.Id;
+
                 Flight.DepartureTime = DateTime.Parse($"{Date.ToShortDateString()} {Time}");
-                Console.WriteLine($"{Time}");
+
                 if (AddCommand.Add(Flight?.ConvertToFlight() ?? new(),
                         ConnectionCredentialsRepository.EP ??
                         throw new Exception("EndPoint is Missing")))

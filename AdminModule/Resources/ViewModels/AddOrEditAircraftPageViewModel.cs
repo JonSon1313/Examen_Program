@@ -11,6 +11,7 @@ namespace AdminModule.Resources.ViewModels
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(ActionCommand))]
         private AircraftNPC? aircraft;
+
         [ObservableProperty]
         private string actionKey;
 
@@ -56,6 +57,7 @@ namespace AdminModule.Resources.ViewModels
                 }
             }
         }
+
         public bool CanExecuteAction()
         {
             return Aircraft?.Manufacturer != "" &&

@@ -1,5 +1,4 @@
 ﻿using AdminModule.Resources.Interfaces;
-using AdminModule.Resources.ViewModels;
 using AdminModule.Resources.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;

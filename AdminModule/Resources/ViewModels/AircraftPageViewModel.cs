@@ -32,6 +32,7 @@ namespace AdminModule.Resources.ViewModels
                 }
             }
         }
+
         [RelayCommand]
         private async Task Modify(object obj)
         { 
@@ -42,6 +43,7 @@ namespace AdminModule.Resources.ViewModels
                 await Shell.Current.GoToAsync(nameof(AddOrEditAircraftPage));
             }
         }
+
         [RelayCommand]
         private async Task Add()
         {

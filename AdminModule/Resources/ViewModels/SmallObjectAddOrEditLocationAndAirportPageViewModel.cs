@@ -203,7 +203,7 @@ namespace AdminModule.Resources.ViewModels
                     return City?.Name != "" &&
                         Country?.Name != "";
                 case "ADDTERMINAL": 
-                case "EDIRCOMMAND":
+                case "EDITTERMINAL":
                     return Terminal?.Name != "" &&
                         Airport?.FullName != "";
                 case "ADDGATE":

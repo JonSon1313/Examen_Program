@@ -11,6 +11,7 @@ namespace AdminModule.Resources.ViewModels
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(LogInCommand))]
         private string? login;
+
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(LogInCommand))]
         private string? password;
@@ -49,6 +50,7 @@ namespace AdminModule.Resources.ViewModels
                 Password = "";
             }
         }
+
         private bool CanExecuteLogIn()
         {
             return Login != "" &&

@@ -7,8 +7,10 @@ namespace AdminModule.Resources.Models
     {
         [ObservableProperty]
         private int id;
+
         [ObservableProperty]
         private string name;
+
         [ObservableProperty]
         private int terminalId;
         [ObservableProperty]
@@ -16,7 +18,6 @@ namespace AdminModule.Resources.Models
 
         public static GateNPC ConvertFromGateToNew(Gate gate)
         {
-
             return new()
             {
                 Id = gate.Id,

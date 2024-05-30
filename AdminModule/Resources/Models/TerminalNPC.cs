@@ -12,7 +12,6 @@ namespace AdminModule.Resources.Models
         [ObservableProperty]
         public int airportId;
 
-
         public static TerminalNPC ConvertFromTerminalToNew(Terminal terminal)
         {
 

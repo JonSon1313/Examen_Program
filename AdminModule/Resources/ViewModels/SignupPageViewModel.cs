@@ -4,7 +4,6 @@ using AdminModule.Resources.Repositories;
 using AdminModule.Resources.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.ComponentModel;
 
 namespace AdminModule.Resources.ViewModels
 {
@@ -56,6 +55,7 @@ namespace AdminModule.Resources.ViewModels
                 CreateNewUser();
             }
         }
+
         public bool CanExecuteSignup()
         {
             return Admin?.FirstName != "" &&

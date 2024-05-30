@@ -74,7 +74,7 @@ namespace Server.Methods
                 response.Gates = [];
                 response.Gates?.Add(_db.AddGate(_obj as Gate ?? new()));
                 response.Message = "ADDED";
-                Console.WriteLine($"{(_obj as Gate).Name} Flight added ");
+                Console.WriteLine($"{(_obj as Gate).Name} Gate added ");
             }
             else if(_obj is SeatType)
             {

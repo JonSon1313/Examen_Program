@@ -48,22 +48,22 @@ namespace AdminModule.Resources.Repositories
             GetTerminals();
             //GetSeats();
             GetSeatTypes();
-            //GetTickets();
             GetFlights();
         }
 
         public static void AdminLogoff()
         {
-            Aircrafts = null;
-            Airports = null;
-            Terminals = null;
-            Seats = null;
-            Tickets = null;
-            Gates = null;
-            Cities = null;
-            Countries = null;
-            SeatTypes = null;
-            Flights = null;
+            
+            Aircrafts = [];
+            Airports = [];
+            Terminals = [];
+            Seats = [];
+            Tickets = [];
+            Gates = [];
+            Cities = [];
+            Countries = [];
+            SeatTypes = [];
+            Flights = [];
         }
 
         private static void GetAirplanes()
@@ -125,13 +125,6 @@ namespace AdminModule.Resources.Repositories
         private static void GetFlights()
         {
             if (!GetCommand.Get(new Flight(),Flights ?? [],
-                ConnectionCredentialsRepository.EP ??
-                throw new Exception("EndPoint is Missing")))
-            {            }
-        }
-        private static void GetTickets()
-        {
-            if (!GetCommand.Get(new Ticket(),Tickets ?? [],
                 ConnectionCredentialsRepository.EP ??
                 throw new Exception("EndPoint is Missing")))
             {            }

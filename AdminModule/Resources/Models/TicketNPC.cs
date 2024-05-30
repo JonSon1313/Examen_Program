@@ -1,5 +1,4 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Models;
 
 namespace AdminModule.Resources.Models
@@ -8,14 +7,18 @@ namespace AdminModule.Resources.Models
     {
         [ObservableProperty]
         private int id;
+
         [ObservableProperty]
         private string number;
+
         [ObservableProperty]
         private DateTime saleTime;
+
         [ObservableProperty]
         private int clientId;
         [ObservableProperty]
         private int flightId;
+
         [ObservableProperty]
         public double discount;
         [ObservableProperty]

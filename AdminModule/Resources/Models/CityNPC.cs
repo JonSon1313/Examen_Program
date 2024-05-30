@@ -1,5 +1,4 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Models;
 
 namespace AdminModule.Resources.Models
@@ -22,6 +21,7 @@ namespace AdminModule.Resources.Models
                 CountryId = city.CountryId,
             };
         }
+
         public City ConvertToCity()
         {
             return new()
@@ -34,7 +34,7 @@ namespace AdminModule.Resources.Models
 
         public override string ToString()
         {
-            return Name;
+            return Name ?? "";
         }
     }
 }
