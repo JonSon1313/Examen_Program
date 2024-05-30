@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ClientModule.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:interfaces="clr-namespace:ClientModule.Resources.Interfaces"
+    xmlns:local="clr-namespace:ClientModule"
+    xmlns:vm="clr-namespace:ClientModule.Resources.ViewModels"
+    BindingContext="{vm:AppShellViewModel}"
+    x:DataType="vm:AppShellViewModel"
+    Shell.NavBarIsVisible="False"
+    Title="ClientModule">
+    <Shell.FlyoutBackgroundColor>
+        White
+    </Shell.FlyoutBackgroundColor>
+    <Shell.FlyoutHeader>
+        <Grid RowDefinitions="1*, 1*"
+          ColumnDefinitions="1*, 2*">
+            <Image Grid.Row="0"
+               Grid.RowSpan="2"
+               Grid.Column="0"
+               Source="plane1.png"
+               Margin="20"/>
+            <Label Grid.Row="0"
+               Grid.Column="1"
+               Text="User:"/>
+            <Label Grid.Row="1"
+               Grid.Column="1"
+               Text="{Binding Client.Login}"/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <ShellContent
+        ContentTemplate="{DataTemplate interfaces:ILoginPage}"
+        Route="LoginPage" 
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
+    
+    <ShellContent
+        ContentTemplate="{DataTemplate interfaces:ISignupPage}"
+        Route="SignupPage" 
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"/>
+
+    <FlyoutItem Title="Dashboard"
+                Icon="DashBoard.ico">
+        <ShellContent
+        ContentTemplate="{DataTemplate interfaces:IClientDashboardPage}"
+        Route="ClientDashboardPage"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Buy Ticket"
+                Icon="Buy.ico">
+        <ShellContent
+        ContentTemplate="{DataTemplate interfaces:IShopingPage}"
+        Route="ShopingPage"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Tickets"
+                Icon="Ticket.ico">
+        <ShellContent
+        ContentTemplate="{DataTemplate interfaces:ITicketManagementPage}"
+        Route="TicketManagmentPage"/>
+    </FlyoutItem>
+
+    <Shell.FlyoutFooter>
+        <Grid ColumnDefinitions="1*, 0.4*">
+            <Button Text="Logout"
+                Command="{Binding LogoutCommand}"/>
+            <Button Grid.Column="1"
+                    Text="Our site"
+                Command="{Binding RedirectToSiteCommand}"/>
+        </Grid>
+    </Shell.FlyoutFooter>
+    
+    
+    
+    
+</Shell>  
+
+

@@ -17,7 +17,7 @@ namespace DBLayer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -413,6 +413,9 @@ namespace DBLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("SEATNUMBER")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("SaleTime")
                         .HasColumnType("datetime2");

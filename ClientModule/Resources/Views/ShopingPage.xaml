@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ClientModule.Resources.ViewModels"
+             xmlns:m="clr-namespace:ClientModule.Resources.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Name="Main"
+             x:Class="ClientModule.Resources.Views.ShopingPage"
+             x:DataType="vm:ShopingPageViewModel"
+             BindingContext="{vm:ShopingPageViewModel}">
+
+    <Grid RowDefinitions="1*,2*"
+        ColumnDefinitions="1*,1*">
+        <Grid Grid.Row="0"
+            Grid.Column="0"
+            RowDefinitions="1*,1*,1*,1*">
+            <Label
+                Text="Departure Country"/>
+            <Picker
+                Grid.Row ="1"
+                ItemsSource="{Binding Countries}"
+                SelectedItem="{Binding Departure_country}"
+                SelectedIndex="{Binding Departure_countryId}">
+                
+                <Picker.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                     Command="{Binding DepartureCountryChangedCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+            <Label Grid.Row="2"
+                Text="Departure City"/>
+            <Picker
+                Grid.Row ="3"
+               ItemsSource="{Binding Departure_cities}"
+               SelectedItem="{Binding Departure_city}"
+               SelectedIndex="{Binding Departure_cityId}">
+                <Picker.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                          Command="{Binding DepartureCityChangedCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+
+        </Grid> 
+           <Grid Grid.Row="0"
+            Grid.Column="1"
+            RowDefinitions="1*,1*,1*,1*">
+            <Label
+                Text="Arrival Country"/>
+            <Picker
+                Grid.Row ="1"
+                ItemsSource="{Binding Countries}"
+                SelectedItem="{Binding Arrival_country}"
+                SelectedIndex="{Binding Arrival_countryId}">
+                <Picker.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                     Command="{Binding ArrivalCountryChangedCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+            <Label Grid.Row="2"
+                Text="Arrival City"/>
+            <Picker
+                Grid.Row ="3"
+               ItemsSource="{Binding Arrival_cities}"
+               SelectedItem="{Binding Arrival_city}"
+                SelectedIndex="{Binding Arrival_cityId}">
+                <Picker.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged"
+                          Command="{Binding ArrivalCityChangedCommand}"/>
+                </Picker.Behaviors>
+            </Picker>
+
+        </Grid>
+
+        <CollectionView Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Flights}" 
+                        SelectedItem="{Binding Flight}" 
+                        SelectionMode="Single">
+            <CollectionView.Header>
+                <Grid ColumnDefinitions="1*, 1*, 1*, 1*,1*,1*,1*,1*">
+                    <Label Grid.Column="0" 
+                     Text="Flight Number"/>
+                    <Label Grid.Column="1" 
+                     Text="Departure Country"/>
+                    <Label Grid.Column="2" 
+                       Text="Departure City"/>
+                    <Label Grid.Column="3" 
+                         Text="Arrival Country"/>
+                    <Label Grid.Column="4" 
+                          Text="Arrival City"/>
+                    <Label Grid.Column="5" 
+                          Text="Flight Date"/>
+                    <Label Grid.Column="6" 
+                           Text="Price"/>
+                </Grid>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:FlightNPC">
+                    <Grid ColumnDefinitions="1*, 1*, 1*, 1*,1*,1*,1*,1*">
+                        <Label Grid.Column="0"
+                    Text="{Binding Number}"/>
+                        <Label Grid.Column="1" 
+                    Text="{Binding DepartureCountry}"/>
+                            <Label Grid.Column="2" 
+                    Text="{Binding DepartureCity}"/>
+                            <Label Grid.Column="3" 
+                    Text="{Binding ArrivaleCountry}"/>
+                            <Label Grid.Column="4" 
+                    Text="{Binding ArrivaleCity}"/>
+                            <Label Grid.Column="5" 
+                    Text="{Binding DepartureTime}"/>
+                            <Label Grid.Column="6"
+                    Text="{Binding BasePrice}"/>
+                        <Button Grid.Column="7"
+                                Command="{Binding Source={x:Reference Main}, Path=BindingContext.OpenOrderPageCommand}" CommandParameter="{Binding}"
+                            Text="Order"/>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

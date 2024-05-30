@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Models;
 
 namespace DBLayer
@@ -9,7 +10,7 @@ namespace DBLayer
 
         public FlyCompanyDBInstance()
         {
-            FlyCompanyDBContextBuilder builder = new ();
+            FlyCompanyDBContextBuilder builder = new();
             dbContext = builder.CreateDbContext([]);
         }
         public Administrator AddAdministration(Administrator admin)
@@ -117,6 +118,11 @@ namespace DBLayer
             dbContext.SaveChanges();
         }
 
+        public List<Ticket> GetTicketsById(int clientId) 
+        {
+            return dbContext.Tickets.Where(e=>e.ClientId == clientId).ToList();
+        }
+
         public void DeleteAirport(int Id)
         {
             dbContext.Airports?.Remove(dbContext.Airports.Where(i => i.Id == Id).FirstOrDefault() ?? new());
@@ -168,7 +174,7 @@ namespace DBLayer
             });
             dbContext.SaveChanges();
 
-            return dbContext?.Clients.Where(i => i.FirstName == client.FirstName).FirstOrDefault() ?? new();
+            return dbContext?.Clients.Where(i => i.Email == client.Email).FirstOrDefault() ?? new();
 
         }
 
@@ -243,14 +249,44 @@ namespace DBLayer
             });
 
             dbContext.SaveChanges();
+            var temp = dbContext?.Flights.Where(i => i.Number == flight.Number).FirstOrDefault() ?? new();
+            var AircraftModel = dbContext?.Aircrafts.Where(c => c.Id == flight.AircraftId).Select(c => c.Model).FirstOrDefault();
+            if (AircraftModel == "A320NEO")
+            {
+                var EconomId = dbContext.SeatTypes.Where(c => c.Name == "Econom").Select(c => c.Id).FirstOrDefault();
+                for (int i = 0; i < 180; i++)
+                {
 
-            return dbContext?.Flights.Where(i => i.Number == flight.Number).FirstOrDefault() ?? new();
+                    dbContext?.Seats.Add(new Seat { Name = $"{i+1}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = EconomId, Reserved = false });
+                }
+            }
+            if (AircraftModel == "777-200ER")
+            {
+                var BusinessId = dbContext.SeatTypes.Where(c => c.Name == "Business").Select(c => c.Id).FirstOrDefault();
+                var FirstClassId = dbContext.SeatTypes.Where(c => c.Name == "FirstClass").Select(c => c.Id).FirstOrDefault();
+                var EconomId = dbContext.SeatTypes.Where(c => c.Name == "Econom").Select(c => c.Id).FirstOrDefault();
+                for (int i = 0; i < 16; i++)
+                {
+                    dbContext?.Seats.Add(new Seat { Name = $"{i+1}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = FirstClassId, Reserved = false });
+                }
+                for (int i = 0; i < 324; i++)
+                {
+                    dbContext?.Seats.Add(new Seat { Name = $"{i+1}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = EconomId, Reserved = false });
+                }
+                for (int i = 0; i < 21; i++)
+                {
+                    dbContext?.Seats.Add(new Seat { Name = $"{i+1}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = BusinessId, Reserved = false });
+                }
+            }
+            dbContext?.SaveChanges();
+            return temp;
         }
 
         public List<Flight>? GetFlight()
         {
             return dbContext?.Flights.Include(a => a.Seats).ToList();
         }
+
         public void EditFlight(Flight flight)
         {
             Flight? temp = dbContext.Flights.Where(i => i.Id == flight.Id).FirstOrDefault();
@@ -265,8 +301,55 @@ namespace DBLayer
             dbContext.SaveChanges();
         }
 
+        public Ticket? AddTicket(Ticket ticket)
+        {
+            if(dbContext.Seats.Where(e=>e.Id == ticket.AtSeat && e.Reserved == true).SingleOrDefault() != null) 
+            {
+                return null;
+            }
+
+            dbContext.Tickets.Add(new()
+            {
+                Number = ticket.Number,
+                SaleTime = ticket.SaleTime,
+                FlightId = ticket.FlightId,
+                ClientId = ticket.ClientId,
+                Discount = ticket.Discount,
+                FinalPrice = ticket.FinalPrice,
+                AtSeat = ticket.AtSeat,
+            });
+            dbContext.SaveChanges();
+
+            var user = dbContext.Tickets.Where(i => i.Number == ticket.Number).SingleOrDefault() ?? new();
+            if (user != null)
+            {
+                OrderSeat(user.AtSeat);
+                return user;
+            }
+            return null;
+        }
+
+        public void DeleteTicket(Ticket ticket)
+        {
+            UnOrderSeat(ticket.AtSeat);
+            dbContext.Tickets?.Remove(dbContext.Tickets.Where(i => i.Id == ticket.Id).FirstOrDefault() ?? new());
+            dbContext.SaveChanges();
+        }
+        public double GetDiscountForTicket(int Id, DateTime? Date)
+        {
+            var temp = dbContext.Flights.Where(i => i.Id == Id).Select(i => i.DepartureTime).SingleOrDefault();
+
+            if ((Date - temp)?.TotalDays >= 30 && (Date - temp)?.TotalDays <= 90)
+                return 10;
+            else if ((Date - temp)?.TotalDays > 90)
+                return 20;
+            else
+                return 0;
+        }
+
         public void DeleteFlight(int Id)
         {
+          
             dbContext.Flights?.Remove(dbContext.Flights.Where(i => i.Id == Id).FirstOrDefault() ?? new());
             dbContext.SaveChanges();
         }
@@ -318,6 +401,28 @@ namespace DBLayer
         public Salt? GetSalt(string _login)
         {
             return dbContext.Salts.Where(s => s.Login == _login).FirstOrDefault();
+        }
+
+        public void AddSeat(Seat seat)
+        {
+            dbContext.Seats.Add(new()
+            {
+                Name = seat.Name,
+                SeatTypeId = seat.SeatTypeId,
+                Reserved = seat.Reserved,
+                AircraftId = seat.AircraftId,
+                FlightId = seat.FlightId,
+            });
+            dbContext.SaveChanges();
+        }
+
+        public List<Seat>? GetSeat()
+        {
+            return dbContext?.Seats.ToList();
+        }
+        public List<Seat>? GetSeatById(int Id)
+        {
+            return dbContext?.Seats.Where(e=>e.FlightId == Id).ToList();
         }
         // new code here
         public SeatType AddSeatType(SeatType seatType)
@@ -377,6 +482,22 @@ namespace DBLayer
         public void DeleteTerminal(int Id)
         {
             dbContext.Terminals?.Remove(dbContext.Terminals.Where(i => i.Id == Id).FirstOrDefault() ?? new());
+            dbContext.SaveChanges();
+        }
+
+        public void OrderSeat(int Id)
+        {
+            var temp = dbContext.Seats.Where(c=> c.Id == Id).FirstOrDefault();
+            temp.Reserved = true;
+            dbContext.Seats.Update(temp);
+            dbContext.SaveChanges();
+        }
+
+        public void UnOrderSeat(int Id)
+        {
+            var temp = dbContext.Seats.Where(c => c.Id == Id).FirstOrDefault();
+            temp.Reserved = false;
+            dbContext.Seats.Update(temp);
             dbContext.SaveChanges();
         }
     }
