@@ -302,7 +302,7 @@ namespace DBLayer
 
         public Ticket? AddTicket(Ticket ticket)
         {
-            if(dbContext.Seats.Where(e=>e.Id == ticket.AtSeat && e.Reserved == true).Any()) 
+            if(dbContext.Seats.Where(e=>e.Id == ticket.AtSeat && e.Reserved == true).SingleOrDefault() != null) 
             {
                 return null;
             }

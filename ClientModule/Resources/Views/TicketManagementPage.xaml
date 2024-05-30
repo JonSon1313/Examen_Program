@@ -7,14 +7,13 @@
              x:DataType="vm:TicketManagementPageViewModel"
              BindingContext="{vm:TicketManagementPageViewModel}">
     
-    
-    
     <Grid ColumnDefinitions="1*,1*"
             RowDefinitions="1*,0.2*">
 
         <CollectionView Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" 
                  ItemsSource="{Binding Tickets}"
                  SelectedItem="{Binding Ticket}"
+                 SelectionMode="Single"
                  SelectionChangedCommand="{Binding SelectedTicketChangedCommand}">
             <CollectionView.Header>
                 <Grid ColumnDefinitions="0.4*, 0.8*, 0.3*, 1*, 1*,0.6*">
@@ -66,7 +65,6 @@
             Text="{Binding Ticket.SaleTime}"/>
         </Grid>
         <Button Text="Return Ticket" Grid.Column="1" Grid.Row="1" Command="{Binding ReturnTicketsCommand}"/>
-
 
     </Grid>
 </ContentPage>

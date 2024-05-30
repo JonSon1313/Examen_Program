@@ -120,6 +120,10 @@ namespace ClientModule.Resources.Repositories
                 throw new Exception("EndPoint is Missing")))
             { }
         }
+        public static void CallGetFlights()
+        {
+            GetFlights();
+        }
         private static void GetFlights()
         {
             if (!GetCommand.Get(new Flight(), Flights ?? [],

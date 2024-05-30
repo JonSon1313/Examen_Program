@@ -82,7 +82,8 @@
                   ColumnDefinitions="1*, 1*">
                 <Button Text="Back"
                         Command="{Binding BackCommand}"/>
-                <Button Text="Order"
+                <Button Grid.Column="1"
+                        Text="Order"
                         Command="{Binding OrderCommand}"/>
             </Grid>
         </Grid>

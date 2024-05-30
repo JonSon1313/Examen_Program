@@ -42,21 +42,30 @@ namespace ClientModule.Resources.ViewModels
         public ShopingPageViewModel()
         {
             Countries = WorkingObjectsRepository.Countries;
+            
             Departure_country = Countries[0] ?? new();
             Departure_countryId = 0;
+
             Arrival_country = Countries[0] ?? new();
             Arrival_countryId = 0;
-            Departure_cities = new ObservableCollection<CityNPC>(WorkingObjectsRepository.Cities!.Where(c => c.CountryId == departure_country.Id).ToList());
-            Arrival_cities = new ObservableCollection<CityNPC>(WorkingObjectsRepository.Cities!.Where(c => c.CountryId == arrival_country.Id).ToList());
-            Departure_city = WorkingObjectsRepository.Cities!.Where(c => c.CountryId == departure_country.Id).SingleOrDefault();
-            Arrival_city = WorkingObjectsRepository.Cities!.Where(c => c.CountryId == arrival_country.Id).SingleOrDefault();
-            Flights = new ObservableCollection<FlightNPC> (WorkingObjectsRepository.Flights!.Where(c => c.ArrivaleCity == arrival_city.Name && c.DepartureCity == departure_city.Name).ToList());
+
+            Departure_cities = new ObservableCollection<CityNPC>(WorkingObjectsRepository.Cities!
+                .Where(c => c.CountryId == departure_country.Id).ToList());
+            Arrival_cities = new ObservableCollection<CityNPC>(WorkingObjectsRepository.Cities!
+                .Where(c => c.CountryId == arrival_country.Id).ToList());
+            Departure_city = WorkingObjectsRepository.Cities!
+                .Where(c => c.CountryId == departure_country.Id).SingleOrDefault();
+            Arrival_city = WorkingObjectsRepository.Cities!
+                .Where(c => c.CountryId == arrival_country.Id).SingleOrDefault();
+            Flights = new ObservableCollection<FlightNPC> (WorkingObjectsRepository.Flights!
+                .Where(c => c.ArrivaleCity == arrival_city.Name && c.DepartureCity == departure_city.Name).ToList());
         }
         [RelayCommand]
         private void DepartureCountryChanged()
         {
 
-            var departure_airports_tempId = WorkingObjectsRepository.Airports?.Where(c => c.CountryId == departure_country.Id).Select(c => c.Id).ToList();
+            var departure_airports_tempId = WorkingObjectsRepository.Airports?
+                .Where(c => c.CountryId == departure_country.Id).Select(c => c.Id).ToList();
             var temp = new List<int>();
             if (Departure_country != null)
             {
@@ -71,10 +80,12 @@ namespace ClientModule.Resources.ViewModels
             }
             else if (Departure_country != null && Arrival_country != null)
             {
-                var arrival_airports_tempId = WorkingObjectsRepository.Airports?.Where(c => c.CountryId == arrival_country.Id).Select(c => c.Id).ToList();
+                var arrival_airports_tempId = WorkingObjectsRepository.Airports?
+                    .Where(c => c.CountryId == arrival_country.Id).Select(c => c.Id).ToList();
                 for (int i = 0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if (departure_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId) && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
+                    if (departure_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId)
+                        && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
@@ -96,7 +107,8 @@ namespace ClientModule.Resources.ViewModels
         [RelayCommand]
         private void DepartureCityChanged()
         {
-            var departure_airports_tempId = WorkingObjectsRepository.Airports?.Where(c => c.CityId == departure_city.Id).Select(c => c.Id).ToList();
+            var departure_airports_tempId = WorkingObjectsRepository.Airports?
+                .Where(c => c.CityId == departure_city.Id).Select(c => c.Id).ToList();
             var temp = new List<int>();
             if (Departure_city != null)
             {
@@ -111,10 +123,12 @@ namespace ClientModule.Resources.ViewModels
             }
             else if(Departure_city != null && Arrival_city != null)
             {
-                var arrival_airports_tempId = WorkingObjectsRepository.Airports?.Where(c => c.CityId == arrival_city.Id).Select(c=>c.Id).ToList();
+                var arrival_airports_tempId = WorkingObjectsRepository.Airports?
+                    .Where(c => c.CityId == arrival_city.Id).Select(c=>c.Id).ToList();
                 for (int i = 0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if (departure_airports_tempId.Contains (WorkingObjectsRepository.Gates[i].AirportId) && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
+                    if (departure_airports_tempId.Contains (WorkingObjectsRepository.Gates[i].AirportId) 
+                        && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
@@ -137,7 +151,8 @@ namespace ClientModule.Resources.ViewModels
         [RelayCommand]
         private void ArrivalCountryChanged()
         {
-            var arrival_airports_tempId = WorkingObjectsRepository.Airports?.Where(c => c.CountryId == arrival_country.Id).Select(c => c.Id).ToList();
+            var arrival_airports_tempId = WorkingObjectsRepository.Airports?
+                .Where(c => c.CountryId == arrival_country.Id).Select(c => c.Id).ToList();
             var temp = new List<int>();
             if (Arrival_country != null)
             {
@@ -152,10 +167,12 @@ namespace ClientModule.Resources.ViewModels
             }
             else if (Departure_country != null && Arrival_country != null)
             {
-                var departure_airports_tempId = WorkingObjectsRepository.Airports?.Where(c => c.CountryId == departure_country.Id).Select(c => c.Id).ToList();
+                var departure_airports_tempId = WorkingObjectsRepository.Airports?
+                    .Where(c => c.CountryId == departure_country.Id).Select(c => c.Id).ToList();
                 for (int i = 0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if (departure_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId) && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
+                    if (departure_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId) 
+                        && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }
@@ -176,7 +193,8 @@ namespace ClientModule.Resources.ViewModels
         [RelayCommand]
         private void ArrivalCityChanged()
         {
-            var arrival_airports_tempId = WorkingObjectsRepository.Airports?.Where(c => c.CityId == arrival_city.Id).Select(c => c.Id).ToList();
+            var arrival_airports_tempId = WorkingObjectsRepository.Airports?
+                .Where(c => c.CityId == arrival_city.Id).Select(c => c.Id).ToList();
             var temp = new List<int>();
             if (Arrival_city != null)
             {
@@ -191,10 +209,12 @@ namespace ClientModule.Resources.ViewModels
             }
             else if(Departure_city != null && Arrival_city != null)
             {
-                var departure_airports_tempId = WorkingObjectsRepository.Airports?.Where(c => c.CityId == departure_city.Id).Select(c=>c.Id).ToList();
+                var departure_airports_tempId = WorkingObjectsRepository.Airports?
+                    .Where(c => c.CityId == departure_city.Id).Select(c=>c.Id).ToList();
                 for (int i = 0; i < WorkingObjectsRepository.Gates?.Count; i++)
                 {
-                    if (departure_airports_tempId.Contains (WorkingObjectsRepository.Gates[i].AirportId) && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
+                    if (departure_airports_tempId.Contains (WorkingObjectsRepository.Gates[i].AirportId) 
+                        && arrival_airports_tempId.Contains(WorkingObjectsRepository.Gates[i].AirportId))
                     {
                         temp.Add(WorkingObjectsRepository.Gates[i].AirportId);
                     }

@@ -11,12 +11,12 @@ namespace Server.Methods
         {
             var response = new Response();
 
-            _db.DeleteTicket(_r.Ticket[0]);
-            response.Message = "PARTIAL";
+            _db.DeleteTicket(_r?.Ticket?[0] ?? new());
+
+            response.Message = "SUCCESS";
             ByteTransporting.SendBinary(_ns, response);
-            Console.WriteLine($"{DateTime.Now} --> Ticket - {_r.Ticket[0].Number} has been Successfully deleted.\r\n");
 
-
+            Console.WriteLine($"{DateTime.Now} --> Ticket - {_r?.Ticket?[0].Number} has been Successfully deleted.\r\n");
         }
     }
 }

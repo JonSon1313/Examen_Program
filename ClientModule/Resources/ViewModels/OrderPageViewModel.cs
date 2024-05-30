@@ -21,6 +21,7 @@ namespace ClientModule.Resources.ViewModels
         [ObservableProperty]
         ObservableCollection<object>? selectedSeats;
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(OrderCommand))]
         ObservableCollection<TicketNPC>? tickets;
         [ObservableProperty]
         TicketNPC? selectedTicket;
@@ -48,17 +49,22 @@ namespace ClientModule.Resources.ViewModels
 
             for (int i = 0;i < SelectedSeats.Count;i++) 
             {
-                Tickets.Add(new()
+                if ((selectedSeats[i] as SeatNPC).Reserved == false)
                 {
-                    ClientId = WorkingObjectsRepository.Client!.Id,
-                    Number = $"{Flight!.Number}-{(SelectedSeats![i] as SeatNPC).Name}",
-                    SaleTime = DateTime.Now,
-                    FlightId = Flight!.Id,
-                    SeatId = Seats[i].Id,
-                    discount = discount,
-                    finalPrice = flight.BasePrice - (flight.BasePrice / 100 * Convert.ToDecimal(discount))
-                });
+                    Tickets.Add(new()
+                    {
+                        ClientId = WorkingObjectsRepository.Client!.Id,
+                        Number = $"{Flight!.Number}-{(SelectedSeats[i] as SeatNPC)?.Name}",
+                        SaleTime = DateTime.Now,
+                        FlightId = Flight!.Id,
+                        SeatId = (SelectedSeats![i] as SeatNPC).Id,
+                        Discount = discount,
+                        FinalPrice = Flight.BasePrice - (Flight.BasePrice / 100 * Convert.ToDecimal(discount))
+                    });
+                }
             }
+
+            OrderCommand.NotifyCanExecuteChanged();
         }
 
         [RelayCommand]
@@ -70,12 +76,27 @@ namespace ClientModule.Resources.ViewModels
         {
             await Shell.Current.GoToAsync("..");
         }
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanExecute))]
         private void Order()
         {
-            if (!OrderTickets.Order(Tickets ?? [], Message ?? "", ConnectionCredentialsRepository.EP
+            if (OrderTickets.Order(Tickets ?? [], Message ?? "", ConnectionCredentialsRepository.EP
                 ?? throw new Exception("Endpoint is missing")))
-            { }    
+            {
+                Seats = [];
+                WorkingObjectsRepository.CallGetFlights();
+                GetSeatsById.Get(new Seat(), Seats ?? [], Flight!.Id,
+                    ConnectionCredentialsRepository.EP ??
+                    throw new Exception("Endpoint is missing"));
+
+                Tickets = [];
+                SelectedTicket = new();
+
+                Shell.Current.DisplayAlert("Success", "Tickets have been successfully purchased", "Ok");
+            }    
+        }
+        private bool CanExecute()
+        {
+            return Tickets?.Count > 0;
         }
     }
 }
