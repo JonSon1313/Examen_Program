@@ -27,7 +27,7 @@ namespace ClientModule.Resources.ViewModels
         [RelayCommand]
         private void RedirectToSite()
         {
-            string target = "http://127.0.0.1:5500/HomeWorkProject/index.html";
+            string target = "http://127.0.0.1:5500";
             if (DeviceInfo.Current.Platform != DevicePlatform.iOS && DeviceInfo.Current.Platform != DevicePlatform.macOS)
             {
                 Process.Start(new ProcessStartInfo

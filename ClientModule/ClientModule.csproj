@@ -58,6 +58,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Raw\Buy.ico" />
+	  <None Remove="Resources\Raw\DashBoard.ico" />
+	  <None Remove="Resources\Raw\plane1.png" />
+	  <None Remove="Resources\Raw\Ticket.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />

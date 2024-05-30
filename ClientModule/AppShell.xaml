@@ -10,14 +10,17 @@
     x:DataType="vm:AppShellViewModel"
     Shell.NavBarIsVisible="False"
     Title="ClientModule">
-
+    <Shell.FlyoutBackgroundColor>
+        White
+    </Shell.FlyoutBackgroundColor>
     <Shell.FlyoutHeader>
         <Grid RowDefinitions="1*, 1*"
           ColumnDefinitions="1*, 2*">
             <Image Grid.Row="0"
                Grid.RowSpan="2"
                Grid.Column="0"
-               Source="dotnet_bot.png"/>
+               Source="plane1.png"
+               Margin="20"/>
             <Label Grid.Row="0"
                Grid.Column="1"
                Text="User:"/>
@@ -39,19 +42,22 @@
         Shell.FlyoutBehavior="Disabled"
         Shell.FlyoutItemIsVisible="False"/>
 
-    <FlyoutItem Title="Dashboard">
+    <FlyoutItem Title="Dashboard"
+                Icon="DashBoard.ico">
         <ShellContent
         ContentTemplate="{DataTemplate interfaces:IClientDashboardPage}"
         Route="ClientDashboardPage"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Buy Ticket">
+    <FlyoutItem Title="Buy Ticket"
+                Icon="Buy.ico">
         <ShellContent
         ContentTemplate="{DataTemplate interfaces:IShopingPage}"
         Route="ShopingPage"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Tickets">
+    <FlyoutItem Title="Tickets"
+                Icon="Ticket.ico">
         <ShellContent
         ContentTemplate="{DataTemplate interfaces:ITicketManagementPage}"
         Route="TicketManagmentPage"/>
