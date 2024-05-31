@@ -8,9 +8,9 @@
              BindingContext="{vm:OrderPageViewModel}"
              Shell.FlyoutBehavior="Disabled">
     <Grid ColumnDefinitions="1*,1*"
-          RowDefinitions="1*, 1*, 0.2*">
+          RowDefinitions="1*, 1*, 0.5*">
 
-        <CollectionView Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+        <CollectionView Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
                         ItemsSource="{Binding Seats}"
                         SelectedItems="{Binding SelectedSeats}"
                         SelectionChangedCommand="{Binding SelectedSeatsChangedCommand}"
@@ -74,8 +74,29 @@
         </CollectionView>
 
         <Grid Grid.Column="1"
-              Grid.Row="1"
-              RowDefinitions="1*, 0.4*">
+              Grid.Row="1" 
+              RowDefinitions="0.5*, 1*, 0.5*, 1*,0.5*, 1*">
+            <Label Grid.Row="0" 
+                   Text="Enter number of your credit card"/>
+            <Entry Grid.Row="1"
+                   Text="{Binding CardNumber}"
+                   Placeholder="1111-1111-1111-1111"/>
+            <Label Grid.Row="2" 
+                   Text="Enter full name of credit card owner"/>
+            <Entry Grid.Row="3"
+                   Text="{Binding CardsHolderFullName}"
+                   Placeholder="EXAMPLE EXAMPLE"/>
+            <Label Grid.Row="4" 
+                   Text="Enter CVV of your credit card"/>
+            <Entry Grid.Row="5"
+                   Text="{Binding Cardcvv}"
+                   Placeholder="111"/>
+
+        </Grid>
+        
+        <Grid Grid.Column="1"
+              Grid.Row="2"
+              ColumnDefinitions="1*, 1*">
             <Label Grid.Row="1"
                    Text="{Binding Message}"/>
             <Grid Grid.Row="1"

@@ -20,7 +20,6 @@ namespace ClientModule.Resources.ViewModels
         [RelayCommand]
         private async Task Logout()
         {
-            Client = null;
             WorkingObjectsRepository.ClientLogoff();
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
