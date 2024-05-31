@@ -15,8 +15,8 @@ namespace Server.Methods
 
         private static readonly SmtpClient _client;
 
-         static SendToEmailCommand()
-         {
+        static SendToEmailCommand()
+        {
             var response = new Response();
             _port = 2525;
             _server = "sandbox.smtp.mailtrap.io";
@@ -28,13 +28,11 @@ namespace Server.Methods
                 Credentials = new NetworkCredential(_login, _passw),
                 EnableSsl = true
             };
-         }
+        }
         public static void Send(FlyCompanyDBInstance _db, NetworkStream _ns, Request _r)
         {
             try
             {
-                
-
                 byte[] response = System.Text.Encoding.ASCII.GetBytes("Email sent successfully");
                 _ns.Write(response, 0, response.Length);
             }
@@ -44,8 +42,6 @@ namespace Server.Methods
                 _ns.Write(errorResponse, 0, errorResponse.Length);
             }
         }
-
-
         public static string PrepareEmailBody(Client client, Ticket ticket)
         {
             return $"Dear {client.FirstName},\n\n" +
