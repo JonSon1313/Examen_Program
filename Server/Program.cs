@@ -14,7 +14,7 @@ namespace Server
         private static TcpListener? _listener;
         private static FlyCompanyDBInstance? _db;
         static async Task Main(string[] args)
-        {
+       {
             _db = new();
             _listener = new(ConnectionCredentialsRepository.EP ??
                 new IPEndPoint(IPAddress.Parse("127.0.0.1"), 10221));

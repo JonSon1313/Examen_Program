@@ -183,6 +183,12 @@ namespace DBLayer
             return dbContext?.Clients.FirstOrDefault(a => a.Login == login && a.Password == password);
         }
 
+        public Client? GetClient( int Id)
+        {
+            return dbContext?.Clients.FirstOrDefault(a => a.Id == Id);
+        }
+
+
         public void EditClient(Client client)
         {
             Client? temp = dbContext.Clients.Where(i => i.Id == client.Id).FirstOrDefault();

@@ -11,6 +11,7 @@ namespace Server.Methods
         {
             var response = new Response();
 
+            
             response.Tickets = [];
             for(int i =0; i < _r?.Ticket?.Count; i++)
             {
@@ -20,6 +21,12 @@ namespace Server.Methods
 
             if(response.Tickets?.Count == _r?.Ticket?.Count) 
             {
+                var user = _db.GetClient(_r!.Ticket[0].ClientId);
+                for(int i =0; i < response?.Tickets?.Count; i++)
+                {
+                    var message = SendToEmailCommand.PrepareEmailBody(user, response.Tickets[i]);
+                    SendToEmailCommand.SendEmail(user.Email, "Ticket information", message);
+                }
                 response.Message = $"SUCCESS";
             }
             else if (response.Tickets!.Count == 0) 
@@ -30,7 +37,7 @@ namespace Server.Methods
             {
                 response.Message = "PARTIAL";
             }
-     
+            
             ByteTransporting.SendBinary(_ns, response);
         }
     }
