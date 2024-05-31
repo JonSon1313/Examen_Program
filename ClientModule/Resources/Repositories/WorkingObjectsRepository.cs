@@ -52,16 +52,15 @@ namespace ClientModule.Resources.Repositories
 
         public static void ClientLogoff()
         {
-            Client = new();
-            Aircrafts = null;
-            Airports = null;
-            Terminals = null;
-            Seats = null;
-            Tickets = null;
-            Gates = null;
-            Cities = null;
-            Countries = null;
-            Flights = null;
+            Aircrafts?.Clear();
+            Airports?.Clear();
+            Terminals?.Clear();
+            Tickets?.Clear();
+            Gates?.Clear();
+            Cities?.Clear();
+            Countries?.Clear();
+            Flights?.Clear();
+            SeatTypes?.Clear();
         }
 
         private static void GetAirplanes()

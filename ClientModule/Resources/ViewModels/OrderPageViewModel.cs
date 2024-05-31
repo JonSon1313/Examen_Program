@@ -26,8 +26,23 @@ namespace ClientModule.Resources.ViewModels
         [ObservableProperty]
         TicketNPC? selectedTicket;
 
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(OrderCommand))]
+        public string? cardNumber;
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(OrderCommand))]
+        public string? cardsHolderFullName;
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(OrderCommand))]
+        public string? cardcvv;
+
+
         public OrderPageViewModel()
         {
+            Cardcvv = "";
+            CardsHolderFullName = "";
+            CardNumber = "";
+
             Flight = WorkingObjectsRepository.TargetFlight;
 
             Aircraft = WorkingObjectsRepository.Aircrafts?.Where(a => a.Id == Flight!.AircraftId).SingleOrDefault();
@@ -82,6 +97,10 @@ namespace ClientModule.Resources.ViewModels
             if (OrderTickets.Order(Tickets ?? [], Message ?? "", ConnectionCredentialsRepository.EP
                 ?? throw new Exception("Endpoint is missing")))
             {
+                Cardcvv = "";
+                CardsHolderFullName = "";
+                CardNumber = "";
+
                 Seats = [];
                 GetSeatsById.Get(new Seat(), Seats ?? [], Flight!.Id,
                     ConnectionCredentialsRepository.EP ??
@@ -95,7 +114,10 @@ namespace ClientModule.Resources.ViewModels
         }
         private bool CanExecute()
         {
-            return Tickets?.Count > 0;
+            return CheckCreditCardCVV.Check(Cardcvv ?? "")
+                && CheckCreditCardNumber.Check(CardNumber ?? "")
+                && CheckCreditCardOwnerName.Check(CardsHolderFullName?? "")
+                && Tickets?.Count > 0;
         }
     }
 }

@@ -10,9 +10,11 @@
     x:DataType="vm:AppShellViewModel"
     Shell.NavBarIsVisible="False"
     Title="ClientModule">
+    
     <Shell.FlyoutBackgroundColor>
         White
     </Shell.FlyoutBackgroundColor>
+    
     <Shell.FlyoutHeader>
         <Grid RowDefinitions="1*, 1*"
           ColumnDefinitions="1*, 2*">
@@ -72,10 +74,7 @@
                 Command="{Binding RedirectToSiteCommand}"/>
         </Grid>
     </Shell.FlyoutFooter>
-    
-    
-    
-    
+
 </Shell>  
 
 

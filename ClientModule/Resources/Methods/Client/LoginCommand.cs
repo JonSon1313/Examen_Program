@@ -1,4 +1,5 @@
-﻿using ClientModule.Resources.Repositories;
+﻿using ClientModule.Resources.Models;
+using ClientModule.Resources.Repositories;
 using DataTransporting;
 using Models;
 using System.Net;
@@ -31,6 +32,7 @@ namespace ClientModule.Resources.Methods
                         if (response.Message == "LOGGEDIN")
                         {
                             WorkingObjectsRepository.Client?.ConvertFromClient(response.Client ?? new());
+                            WorkingObjectsRepository.ClientLoggedIn();
                             WorkingObjectsRepository.Client!.Password = "";
                             return true;
                         }

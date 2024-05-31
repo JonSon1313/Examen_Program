@@ -7,7 +7,6 @@ namespace ClientModule.Resources.ViewModels
     {
         public ClientDashboardPageViewModel()
         {
-            WorkingObjectsRepository.ClientLoggedIn();
         }
     }
 }
