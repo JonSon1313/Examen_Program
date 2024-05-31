@@ -26,8 +26,23 @@ namespace ClientModule.Resources.ViewModels
         [ObservableProperty]
         TicketNPC? selectedTicket;
 
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(OrderCommand))]
+        public string? cardNumber;
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(OrderCommand))]
+        public string? cardsHolderFullName;
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(OrderCommand))]
+        public string? cardcvv;
+
+
         public OrderPageViewModel()
         {
+            Cardcvv = "";
+            CardsHolderFullName = "";
+            CardNumber = "";
+
             Flight = WorkingObjectsRepository.TargetFlight;
 
             Aircraft = WorkingObjectsRepository.Aircrafts?.Where(a => a.Id == Flight!.AircraftId).SingleOrDefault();
@@ -45,11 +60,11 @@ namespace ClientModule.Resources.ViewModels
         {
             Tickets = [];
 
-            var discount = GetDiscount.Get(Flight.Id, ConnectionCredentialsRepository.EP ?? throw new Exception("Endpoint is missing"));
+            var discount = GetDiscount.Get(Flight!.Id, ConnectionCredentialsRepository.EP ?? throw new Exception("Endpoint is missing"));
 
-            for (int i = 0;i < SelectedSeats.Count;i++) 
+            for (int i = 0;i < SelectedSeats?.Count;i++) 
             {
-                if ((selectedSeats[i] as SeatNPC).Reserved == false)
+                if ((selectedSeats[i] as SeatNPC ?? new()).Reserved == false)
                 {
                     Tickets.Add(new()
                     {
@@ -57,7 +72,7 @@ namespace ClientModule.Resources.ViewModels
                         Number = $"{Flight!.Number}-{(SelectedSeats[i] as SeatNPC)?.Name}",
                         SaleTime = DateTime.Now,
                         FlightId = Flight!.Id,
-                        SeatId = (SelectedSeats![i] as SeatNPC).Id,
+                        SeatId = (SelectedSeats[i] as SeatNPC ?? new()).Id,
                         Discount = discount,
                         FinalPrice = Flight.BasePrice - (Flight.BasePrice / 100 * Convert.ToDecimal(discount))
                     });
@@ -82,8 +97,11 @@ namespace ClientModule.Resources.ViewModels
             if (OrderTickets.Order(Tickets ?? [], Message ?? "", ConnectionCredentialsRepository.EP
                 ?? throw new Exception("Endpoint is missing")))
             {
+                Cardcvv = "";
+                CardsHolderFullName = "";
+                CardNumber = "";
+
                 Seats = [];
-                WorkingObjectsRepository.CallGetFlights();
                 GetSeatsById.Get(new Seat(), Seats ?? [], Flight!.Id,
                     ConnectionCredentialsRepository.EP ??
                     throw new Exception("Endpoint is missing"));
@@ -96,7 +114,10 @@ namespace ClientModule.Resources.ViewModels
         }
         private bool CanExecute()
         {
-            return Tickets?.Count > 0;
+            return CheckCreditCardCVV.Check(Cardcvv ?? "")
+                && CheckCreditCardNumber.Check(CardNumber ?? "")
+                && CheckCreditCardOwnerName.Check(CardsHolderFullName?? "")
+                && Tickets?.Count > 0;
         }
     }
 }

@@ -29,11 +29,11 @@ namespace ClientModule.Resources.Models
         {
             Id = client.Id;
             FirstName = client.FirstName;
-            MiddleName = client.MiddleName;
+            MiddleName = client.MiddleName ?? "";
             LastName = client.LastName;
             Login = client.Login;
             Password = client.Password;
-            PhoneNumber = client.PhoneNumber;
+            PhoneNumber = client.PhoneNumber ?? "";
             Email = client.Email;
         }
         public Client ConvertToClient()

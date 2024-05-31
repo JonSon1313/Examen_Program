@@ -37,7 +37,7 @@ namespace DBLayer
         public void EditAdministration(Administrator admin)
         {
             Administrator? temp = dbContext.Administrators.Where(i => i.Id == admin.Id).FirstOrDefault();
-            temp.FirstName = admin.FirstName;
+            temp!.FirstName = admin.FirstName;
             temp.MiddleName = admin.MiddleName;
             temp.LastName = admin.LastName;
             temp.PhoneNumber = admin.PhoneNumber;
@@ -72,7 +72,7 @@ namespace DBLayer
         public void EditAircraft(Aircraft aircraft)
         {
             Aircraft? temp = dbContext.Aircrafts.Where(i => i.Id == aircraft.Id).FirstOrDefault();
-            temp.Manufacturer = aircraft.Manufacturer;
+            temp!.Manufacturer = aircraft.Manufacturer;
             temp.Model = aircraft.Model;
             temp.TailNumber = aircraft.TailNumber;
 
@@ -108,7 +108,7 @@ namespace DBLayer
         public void EditAirport(Airport airport)
         {
             Airport? temp = dbContext.Airports.Where(i => i.Id == airport.Id).FirstOrDefault();
-            temp.FullName = airport.FullName;
+            temp!.FullName = airport.FullName;
             temp.IATACode = airport.IATACode;
             temp.ICAOCode = airport.ICAOCode;
             temp.CityId = airport.CityId;
@@ -148,7 +148,7 @@ namespace DBLayer
         public void EditСity(City city)
         {
             City? temp = dbContext.Cities.Where(i => i.Id == city.Id).FirstOrDefault();
-            temp.Name = city.Name;
+            temp!.Name = city.Name;
             temp.CountryId = city.CountryId;
 
             dbContext.Cities.Update(temp);
@@ -183,10 +183,16 @@ namespace DBLayer
             return dbContext?.Clients.FirstOrDefault(a => a.Login == login && a.Password == password);
         }
 
+        public Client? GetClient( int Id)
+        {
+            return dbContext?.Clients.FirstOrDefault(a => a.Id == Id);
+        }
+
+
         public void EditClient(Client client)
         {
             Client? temp = dbContext.Clients.Where(i => i.Id == client.Id).FirstOrDefault();
-            temp.FirstName = client.FirstName;
+            temp!.FirstName = client.FirstName;
             temp.MiddleName = client.MiddleName;
             temp.LastName = client.LastName;
             temp.Login = client.Login;
@@ -225,7 +231,7 @@ namespace DBLayer
         public void EditCountry(Country country)
         {
             Country? temp = dbContext.Countries.Where(i => i.Id == country.Id).FirstOrDefault();
-            temp.Name = country.Name;
+            temp!.Name = country.Name;
 
             dbContext.Countries.Update(temp);
             dbContext.SaveChanges();
@@ -250,10 +256,10 @@ namespace DBLayer
 
             dbContext.SaveChanges();
             var temp = dbContext?.Flights.Where(i => i.Number == flight.Number).FirstOrDefault() ?? new();
-            var AircraftModel = dbContext?.Aircrafts.Where(c => c.Id == flight.AircraftId).Select(c => c.Model).FirstOrDefault();
+            var AircraftModel = dbContext!.Aircrafts.Where(c => c.Id == flight.AircraftId).Select(c => c.Model).FirstOrDefault();
             if (AircraftModel == "A320NEO")
             {
-                var EconomId = dbContext.SeatTypes.Where(c => c.Name == "Econom").Select(c => c.Id).FirstOrDefault();
+                var EconomId = dbContext!.SeatTypes.Where(c => c.Name == "Econom").Select(c => c.Id).FirstOrDefault();
                 for (int i = 0; i < 180; i++)
                 {
 
@@ -262,9 +268,9 @@ namespace DBLayer
             }
             if (AircraftModel == "777-200ER")
             {
-                var BusinessId = dbContext.SeatTypes.Where(c => c.Name == "Business").Select(c => c.Id).FirstOrDefault();
-                var FirstClassId = dbContext.SeatTypes.Where(c => c.Name == "FirstClass").Select(c => c.Id).FirstOrDefault();
-                var EconomId = dbContext.SeatTypes.Where(c => c.Name == "Econom").Select(c => c.Id).FirstOrDefault();
+                var BusinessId = dbContext!.SeatTypes.Where(c => c.Name == "Business").Select(c => c.Id).FirstOrDefault();
+                var FirstClassId = dbContext!.SeatTypes.Where(c => c.Name == "FirstClass").Select(c => c.Id).FirstOrDefault();
+                var EconomId = dbContext!.SeatTypes.Where(c => c.Name == "Econom").Select(c => c.Id).FirstOrDefault();
                 for (int i = 0; i < 16; i++)
                 {
                     dbContext?.Seats.Add(new Seat { Name = $"{i+1}", AircraftId = flight.AircraftId, FlightId = temp.Id, SeatTypeId = FirstClassId, Reserved = false });
@@ -290,7 +296,7 @@ namespace DBLayer
         public void EditFlight(Flight flight)
         {
             Flight? temp = dbContext.Flights.Where(i => i.Id == flight.Id).FirstOrDefault();
-            temp.Number = flight.Number;
+            temp!.Number = flight.Number;
             temp.Aircraft = flight.Aircraft;
             temp.DepartureTime = flight.DepartureTime;
             temp.FromId = flight.FromId;
@@ -364,7 +370,7 @@ namespace DBLayer
             });
             dbContext.SaveChanges();
 
-            return dbContext?.Gates.Where(i => i.Name == i.Name).FirstOrDefault() ?? new();
+            return dbContext?.Gates.Where(i => i.Name == gate.Name && i.AirportId == gate.AirportId).FirstOrDefault() ?? new();
         }
 
         public List<Gate>? GetGate()
@@ -374,7 +380,7 @@ namespace DBLayer
         public void EditGate(Gate gate)
         {
             Gate? temp = dbContext.Gates.Where(i => i.Id == gate.Id).FirstOrDefault();
-            temp.Name = gate.Name;
+            temp!.Name = gate.Name;
             temp.AirportId = gate.AirportId;
             temp.TerminalId = gate.TerminalId;
 
@@ -424,7 +430,6 @@ namespace DBLayer
         {
             return dbContext?.Seats.Where(e=>e.FlightId == Id).ToList();
         }
-        // new code here
         public SeatType AddSeatType(SeatType seatType)
         {
             dbContext.SeatTypes.Add(new SeatType
@@ -435,7 +440,6 @@ namespace DBLayer
 
             return dbContext?.SeatTypes.Where(i => i.Name == seatType.Name).FirstOrDefault() ?? new();
         }
-
         public List<SeatType>? GetSeatType()
         {
             return dbContext?.SeatTypes.ToList();
@@ -443,7 +447,7 @@ namespace DBLayer
         public void EditSeatType(SeatType seatType)
         {
             SeatType? temp = dbContext.SeatTypes.Where(i => i.Id == seatType.Id).FirstOrDefault();
-            temp.Name = seatType.Name;
+            temp!.Name = seatType.Name;
 
             dbContext.SeatTypes.Update(temp);
             dbContext.SaveChanges();
@@ -473,7 +477,7 @@ namespace DBLayer
         public void EditTerminal(Terminal terminal)
         {
             Terminal? temp = dbContext.Terminals.Where(i => i.Id == terminal.Id).FirstOrDefault();
-            temp.Name = terminal.Name;
+            temp!.Name = terminal.Name;
 
             dbContext.Terminals.Update(temp);
             dbContext.SaveChanges();
@@ -488,7 +492,7 @@ namespace DBLayer
         public void OrderSeat(int Id)
         {
             var temp = dbContext.Seats.Where(c=> c.Id == Id).FirstOrDefault();
-            temp.Reserved = true;
+            temp!.Reserved = true;
             dbContext.Seats.Update(temp);
             dbContext.SaveChanges();
         }
@@ -496,7 +500,7 @@ namespace DBLayer
         public void UnOrderSeat(int Id)
         {
             var temp = dbContext.Seats.Where(c => c.Id == Id).FirstOrDefault();
-            temp.Reserved = false;
+            temp!.Reserved = false;
             dbContext.Seats.Update(temp);
             dbContext.SaveChanges();
         }

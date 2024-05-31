@@ -1,10 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdminModule.Resources.Models
 {
@@ -12,6 +7,7 @@ namespace AdminModule.Resources.Models
     {
         [ObservableProperty]
         private int id;
+
         [ObservableProperty]
         private string number;
         [ObservableProperty]
@@ -20,6 +16,7 @@ namespace AdminModule.Resources.Models
         private DateTime departureTime;
         [ObservableProperty]
         private int fromId;
+
         [ObservableProperty]
         private string departureCity;
         [ObservableProperty]
@@ -28,11 +25,11 @@ namespace AdminModule.Resources.Models
         private string arrivaleCity;
         [ObservableProperty]
         private string arrivaleCountry;
+        
         [ObservableProperty]
         private int toId;
         [ObservableProperty]
         private decimal basePrice;
-
 
         public static FlightNPC ConvertFromFlightToNew(Flight flight)
         {
@@ -48,6 +45,7 @@ namespace AdminModule.Resources.Models
                 BasePrice = flight.BasePrice
             };
         }
+
         public Flight ConvertToFlight()
         {
             return new()

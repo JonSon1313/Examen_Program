@@ -1,5 +1,4 @@
-﻿
-using ClientModule.Resources.Repositories;
+﻿using ClientModule.Resources.Repositories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Models;
 
@@ -30,7 +29,7 @@ namespace ClientModule.Resources.Models
 
         public static TicketNPC ConvertFromTicketToNew(Ticket ticket)
         {
-            var Flight = WorkingObjectsRepository.Flights.Where(i => i.Id == ticket.FlightId).SingleOrDefault() ?? new ();
+            var Flight = WorkingObjectsRepository.Flights?.Where(i => i.Id == ticket.FlightId).SingleOrDefault() ?? new ();
             return new()
             {
                 Id = ticket.Id,

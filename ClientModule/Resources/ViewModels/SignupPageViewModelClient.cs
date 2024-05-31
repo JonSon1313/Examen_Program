@@ -4,7 +4,6 @@ using ClientModule.Resources.Repositories;
 using ClientModule.Resources.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.ComponentModel;
 
 namespace ClientModule.Resources.ViewModels
 {

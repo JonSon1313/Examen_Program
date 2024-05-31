@@ -2,15 +2,13 @@
 using DataTransporting;
 using DBLayer;
 using Models;
-using System.ComponentModel.DataAnnotations;
 using System.Net.Sockets;
 
 namespace Server.Methods
 {
     public class SignupCommand
     {
-        public static void SignUpAdmin(FlyCompanyDBInstance _db,
-            NetworkStream _ns, Request _request)
+        public static void SignUpAdmin(FlyCompanyDBInstance _db, NetworkStream _ns, Request _request)
         {
             string login = _request?.Administrator?.Login ?? "";
             Salt? isNotCreated = _db.GetSalt(login);
@@ -48,8 +46,7 @@ namespace Server.Methods
             ByteTransporting.SendBinary(_ns, response);
             _ns.Flush();
         }
-        public static void SignUpClient(FlyCompanyDBInstance _db,
-            NetworkStream _ns, Request _request)
+        public static void SignUpClient(FlyCompanyDBInstance _db,NetworkStream _ns, Request _request)
         {
             Client? isNotCreated = _db.GetClient(_request?.Client?.Login ?? "", _request?.Client?.Email ?? "");
             var response = new Response();

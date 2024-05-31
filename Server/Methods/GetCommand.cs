@@ -12,7 +12,7 @@ namespace Server.Methods
 
             if(_r.Message == "GETADMINISTRATOR")
             {
-                response.Administrators = _db.GetAdministrator(_r.Administrator.Login, _r.Administrator.Password);
+                response.Administrators = _db.GetAdministrator(_r.Administrator!.Login, _r.Administrator.Password);
                 response.Message = "PRESENT";
                 Console.WriteLine($" Administrator has been sended ");
             }
@@ -36,7 +36,7 @@ namespace Server.Methods
             }
             else if (_r.Message == "GETCLIENT")
             {
-                response.Client = _db.GetClient(_r.Client.Login,_r.Administrator.Password);
+                response.Client = _db.GetClient(_r.Client!.Login,_r.Administrator!.Password);
                 response.Message = "PRESENT";
                 Console.WriteLine($" Client has been sended ");
             }
@@ -88,7 +88,6 @@ namespace Server.Methods
                 response.Message = "PRESENT";
                 Console.WriteLine($" Ticket has been sended ");
             }
-
             ByteTransporting.SendBinary(_ns, response);
         }
     }

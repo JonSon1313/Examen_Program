@@ -111,8 +111,6 @@ namespace AdminModule.Resources.ViewModels
 
             await Shell.Current.GoToAsync(nameof(AddOrEditAirportPage));
         }
-        //
-
 
         [RelayCommand (CanExecute = nameof(CanExecuteAddTerminal))]
         private async Task AddTerminal()
@@ -122,6 +120,7 @@ namespace AdminModule.Resources.ViewModels
 
             await Shell.Current.GoToAsync(nameof(SmallObjectAddOrEditLocationAndAirportPage));
         }
+
         public bool CanExecuteAddTerminal()
         {
             return Airport?.FullName != ""; 
@@ -139,6 +138,7 @@ namespace AdminModule.Resources.ViewModels
 
             await Shell.Current.GoToAsync(nameof(SmallObjectAddOrEditLocationAndAirportPage));
         }
+
         public bool CanExecuteAddGate()
         {
             return Airport?.FullName != "" &&
@@ -162,6 +162,7 @@ namespace AdminModule.Resources.ViewModels
 
             await Shell.Current.GoToAsync(nameof(SmallObjectAddOrEditLocationAndAirportPage));
         }
+
         public bool CanExecuteAddCity()
         {
             return Country?.Name != "";
@@ -173,6 +174,7 @@ namespace AdminModule.Resources.ViewModels
             IsLocation = true;
             IsAirport = false;
         }
+
         [RelayCommand]
         public void ActivateAirport()
         {
@@ -180,8 +182,6 @@ namespace AdminModule.Resources.ViewModels
             IsLocation = false;
         }
 
-
-        //Write code Behind
         [RelayCommand]
         private void Delete(object obj)
         {
@@ -211,6 +211,7 @@ namespace AdminModule.Resources.ViewModels
             if(success)
                 Shell.Current.DisplayAlert("Success", "Object has been successfully deleted", "Ok");
         }
+
         [RelayCommand]
         private async Task Modify(object obj)
         {

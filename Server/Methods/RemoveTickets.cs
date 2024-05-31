@@ -6,7 +6,7 @@ using Models;
 namespace Server.Methods
 {
    public class RemoveTickets
-    {
+   {
         public static void Remove(FlyCompanyDBInstance _db, NetworkStream _ns, Request _r)
         {
             var response = new Response();
